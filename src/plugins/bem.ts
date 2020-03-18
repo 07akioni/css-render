@@ -3,7 +3,7 @@ const namespace = 'n'
 let block = null
 let elements = null
 
-const b = function (arg) {
+export const b = function (arg: string) {
   return {
     beforeEnter () {
       block = arg
@@ -18,7 +18,7 @@ const b = function (arg) {
   }
 }
 
-const e = function (...args) {
+export const e = function (...args: Array<string>) {
   return {
     beforeEnter () {
       elements = args
@@ -32,12 +32,12 @@ const e = function (...args) {
   }
 }
 
-const m = function (...args) {
+export const m = function (...args: Array<string>) {
   return {
     beforeEnter () {},
     afterLeave () {},
     selector () {
-      function elementToSelector (element) {
+      function elementToSelector (element?) {
         return args.map(arg => `&.${namespace}-${block}${
           element ? `__${element}` : ''
         }--${arg}`).join(', ')
@@ -49,7 +49,7 @@ const m = function (...args) {
   }
 }
 
-const notM = function (arg) {
+export const notM = function (arg: string) {
   return {
     beforeEnter () {},
     selector () {
@@ -58,8 +58,4 @@ const notM = function (arg) {
       }--${arg})`
     }
   }
-}
-
-module.exports = {
-  b, e, m, notM
 }

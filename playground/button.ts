@@ -1,52 +1,6 @@
-const parsePath = require('./parsePath')
-const { b, e, m, notM } = require('./mixin')
+import { h, render } from '../src/index'
+import { b, e, m, notM } from '../src/plugins/bem'
 
-function h (selector, properties, children = []) {
-  if (Array.isArray(properties)) {
-    children = properties
-    properties = {}
-  }
-  const CNode = {
-    __CNode__: true,
-    entries: []
-  }
-  const entries = CNode.entries
-  
-  Object.keys(properties).length && entries.push({
-    path: selector,
-    properties
-  })
-  children.forEach(node => {
-    node.entries.forEach(childEntry => {
-      entries.push({
-        path: [selector].concat(childEntry.path),
-        properties: childEntry.properties
-      })
-    })
-  })
-  return CNode
-}
-
-function baseStringifyCNode (CNode) {
-  const lines  = []
-  for (const entry of CNode.entries) {
-    lines.push(parsePath(entry.path) + ' {')
-    Object.keys(entry.properties).forEach(property => {
-      lines.push('  ' + property + ': ' + entry.properties[property] + ';')
-    })
-    lines.push('}\n')
-  }
-  return lines.join('\n')
-}
-
-function stringifyCNode (input) {
-  if (Array.isArray(input)) {
-    return input.map(CNode => stringifyCNode(CNode)).join('\n')
-  }
-  return baseStringifyCNode(input)
-}
-
-//
 const colors = {
   info: '$info-color',
   success: '$success-color',
@@ -126,5 +80,14 @@ function typedButtonCSS (type) {
   ])
 }
 
-console.log(stringifyCNode(typedButtonCSS('error')))
-// console.log(JSON.stringify(typedButtonCSS('error'), 0, 2))
+// console.log(render(typedButtonCSS('error')))
+console.log(render(h(b('block'), 
+  [h(e('element'), {
+    position: 'relative'
+  }, [])]
+)))
+// console.log(JSON.stringify(h(b('block'), 
+//   [h(e('element'), {
+//     position: 'relative'
+//   }, [])]
+// ), 0, 2))
