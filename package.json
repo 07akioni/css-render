@@ -4,11 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nyc --reporter=html  --reporter=text --reporter=lcov ./node_modules/mocha/bin/mocha --reporter spec --require ts-node/register ./test/**/*.test.ts"
   },
   "author": "07akioni",
   "license": "MIT",
   "dependencies": {
     "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.9.2",
+    "chai": "^4.2.0",
+    "mocha": "^7.1.1",
+    "nyc": "^15.0.0",
+    "ts-node": "^8.7.0"
   }
 }
