@@ -3,3 +3,5 @@ package-lock.json
 *.swp
 .nyc_output
 coverage
+.DS_Store
+yarn.lock
