@@ -1,19 +1,20 @@
 import {
   CSelector,
-  CNode
+  CNode,
+  CProperties
 } from './types'
 
 import parseSelectorPath from './parseSelectorPath'
 
 interface createCNode {
-  (path: string | CSelector): CNode,
-  (path: string | CSelector, children: Array<CNode>): CNode,
-  (path: string | CSelector, properties: Object): CNode,
-  (path: string | CSelector, properties: Object, children: Array<CNode>): CNode;
+  (path: string | CSelector): CNode
+  (path: string | CSelector, children: CNode[]): CNode
+  (path: string | CSelector, properties: CProperties): CNode
+  (path: string | CSelector, properties: CProperties, children: CNode[]): CNode
 }
 
-export const h: createCNode = <createCNode>function (path, properties, children) {
-  if (!properties) {
+export const h: createCNode = function (path, properties, children) {
+  if (properties === undefined) {
     return {
       path,
       properties: null,
@@ -32,12 +33,12 @@ export const h: createCNode = <createCNode>function (path, properties, children)
       children
     }
   }
-}
+} as createCNode
 
-function createStyle (selector: string, properties: object | null): string | null {
-  if (!properties) return null
+function createStyle (selector: string, properties: CProperties | null): string | null {
+  if (properties === null) return null
   const statements = [
-    selector + ' {',
+    selector + ' {'
   ]
   Object.keys(properties).forEach(propertyName => {
     statements.push(`${propertyName}: ${properties[propertyName]};`)
@@ -46,32 +47,40 @@ function createStyle (selector: string, properties: object | null): string | nul
   return statements.join('\n')
 }
 
-function traverse (node: CNode, paths: Array<string | CSelector>, styles: Array<string>): string {
-  if (!node.properties || !node.children || !node.children.length) return ''
+function traverse (node: CNode, paths: Array<string | CSelector>, styles: string[]): string {
+  if (
+    node.properties === null ||
+    node.children === null ||
+    node.children.length === 0
+  ) return ''
   if (typeof node.path === 'string') {
     paths.push(node.path)
     paths.pop()
     const selector = parseSelectorPath(paths)
     const style = createStyle(selector, node.properties)
-    if (style) styles.push(style)
-    node.children && node.children.forEach(childNode => {
-      traverse(childNode, paths, styles)
-    })
+    if (style !== null) styles.push(style)
+    if (node.children !== null) {
+      node.children.forEach(childNode => {
+        traverse(childNode, paths, styles)
+      })
+    }
   } else {
-    if (node.path.beforeEnter) node.path.beforeEnter()
+    if (node.path.beforeEnter !== undefined) node.path.beforeEnter()
     paths.push(node.path.selector())
     const selector = parseSelectorPath(paths)
     const style = createStyle(selector, node.properties)
-    if (style) styles.push(style)
-    node.children && node.children.forEach(childNode => {
-      traverse(childNode, paths, styles)
-    })
+    if (style !== null) styles.push(style)
+    if (node.children !== null) {
+      node.children.forEach(childNode => {
+        traverse(childNode, paths, styles)
+      })
+    }
     paths.pop()
-    if (node.path.afterLeave) node.path.afterLeave()
+    if (node.path.afterLeave !== undefined) node.path.afterLeave()
   }
 }
 
-export function render (node: CNode) {
+export function render (node: CNode): string {
   const styles = []
   traverse(node, [], styles)
   return styles.join('\n')

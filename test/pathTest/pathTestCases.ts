@@ -1,6 +1,6 @@
-type CSelectorTestCase = { input: Array<string>, output: string }
+interface CSelectorTestCase { input: string[], output: string }
 
-const testCases: Array<CSelectorTestCase> = [
+const testCases: CSelectorTestCase[] = [
   {
     input: ['.a', '.b'],
     output: '.a .b'

@@ -1,5 +1,8 @@
 import { h, render } from '../src/index'
 import { b, e, m, notM } from '../src/plugins/bem'
+import { CNode } from '../src/types'
+
+type colorType = 'info' | 'success' | 'warning' | 'error'
 
 const colors = {
   info: '$info-color',
@@ -8,7 +11,7 @@ const colors = {
   error: '$error-color'
 }
 
-function typedButtonIconCSS (type) {
+function typedButtonIconCSS (type: colorType): CNode {
   const typedColor = colors[type]
   return h(e('icon'), [
     h(b('icon'), {
@@ -17,12 +20,12 @@ function typedButtonIconCSS (type) {
     }),
     h(b('base-loading'), {
       fill: typedColor + '-active',
-      stroke: typedColor + '-active',
+      stroke: typedColor + '-active'
     })
   ])
 }
 
-function typedButtonCSS (type) {
+function typedButtonCSS (type: colorType): CNode {
   const typedColor = colors[type]
   return h(b('button'), [
     h(m(`${type}-type`), {
@@ -80,13 +83,13 @@ function typedButtonCSS (type) {
   ])
 }
 
-// console.log(render(typedButtonCSS('error')))
-console.log(render(h(b('block'), 
+console.log(render(typedButtonCSS('error')))
+console.log(render(h(b('block'),
   [h(e('element'), {
     position: 'relative'
   }, [])]
 )))
-// console.log(JSON.stringify(h(b('block'), 
+// console.log(JSON.stringify(h(b('block'),
 //   [h(e('element'), {
 //     position: 'relative'
 //   }, [])]

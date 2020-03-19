@@ -3,7 +3,7 @@ import {
 } from './types'
 
 function resolveSelector (amp: string, selector: string): string {
-  if (~selector.indexOf(',')) {
+  if (selector.includes(',')) {
     return selector.split(',').map(part => {
       const trimmedPart = part
       if (/&/g.test(trimmedPart)) {

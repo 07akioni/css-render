@@ -1,9 +1,12 @@
+import {
+  CSelector
+} from '../types'
 const namespace = 'n'
 
-let block = null
-let elements = null
+let block: string = null
+let elements: string[] = null
 
-export const b = function (arg: string) {
+export const b = function (arg: string): CSelector {
   return {
     beforeEnter () {
       block = arg
@@ -18,7 +21,7 @@ export const b = function (arg: string) {
   }
 }
 
-export const e = function (...args: Array<string>) {
+export const e = function (...args: string[]): CSelector {
   return {
     beforeEnter () {
       elements = args
@@ -32,29 +35,29 @@ export const e = function (...args: Array<string>) {
   }
 }
 
-export const m = function (...args: Array<string>) {
+export const m = function (...args: string[]): CSelector {
   return {
     beforeEnter () {},
     afterLeave () {},
     selector () {
-      function elementToSelector (element?) {
+      function elementToSelector (element?: string): string {
         return args.map(arg => `&.${namespace}-${block}${
-          element ? `__${element}` : ''
+          element !== undefined ? `__${element}` : ''
         }--${arg}`).join(', ')
       }
-      return elements ? elements.map(
+      return elements !== null ? elements.map(
         elementToSelector
       ).join(', ') : elementToSelector()
     }
   }
 }
 
-export const notM = function (arg: string) {
+export const notM = function (arg: string): CSelector {
   return {
     beforeEnter () {},
     selector () {
       return `&:not(.${namespace}-${block}${
-        elements && elements[0] ? `__${elements[0]}` : ''
+        (elements !== null && elements.length > 0) ? `__${elements[0]}` : ''
       }--${arg})`
     }
   }
