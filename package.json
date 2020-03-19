@@ -16,43 +16,8 @@
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.9.2",
     "chai": "^4.2.0",
-    "husky": "^4.2.3",
-    "lint-staged": "^10.0.8",
     "mocha": "^7.1.1",
     "nyc": "^15.0.0",
     "ts-node": "^8.7.0"
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.ts"
-    ],
-    "exclude": [
-      "**/*.d.ts"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ],
-    "reporter": [
-      "text",
-      "html",
-      "lcov"
-    ],
-    "sourceMap": true,
-    "instrument": true,
-    "all": true
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "npm run test",
-      "git add"
-    ]
   }
 }
