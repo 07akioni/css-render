@@ -83,7 +83,7 @@ function typedButtonCSS (type: colorType): CNode {
   ])
 }
 
-console.log(render(typedButtonCSS('error')))
+// console.log(render(typedButtonCSS('error')))
 console.log(render(h(b('block'),
   [h(e('element'), {
     position: 'relative'

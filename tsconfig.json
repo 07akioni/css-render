@@ -1,4 +1,17 @@
 {
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": [ "./*" ]
+    },
+    "plugins": [
+      {
+        "transform":"typescript-transform-paths"
+      }
+    ],
+    "outDir": "./dist",
+    "target": "ES5"
+  },
   "include": [
     "src/**/*",
     "playground/**/*",

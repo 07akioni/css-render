@@ -2,9 +2,9 @@ import {
   CSelector,
   CNode,
   CProperties
-} from './types'
+} from '@/types'
 
-import parseSelectorPath from './parseSelectorPath'
+import parseSelectorPath from '@/parseSelectorPath'
 
 interface createCNode {
   (path: string | CSelector): CNode
@@ -41,21 +41,25 @@ function createStyle (selector: string, properties: CProperties | null): string 
     selector + ' {'
   ]
   Object.keys(properties).forEach(propertyName => {
-    statements.push(`${propertyName}: ${properties[propertyName]};`)
+    statements.push(`  ${propertyName}: ${properties[propertyName]};`)
   })
   statements.push('}')
   return statements.join('\n')
 }
 
-function traverse (node: CNode, paths: Array<string | CSelector>, styles: string[]): string {
+function traverse (
+  node: CNode,
+  paths: Array<string | CSelector>,
+  styles: string[]
+): string {
   if (
-    node.properties === null ||
-    node.children === null ||
-    node.children.length === 0
+    node.properties === null &&
+    (
+      node.children === null ||
+      node.children.length === 0
+    )
   ) return ''
   if (typeof node.path === 'string') {
-    paths.push(node.path)
-    paths.pop()
     const selector = parseSelectorPath(paths)
     const style = createStyle(selector, node.properties)
     if (style !== null) styles.push(style)

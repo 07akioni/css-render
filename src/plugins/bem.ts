@@ -1,6 +1,6 @@
 import {
   CSelector
-} from '../types'
+} from '@/types'
 const namespace = 'n'
 
 let block: string = null

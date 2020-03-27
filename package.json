@@ -4,12 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=html  --reporter=text --reporter=lcov ./node_modules/mocha/bin/mocha --reporter spec --require ts-node/register ./test/**/*.test.ts"
+    "test": "nyc --reporter=html --reporter=text --reporter=lcov ./node_modules/mocha/bin/mocha --reporter spec --require ts-node/register ./test/**/*.test.ts"
   },
   "author": "07akioni",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^3.8.3",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.9.2",
@@ -24,6 +23,9 @@
     "eslint-plugin-standard": "^4.0.1",
     "mocha": "^7.1.1",
     "nyc": "^15.0.0",
-    "ts-node": "^8.7.0"
+    "rollup": "^2.2.0",
+    "ts-node": "^8.7.0",
+    "typescript": "^3.8.3",
+    "typescript-transform-paths": "^1.1.14"
   }
 }
