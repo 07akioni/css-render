@@ -1,0 +1,10 @@
+{
+  "name": "@css-render/plugin-bem",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ]
+}

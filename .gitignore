@@ -6,4 +6,3 @@ coverage
 .DS_Store
 yarn.lock
 **/*/dist
-*.json
