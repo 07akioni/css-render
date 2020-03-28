@@ -1,20 +1,24 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "./packages",
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "allowJs": false,
+    "declaration": true,
     "paths": {
-      "@/*": [ "./*" ]
+      "@css-render/*": [
+        "./*"
+      ]
     },
-    "plugins": [
-      {
-        "transform":"typescript-transform-paths"
-      }
+    "lib": [
+      "ESNext",
+      "DOM"
     ],
-    "outDir": "./dist",
     "strict": true,
     "target": "ESNext"
   },
   "include": [
-    "src/**/*",
+    "packages/**/*",
     "playground/**/*",
     "test/**/*"
   ]

@@ -1,9 +1,10 @@
 {
   "include": [
-    "src/**/*.ts"
+    "packages/**/*.ts"
   ],
   "exclude": [
-    "**/*.d.ts"
+    "**/*.d.ts",
+    "**/__tests__/*.ts"
   ],
   "extension": [
     ".ts"

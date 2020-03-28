@@ -1,6 +1,7 @@
 import {
   CSelector
-} from '@/types'
+} from '@css-render/core/types'
+
 const namespace = 'n'
 
 let block: string | null = null

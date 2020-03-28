@@ -1,6 +1,6 @@
-import { h, render } from '../src/index'
-import { b, e, m, notM } from '../src/plugins/bem'
-import { CNode } from '../src/types'
+import { h, render } from '@css-render/core/index'
+import { b, e, m, notM } from '@css-render/plugins/bem'
+import { CNode } from '@css-render/core/types'
 
 type colorType = 'info' | 'success' | 'warning' | 'error'
 

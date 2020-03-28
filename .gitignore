@@ -5,5 +5,5 @@ package-lock.json
 coverage
 .DS_Store
 yarn.lock
-dist
+**/*/dist
 *.json

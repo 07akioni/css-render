@@ -2,9 +2,9 @@ import {
   CSelector,
   CNode,
   CProperties
-} from '@/types'
+} from './types'
 
-import parseSelectorPath from '@/parseSelectorPath'
+import parseSelectorPath from './parseSelectorPath'
 
 interface createCNode {
   (path: string | CSelector): CNode
