@@ -2,6 +2,8 @@ import {
   CSelector
 } from './types'
 
+import { context } from './context'
+
 function resolveSelector (amp: string, selector: string): string {
   if (selector.includes(',')) {
     return selector.split(',').map(part => {
@@ -22,7 +24,7 @@ function resolveSelector (amp: string, selector: string): string {
 export default function parseSelectorPath (selectors: Array<string | CSelector>): string {
   let amp = ''
   selectors.forEach(selector => {
-    const adpatedSelector = typeof selector === 'string' ? selector : selector.selector()
+    const adpatedSelector = typeof selector === 'string' ? selector : selector.selector(context)
     if (/,/g.test(amp)) {
       amp = amp
         .split(',')

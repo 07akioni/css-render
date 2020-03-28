@@ -1,6 +1,10 @@
-import { h, render } from '@css-render/core/index'
-import { b, e, m, notM } from '@css-render/plugins/bem'
-import { CNode } from '@css-render/core/types'
+import { h, render, context } from '@css-render/core/index'
+import { setup, b, e, m, notM } from '@css-render/plugins/bem'
+import { CNode } from '@css-render/core/src/types'
+
+setup(context, {
+  blockPrefix: 'n-'
+})
 
 type colorType = 'info' | 'success' | 'warning' | 'error'
 

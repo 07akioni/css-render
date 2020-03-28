@@ -1,5 +1,5 @@
 import * as chai from 'chai'
-import parsePaths from '@css-render/core/parseSelectorPath'
+import parsePaths from '@css-render/core/src/parseSelectorPath'
 import pathTestCases from './pathTestCases'
 
 const expect = chai.expect
