@@ -10,7 +10,8 @@
       }
     ],
     "outDir": "./dist",
-    "target": "ES5"
+    "strict": true,
+    "target": "ESNext"
   },
   "include": [
     "src/**/*",

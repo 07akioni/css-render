@@ -13,7 +13,11 @@ interface createCNode {
   (path: string | CSelector, properties: CProperties, children: CNode[]): CNode
 }
 
-export const h: createCNode = function (path, properties, children) {
+export const h: createCNode = function (
+  path: any,
+  properties: any,
+  children: any
+) {
   if (properties === undefined) {
     return {
       path,
@@ -51,14 +55,14 @@ function traverse (
   node: CNode,
   paths: Array<string | CSelector>,
   styles: string[]
-): string {
+): void {
   if (
     node.properties === null &&
     (
       node.children === null ||
       node.children.length === 0
     )
-  ) return ''
+  ) return
   if (typeof node.path === 'string') {
     const selector = parseSelectorPath(paths)
     const style = createStyle(selector, node.properties)
@@ -85,7 +89,7 @@ function traverse (
 }
 
 export function render (node: CNode): string {
-  const styles = []
+  const styles: string[] = []
   traverse(node, [], styles)
   return styles.join('\n')
 }

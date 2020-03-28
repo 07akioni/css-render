@@ -3,8 +3,8 @@ import {
 } from '@/types'
 const namespace = 'n'
 
-let block: string = null
-let elements: string[] = null
+let block: string | null = null
+let elements: string[] | null = null
 
 export const b = function (arg: string): CSelector {
   return {
@@ -16,7 +16,7 @@ export const b = function (arg: string): CSelector {
       block = null
     },
     selector () {
-      return `.${namespace}-${block}`
+      return `.${namespace}-${block as string}`
     }
   }
 }
@@ -30,7 +30,7 @@ export const e = function (...args: string[]): CSelector {
       elements = null
     },
     selector () {
-      return args.map(arg => `.${namespace}-${block}__${arg}`).join(', ')
+      return args.map(arg => `.${namespace}-${block as string}__${arg}`).join(', ')
     }
   }
 }
@@ -41,7 +41,7 @@ export const m = function (...args: string[]): CSelector {
     afterLeave () {},
     selector () {
       function elementToSelector (element?: string): string {
-        return args.map(arg => `&.${namespace}-${block}${
+        return args.map(arg => `&.${namespace}-${block as string}${
           element !== undefined ? `__${element}` : ''
         }--${arg}`).join(', ')
       }
@@ -56,7 +56,7 @@ export const notM = function (arg: string): CSelector {
   return {
     beforeEnter () {},
     selector () {
-      return `&:not(.${namespace}-${block}${
+      return `&:not(.${namespace}-${block as string}${
         (elements !== null && elements.length > 0) ? `__${elements[0]}` : ''
       }--${arg})`
     }
