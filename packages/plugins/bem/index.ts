@@ -3,7 +3,7 @@ import {
   CContext
 } from '@css-render/core/src/types'
 
-let _bPrefix: string = ''
+let _bPrefix: string = '.'
 let _ePrefix: string = '__'
 let _mPrefix: string = '--'
 
@@ -23,6 +23,7 @@ export const setup = function (context: CContext, options: BEMPluginOptions = {}
   if (options.modifierPrefix !== undefined) {
     _mPrefix = options.modifierPrefix
   }
+  context.bem = {}
   context.bem.block = null
   context.bem.elements = null
 }
@@ -37,7 +38,7 @@ export const b = function (arg: string): CSelector {
       context.bem.block = null
     },
     selector (context) {
-      return `.${_bPrefix}${context.bem.block as string}`
+      return `${_bPrefix}${context.bem.block as string}`
     }
   }
 }

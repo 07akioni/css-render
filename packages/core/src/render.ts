@@ -4,6 +4,7 @@ import {
   CSelector
 } from './types'
 import { parseSelectorPath } from './parse'
+import { context } from './context'
 
 function createStyle (selector: string, properties: CProperties | null): string | null {
   if (properties === null) return null

@@ -31,10 +31,18 @@ export const h: createCNode = function (
       children: properties
     }
   } else {
-    return {
-      path,
-      properties,
-      children
+    if (Array.isArray(children)) {
+      return {
+        path,
+        properties,
+        children
+      }
+    } else {
+      return {
+        path,
+        properties,
+        children: null
+      }
     }
   }
 } as createCNode
