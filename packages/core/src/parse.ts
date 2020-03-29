@@ -1,7 +1,7 @@
 import {
   CSelector
 } from './types'
-import { context } from './context'
+import { CSSRenderInstance } from './CSSRender'
 
 function resolveSelector (amp: string, selector: string): string {
   if (selector.includes(',')) {
@@ -20,10 +20,10 @@ function resolveSelector (amp: string, selector: string): string {
   }
 }
 
-export function parseSelectorPath (selectors: Array<string | CSelector>): string {
+export function parseSelectorPath (selectors: Array<string | CSelector>, instance: CSSRenderInstance): string {
   let amp = ''
   selectors.forEach(selector => {
-    const adpatedSelector = typeof selector === 'string' ? selector : selector.selector(context)
+    const adpatedSelector = typeof selector === 'string' ? selector : selector.selector(instance.context)
     if (/,/g.test(amp)) {
       amp = amp
         .split(',')

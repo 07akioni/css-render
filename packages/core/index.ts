@@ -1,1 +1,2 @@
-export * from './src/index'
+export * from './src/types'
+export { CSSRender, CSSRenderPlugin } from './src/CSSRender'

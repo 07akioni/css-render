@@ -4,10 +4,8 @@ import {
   CProperties,
   CContext
 } from './types'
-import { context } from './context'
-import { render } from './render'
 
-interface createCNode {
+export interface createCNode {
   (path: string | CSelector): CNode
   (path: string | CSelector, children: CNode[]): CNode
   (path: string | CSelector, properties: CProperties): CNode
@@ -48,8 +46,6 @@ export const h: createCNode = function (
   }
 } as createCNode
 
-export { context }
-export { render }
 export {
   CSelector,
   CNode,

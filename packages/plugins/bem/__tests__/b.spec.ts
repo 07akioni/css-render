@@ -1,21 +1,31 @@
-import { h, context, render } from '@css-render/core/index'
-import { isSame } from './utils'
-import { setup, b } from '@css-render/plugins/bem/index'
+import { CSSRender } from '@css-render/core/index'
+import { assertEqual } from './utils'
+import CSSRenderBEMPlugin from '@css-render/plugins/bem/index'
+
+const cssr = CSSRender()
+const plugin = CSSRenderBEMPlugin({
+  blockPrefix: '.c-'
+})
+cssr.use(plugin)
+
+const {
+  h,
+  render
+} = cssr
+
+const {
+  b
+} = plugin
 
 describe('# bem.b', function () {
-  this.beforeAll(function () {
-    setup(context, {
-      blockPrefix: '.c-'
-    })
-  })
   it('should use blockPrefix', function () {
-    isSame(
+    assertEqual(
       render(h(b('block'), { k: 'v' })),
       '.c-block { k: v; }'
-    ).to.equal(true)
+    )
   })
   it('should generate correct selector when nested', function () {
-    isSame(
+    assertEqual(
       render(
         h(
           b('block'),
@@ -23,6 +33,6 @@ describe('# bem.b', function () {
         )
       ),
       '.c-block .c-block2 { k: v; }'
-    ).to.equal(true)
+    )
   })
 })

@@ -3,8 +3,8 @@ import {
   CProperties,
   CSelector
 } from './types'
+import { CSSRenderInstance } from './CSSRender'
 import { parseSelectorPath } from './parse'
-import { context } from './context'
 
 function createStyle (selector: string, properties: CProperties | null): string | null {
   if (properties === null) return null
@@ -23,7 +23,8 @@ function createStyle (selector: string, properties: CProperties | null): string 
 function traverse (
   node: CNode,
   paths: Array<string | CSelector>,
-  styles: string[]
+  styles: string[],
+  instance: CSSRenderInstance
 ): void {
   if (
     node.properties === null &&
@@ -33,32 +34,32 @@ function traverse (
     )
   ) return
   if (typeof node.path === 'string') {
-    const selector = parseSelectorPath(paths)
+    const selector = parseSelectorPath(paths, instance)
     const style = createStyle(selector, node.properties)
     if (style !== null) styles.push(style)
     if (node.children !== null) {
       node.children.forEach(childNode => {
-        traverse(childNode, paths, styles)
+        traverse(childNode, paths, styles, instance)
       })
     }
   } else {
-    if (node.path.beforeEnter !== undefined) node.path.beforeEnter(context)
-    paths.push(node.path.selector(context))
-    const selector = parseSelectorPath(paths)
+    if (node.path.beforeEnter !== undefined) node.path.beforeEnter(instance.context)
+    paths.push(node.path.selector(instance.context))
+    const selector = parseSelectorPath(paths, instance)
     const style = createStyle(selector, node.properties)
     if (style !== null) styles.push(style)
     if (node.children !== null) {
       node.children.forEach(childNode => {
-        traverse(childNode, paths, styles)
+        traverse(childNode, paths, styles, instance)
       })
     }
     paths.pop()
-    if (node.path.afterLeave !== undefined) node.path.afterLeave(context)
+    if (node.path.afterLeave !== undefined) node.path.afterLeave(instance.context)
   }
 }
 
-export function render (node: CNode): string {
+export function render (node: CNode, instance: CSSRenderInstance): string {
   const styles: string[] = []
-  traverse(node, [], styles)
+  traverse(node, [], styles, instance)
   return styles.join('\n')
 }
