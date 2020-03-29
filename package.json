@@ -1,7 +1,7 @@
 {
   "scripts": {
     "test": "nyc --reporter=html --reporter=text --reporter=lcov ./node_modules/mocha/bin/mocha --reporter spec -r ts-node/register -r tsconfig-paths/register ./packages/**/*.spec.ts",
-    "build":"node scripts/build.js"
+    "build": "node scripts/build.js"
   },
   "author": "07akioni",
   "devDependencies": {

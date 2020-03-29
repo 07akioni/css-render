@@ -1,34 +1,31 @@
 const execa = require('execa')
 const fs = require('fs')
 const chalk = require('chalk')
+const path = require('path')
 
-const buildEntriesDir = ['core', 'plugins']
+const packagesDir = path.resolve(__dirname, '..', 'packages')
 const buildConfigFileName = 'tsconfig.build.json'
 
-const getBuildTargets = () => {
-  return buildEntriesDir.reduce((preTargets, currentDir) => {
-    const dir = `packages/${currentDir}`
-    let currentTargets = []
-    if (fs.existsSync(`${dir}/${buildConfigFileName}`)) {
-      currentTargets = dir
-    } else {
-      currentTargets = fs.readdirSync(dir).filter((file) => {
-        if (!fs.statSync(`${dir}/${file}`).isDirectory()) {
-          return false
-        }
-        if (!fs.existsSync(`${dir}/${file}/${buildConfigFileName}`)) {
-          return false
-        }
-        return true
-      }).map((dirName) => {
-        return `${dir}/${dirName}`
-      })
+function getBuildTargets () {
+  const buildTargets = []
+  function traverse (dir) {
+    if (!fs.statSync(dir).isDirectory()) return
+    const fileList = fs.readdirSync(dir)
+    const configExists = fileList.includes(buildConfigFileName)
+    if (configExists) {
+      buildTargets.push(dir)
+      return
     }
-    return preTargets.concat(currentTargets)
-  }, [])
+    fileList.forEach(fileName => traverse(path.resolve(dir, fileName)))
+  }
+  traverse(packagesDir)
+  return buildTargets
 }
 
 const build = async (targetDir) => {
+  const configFilePath = path.resolve(targetDir, 'package.json')
+  const config = require(configFilePath)
+  console.log('Building package [', config.name, ']')
   try {
     await execa('tsc', ['-b', buildConfigFileName], {
       cwd: targetDir
@@ -39,7 +36,7 @@ const build = async (targetDir) => {
 }
 
 const runBuild = async () => {
-  const targets = await getBuildTargets()
+  const targets = getBuildTargets()
   targets.forEach(build)
 }
 
