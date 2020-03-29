@@ -8,6 +8,9 @@
     "paths": {
       "@css-render/*": [
         "./*"
+      ],
+      "css-render": [
+        "./core/index"
       ]
     },
     "lib": [

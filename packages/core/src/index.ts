@@ -1,7 +1,8 @@
 import {
   CSelector,
   CNode,
-  CProperties
+  CProperties,
+  CContext
 } from './types'
 import { context } from './context'
 import { render } from './render'
@@ -49,3 +50,9 @@ export const h: createCNode = function (
 
 export { context }
 export { render }
+export {
+  CSelector,
+  CNode,
+  CProperties,
+  CContext
+}

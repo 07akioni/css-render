@@ -1,7 +1,7 @@
 import {
   CSelector,
   CContext
-} from '@css-render/core/src/types'
+} from 'css-render'
 
 let _bPrefix: string = '.'
 let _ePrefix: string = '__'
