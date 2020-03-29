@@ -6,6 +6,14 @@ import {
 import { CSSRenderInstance } from './CSSRender'
 import { parseSelectorPath } from './parse'
 
+const kebabRegex = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
+
+function kebabCase (pattern: string): string {
+  return pattern.replace(kebabRegex, function (match) {
+    return '-' + match.toLowerCase()
+  })
+}
+
 function createStyle (selector: string, properties: CProperties | null): string | null {
   if (properties === null) return null
   const statements = [
@@ -13,7 +21,8 @@ function createStyle (selector: string, properties: CProperties | null): string 
   ]
   Object.keys(properties).forEach(propertyName => {
     const property = properties[propertyName]
-    const unwrappedProperty: string = typeof property === 'function' ? property() : property
+    const unwrappedProperty: string = String(typeof property === 'function' ? property() : property)
+    propertyName = kebabCase(propertyName)
     statements.push(`  ${propertyName}: ${unwrappedProperty};`)
   })
   statements.push('}')
@@ -34,6 +43,7 @@ function traverse (
     )
   ) return
   if (typeof node.path === 'string') {
+    paths.push(node.path)
     const selector = parseSelectorPath(paths, instance)
     const style = createStyle(selector, node.properties)
     if (style !== null) styles.push(style)
@@ -42,6 +52,7 @@ function traverse (
         traverse(childNode, paths, styles, instance)
       })
     }
+    paths.pop()
   } else {
     if (node.path.beforeEnter !== undefined) node.path.beforeEnter(instance.context)
     paths.push(node.path.selector(instance.context))

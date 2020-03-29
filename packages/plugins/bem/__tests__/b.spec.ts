@@ -1,5 +1,5 @@
 import { CSSRender } from '@css-render/core/index'
-import { assertEqual } from './utils'
+import { assertEqual } from '@css-render/shared/utils'
 import CSSRenderBEMPlugin from '@css-render/plugins/bem/index'
 
 const cssr = CSSRender()
