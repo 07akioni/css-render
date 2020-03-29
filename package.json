@@ -1,9 +1,11 @@
 {
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text --reporter=lcov ./node_modules/mocha/bin/mocha --reporter spec -r ts-node/register -r tsconfig-paths/register ./packages/**/*.spec.ts"
+    "test": "nyc --reporter=html --reporter=text --reporter=lcov ./node_modules/mocha/bin/mocha --reporter spec -r ts-node/register -r tsconfig-paths/register ./packages/**/*.spec.ts",
+    "build":"node scripts/build.js"
   },
   "author": "07akioni",
   "devDependencies": {
+    "execa": "^4.0.0",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.9.2",
