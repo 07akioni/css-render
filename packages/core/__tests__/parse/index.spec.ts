@@ -1,13 +1,13 @@
 import * as chai from 'chai'
-import parsePaths from '@css-render/core/src/parseSelectorPath'
+import { parseSelectorPath } from '@css-render/core/src/parse'
 import pathTestCases from './pathTestCases'
 
 const expect = chai.expect
 
-describe('pathTest', () => {
+describe('# parse selector path', () => {
   pathTestCases.forEach(testCase => {
     it(`pathTest ${testCase.input.toString()} should be ${testCase.output}`, () => {
-      expect(parsePaths(testCase.input)).to.equal(testCase.output)
+      expect(parseSelectorPath(testCase.input)).to.equal(testCase.output)
     })
   })
 })

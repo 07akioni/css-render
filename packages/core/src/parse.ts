@@ -1,7 +1,6 @@
 import {
   CSelector
 } from './types'
-
 import { context } from './context'
 
 function resolveSelector (amp: string, selector: string): string {
@@ -21,7 +20,7 @@ function resolveSelector (amp: string, selector: string): string {
   }
 }
 
-export default function parseSelectorPath (selectors: Array<string | CSelector>): string {
+export function parseSelectorPath (selectors: Array<string | CSelector>): string {
   let amp = ''
   selectors.forEach(selector => {
     const adpatedSelector = typeof selector === 'string' ? selector : selector.selector(context)
