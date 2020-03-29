@@ -18,7 +18,7 @@ module.exports = {
       files: ['*.js'],
       extends: 'standard',
       parserOptions: {
-        ecmaVersion: 6,
+        ecmaVersion: 2020,
         sourceType: "module"
       }
     }
