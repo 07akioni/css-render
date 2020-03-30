@@ -1,2 +1,4 @@
+import { CSSRender } from './src/CSSRender'
 export * from './src/types'
-export { CSSRender, CSSRenderPlugin, createCNode } from './src/CSSRender'
+export { CSSRenderPlugin, createCNode } from './src/CSSRender'
+export default CSSRender

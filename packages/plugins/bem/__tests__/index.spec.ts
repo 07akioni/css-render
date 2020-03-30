@@ -1,4 +1,4 @@
-import { CSSRender } from '@css-render/core/index'
+import CSSRender from '@css-render/core/index'
 import { assertEqual } from '@css-render/shared/utils'
 import CSSRenderBEMPlugin from '@css-render/plugins/bem/index'
 

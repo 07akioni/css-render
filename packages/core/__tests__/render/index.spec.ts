@@ -1,4 +1,4 @@
-import { CSSRender } from 'css-render'
+import CSSRender from 'css-render'
 import { assertEqual } from '@css-render/shared/utils'
 
 const {

@@ -9,14 +9,13 @@ It can
 
 ## Get Started
 ```js
-import { CSSRender } from 'css-render'
+import CSSRender from 'css-render'
 
 const {
-  h,
-  render
+  h
 } = CSSRender()
 
-console.log(render(
+console.log((
   h('body', {
     margin: 0,
     backgroundColor: 'white'
@@ -28,7 +27,7 @@ console.log(render(
       width: '100%'
     })
   ])
-))
+).render())
 ```
 which outputs
 ```css
@@ -50,7 +49,7 @@ body .container {
 ### BEM
 You can use bem plugin to generate bem css like this:
 ```js
-import { CSSRender } from 'css-render'
+import CSSRender from 'css-render'
 import CSSRenderBEMPlugin from '@css-render/plugin-bem'
 
 const cssr = CSSRender()
@@ -61,11 +60,8 @@ cssr.use(plugin)
 const {
   hB, hE, hM
 } = plugin
-const {
-  render
-} = cssr
 
-console.log(render(
+console.log(
   hB(
     'container',
     [
@@ -87,8 +83,8 @@ console.log(render(
         ]
       )
     ]
-  )
-))
+  ).render()
+)
 ```
 which outputs
 ```css

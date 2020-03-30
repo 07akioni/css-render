@@ -1,5 +1,5 @@
 import * as chai from 'chai'
-import { CSSRender } from 'css-render'
+import CSSRender from 'css-render'
 
 const expect = chai.expect
 const cssr = CSSRender()

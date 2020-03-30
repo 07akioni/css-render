@@ -1,4 +1,4 @@
-import { CSSRender } from 'css-render'
+import CSSRender from 'css-render'
 import CSSRenderBEMPlugin from '@css-render/plugins/bem/index'
 import { CNode } from '@css-render/core/src/types'
 
