@@ -8,7 +8,7 @@ const cssr = CSSRender()
 
 describe('# parse selector path', () => {
   pathTestCases.forEach(testCase => {
-    it(`pathTest ${testCase.input.toString()} should be ${testCase.output}`, () => {
+    it(`parse result of ${testCase.input.toString()} should be ${testCase.output}`, () => {
       expect(parseSelectorPath(testCase.input, cssr)).to.equal(testCase.output)
     })
   })

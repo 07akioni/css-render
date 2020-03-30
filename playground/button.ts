@@ -6,7 +6,7 @@ const cssr = CSSRender()
 const plugin = CSSRenderBEMPlugin()
 cssr.use(plugin)
 const {
-  h, render
+  h
 } = cssr
 const {
   b, e, m, notM
@@ -94,11 +94,11 @@ function typedButtonCSS (type: colorType): CNode {
 }
 
 // console.log(render(typedButtonCSS('error')))
-console.log(render(h(b('block'),
+console.log(h(b('block'),
   [h(e('element'), {
     position: 'relative'
   }, [])]
-)))
+).render())
 // console.log(JSON.stringify(h(b('block'),
 //   [h(e('element'), {
 //     position: 'relative'

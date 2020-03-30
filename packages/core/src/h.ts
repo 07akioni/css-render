@@ -4,15 +4,22 @@ import {
   CProperties,
   CContext
 } from './types'
+import { CSSRenderInstance } from './CSSRender'
+import { render } from './render'
 
-export interface createCNode {
-  (path: string | CSelector): CNode
-  (path: string | CSelector, children: CNode[]): CNode
-  (path: string | CSelector, properties: CProperties): CNode
-  (path: string | CSelector, properties: CProperties, children: CNode[]): CNode
+export interface createInstanceCNode {
+  (instance: CSSRenderInstance, path: string | CSelector): CNode
+  (instance: CSSRenderInstance, path: string | CSelector, children: CNode[]): CNode
+  (instance: CSSRenderInstance, path: string | CSelector, properties: CProperties): CNode
+  (instance: CSSRenderInstance, path: string | CSelector, properties: CProperties, children: CNode[]): CNode
 }
 
-export const h: createCNode = function (
+function _render (this: CNode): string {
+  return render(this, this.instance)
+}
+
+export const h: createInstanceCNode = function (
+  instance: CSSRenderInstance,
   path: any,
   properties: any,
   children: any
@@ -21,30 +28,38 @@ export const h: createCNode = function (
     return {
       path,
       properties: null,
-      children: null
+      children: null,
+      instance,
+      render: _render
     }
   } else if (Array.isArray(properties)) {
     return {
       path,
       properties: null,
-      children: properties
+      children: properties,
+      instance,
+      render: _render
     }
   } else {
     if (Array.isArray(children)) {
       return {
         path,
         properties,
-        children
+        children,
+        instance,
+        render: _render
       }
     } else {
       return {
         path,
         properties,
-        children: null
+        children: null,
+        instance,
+        render: _render
       }
     }
   }
-} as createCNode
+} as createInstanceCNode
 
 export {
   CSelector,

@@ -1,3 +1,5 @@
+import { CSSRenderInstance } from './CSSRender'
+
 export interface CContext {
   [key: string]: any
 }
@@ -12,6 +14,8 @@ export interface CNode {
   path: string | CSelector
   properties: CProperties | null
   children: CNode[] | null
+  instance: CSSRenderInstance
+  render: () => string
 }
 
 export interface CProperties {

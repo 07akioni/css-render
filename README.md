@@ -29,7 +29,7 @@ console.log(render(
   ])
 ))
 ```
-It will output
+which outputs
 ```css
 body {
   margin: 0;
@@ -42,5 +42,61 @@ body.dark {
 
 body .container {
   width: '100%';
+}
+```
+
+## Plugins
+### BEM
+You can use bem plugin to generate bem css like this:
+```js
+import { CSSRender } from 'css-render'
+import CSSRenderBEMPlugin from '@css-render/plugin-bem'
+
+const cssr = CSSRender()
+const plugin = CSSRenderBEMPlugin({
+  blockPrefix: '.c-'
+})
+cssr.use(plugin)
+const {
+  hB, hE, hM
+} = plugin
+const {
+  render
+} = cssr
+
+console.log(render(
+  hB(
+    'container',
+    [
+      hE(
+        'left, right', 
+        {
+          width: '50%'
+        }
+      ),
+      hM(
+        'dark', 
+        [
+          hE(
+            'left, right',
+            {
+              backgroundColor: 'black'
+            }
+          )
+        ]
+      )
+    ]
+  )
+))
+```
+which outputs
+```css
+.c-container .c-container__left, .c-container .c-container__right {
+  width: 50%;
+}
+
+.c-container.c-container--dark .c-container__left,
+.c-container.c-container--dark .c-container__right {
+  background-color: black;
 }
 ```

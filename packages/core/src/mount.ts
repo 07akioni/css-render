@@ -17,8 +17,8 @@ export function mount (
     document.head.appendChild(targetElement)
   }
   const style = Array.isArray(nodes)
-    ? nodes.map(node => instance.render(node)).join('\n')
-    : instance.render(nodes)
+    ? nodes.map(node => node.render()).join('\n')
+    : nodes.render()
   if (targetElement.innerHTML !== style) {
     targetElement.innerHTML = style
   }

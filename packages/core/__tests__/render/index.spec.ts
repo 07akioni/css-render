@@ -2,12 +2,12 @@ import { CSSRender } from 'css-render'
 import { assertEqual } from '@css-render/shared/utils'
 
 const {
-  h, render
+  h
 } = CSSRender()
 
 describe('# parse selector path', () => {
   it('should render as expected', () => {
-    assertEqual(render(
+    assertEqual(
       h('body', {
         margin: 0,
         backgroundColor: 'white'
@@ -18,8 +18,9 @@ describe('# parse selector path', () => {
         h('.container', {
           width: '100%'
         })
-      ])
-    ), `body {
+      ]).render()
+      ,
+    `body {
       margin: 0;
       background-color: white;
     }

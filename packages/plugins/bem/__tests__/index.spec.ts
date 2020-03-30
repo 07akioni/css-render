@@ -13,10 +13,6 @@ const plugin = CSSRenderBEMPlugin({
 cssr.use(plugin)
 
 const {
-  render
-} = cssr
-
-const {
   hB,
   hE,
   hM,
@@ -26,18 +22,16 @@ const {
 describe('# bem.b', function () {
   it('should use blockPrefix', function () {
     assertEqual(
-      render(hB('b', {})),
+      hB('b', {}).render(),
       '.c-b {}'
     )
   })
   it('should generate correct selector when nested', function () {
     assertEqual(
-      render(
-        hB(
-          'b',
-          [hB('b2', {})]
-        )
-      ),
+      hB(
+        'b',
+        [hB('b2', {})]
+      ).render(),
       '.c-b .c-b2 {}'
     )
   })
@@ -46,13 +40,13 @@ describe('# bem.b', function () {
 describe('# bem.e', function () {
   it('should work with bem.b', function () {
     assertEqual(
-      render(hB('b', [hE('e', {})])),
+      hB('b', [hE('e', {})]).render(),
       '.c-b .c-b__e {}'
     )
   })
   it('should work with comma selector', function () {
     assertEqual(
-      render(hB('b', [hE('e1, e2', {})])),
+      hB('b', [hE('e1, e2', {})]).render(),
       '.c-b .c-b__e1, .c-b .c-b__e2 {}'
     )
   })
@@ -61,23 +55,23 @@ describe('# bem.e', function () {
 describe('# bem.m', function () {
   it('should work with bem.b', function () {
     assertEqual(
-      render(hB('b', [hM('m', {})])),
+      hB('b', [hM('m', {})]).render(),
       '.c-b.c-b--m {}'
     )
   })
   it('should work with bem.e', function () {
     assertEqual(
-      render(hB('b', [hE('e', [hM('m', {})])])),
+      hB('b', [hE('e', [hM('m', {})])]).render(),
       '.c-b .c-b__e.c-b__e--m {}'
     )
   })
   it('should work with comma selector', function () {
     assertEqual(
-      render(hB('b', [hM('m1, m2', {})])),
+      hB('b', [hM('m1, m2', {})]).render(),
       '.c-b.c-b--m1, .c-b.c-b--m2 {}'
     )
     assertEqual(
-      render(hB('b', [hE('e', [hM('m1, m2', {})])])),
+      hB('b', [hE('e', [hM('m1, m2', {})])]).render(),
       '.c-b .c-b__e.c-b__e--m1, .c-b .c-b__e.c-b__e--m2 {}'
     )
   })
@@ -86,14 +80,51 @@ describe('# bem.m', function () {
 describe('# bem.notM', function () {
   it('should work with bem.b', function () {
     assertEqual(
-      render(hB('b', [hNotM('m', {})])),
+      hB('b', [hNotM('m', {})]).render(),
       '.c-b:not(.c-b--m) {}'
     )
   })
   it('should work with bem.e', function () {
     assertEqual(
-      render(hB('b', [hE('e', [hNotM('m', {})])])),
+      hB('b', [hE('e', [hNotM('m', {})])]).render(),
       '.c-b .c-b__e:not(.c-b__e--m) {}'
+    )
+  })
+})
+
+describe('# bem', function () {
+  it('should pass test case#1', function () {
+    assertEqual(
+      hB(
+        'container',
+        [
+          hE(
+            'left, right',
+            {
+              width: '50%'
+            }
+          ),
+          hM(
+            'dark',
+            [
+              hE(
+                'left, right',
+                {
+                  backgroundColor: 'black'
+                }
+              )
+            ]
+          )
+        ]
+      ).render(),
+      `.c-container .c-container__left, .c-container .c-container__right {
+        width: 50%;
+      }
+      
+      .c-container.c-container--dark .c-container__left,
+      .c-container.c-container--dark .c-container__right {
+        background-color: black;
+      }`
     )
   })
 })
