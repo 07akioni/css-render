@@ -20,7 +20,10 @@ function resolveSelector (amp: string, selector: string): string {
   }
 }
 
-export function parseSelectorPath (selectors: Array<string | CSelector>, instance: CSSRenderInstance): string {
+export function parseSelectorPath (
+  selectors: Array<string | CSelector>,
+  instance: CSSRenderInstance
+): string {
   let amp = ''
   selectors.forEach(selector => {
     const adpatedSelector = typeof selector === 'string' ? selector : selector.selector(instance.context)

@@ -1,6 +1,7 @@
 import {
   CSelector,
-  CSSRenderPlugin
+  CSSRenderPlugin,
+  createCNode
 } from 'css-render'
 
 interface BEMPluginOptions {
@@ -13,6 +14,7 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
   let _bPrefix: string = '.'
   let _ePrefix: string = '__'
   let _mPrefix: string = '--'
+  let h: createCNode
 
   if (options !== undefined) {
     if (options.blockPrefix !== undefined) {
@@ -28,6 +30,7 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
 
   const plugin: CSSRenderPlugin = {
     install (instance) {
+      h = instance.h
       instance.context.bem = {}
       instance.context.bem.block = null
       instance.context.bem.elements = null
@@ -35,62 +38,92 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
   }
 
   function b (arg: string): CSelector {
+    let memorizedB: string | null
+    let memorizedE: string | null
     return {
-      beforeEnter (context) {
-        context.bem.block = arg
-        context.bem.elements = null
+      beforeEnter (ctx) {
+        memorizedB = ctx.bem.block
+        memorizedE = ctx.bem.elements
+        ctx.bem.block = arg
+        ctx.bem.elements = null
       },
-      afterLeave (context) {
-        context.bem.block = null
+      afterLeave (ctx) {
+        ctx.bem.block = memorizedB
+        ctx.bem.elements = memorizedE
       },
-      selector (context) {
-        return `${_bPrefix}${context.bem.block as string}`
+      selector (ctx) {
+        return `${_bPrefix}${ctx.bem.block as string}`
       }
     }
   }
 
-  function e (...args: string[]): CSelector {
+  function e (arg: string): CSelector {
+    let memorizedE: string | null
     return {
-      beforeEnter (context) {
-        context.bem.elements = args
-      },
-      afterLeave (context) {
-        context.bem.elements = null
-      },
-      selector (context) {
-        return args.map(arg => `.${_bPrefix}${context.bem.block as string}__${arg}`).join(', ')
-      }
-    }
-  }
-
-  function m (...args: string[]): CSelector {
-    return {
-      selector (context) {
-        function elementToSelector (element?: string): string {
-          return args.map(arg => `&.${_bPrefix}${context.bem.block as string}${
-            element !== undefined ? `${_ePrefix}${element}` : ''
-          }${_mPrefix}${arg}`).join(', ')
+      beforeEnter (ctx) {
+        if (ctx.bem.elements !== null) {
+          throw Error('[css-render/plugin-bem/e]: nested element is not allowed')
         }
-        return context.bem.elements !== null ? context.bem.elements.map(
-          elementToSelector
-        ).join(', ') : elementToSelector()
+        memorizedE = ctx.bem.elements
+        ctx.bem.elements = arg.split(',').map(v => v.trim())
+      },
+      afterLeave (ctx) {
+        ctx.bem.elements = memorizedE
+      },
+      selector (ctx) {
+        return (ctx.bem.elements as string[])
+          .map(el => `${_bPrefix}${ctx.bem.block as string}__${el}`).join(', ')
+      }
+    }
+  }
+
+  function m (arg: string): CSelector {
+    return {
+      selector (ctx) {
+        const modifiers = arg.split(',').map(v => v.trim())
+        function elementToSelector (el?: string): string {
+          return modifiers.map(modifier => `&${_bPrefix}${ctx.bem.block as string}${
+            el !== undefined ? `${_ePrefix}${el}` : ''
+          }${_mPrefix}${modifier}`).join(', ')
+        }
+        const els = ctx.bem.elements
+        if (els !== null) {
+          if (els.length >= 2) {
+            throw Error(
+              '[css-render/plugin-bem/m]: using modifier inside multiple elements is not allowed'
+            )
+          }
+          return elementToSelector(els[0])
+        } else {
+          return elementToSelector()
+        }
       }
     }
   }
 
   const notM = function (arg: string): CSelector {
     return {
-      selector (context) {
-        const elements = context.bem.elements as null | string[]
-        return `&:not(.${_bPrefix}${context.bem.block as string}${
-          (elements !== null && elements.length > 0) ? `${_ePrefix}${elements[0]}` : ''
+      selector (ctx) {
+        const els = ctx.bem.elements as null | string[]
+        if (els !== null && els.length >= 2) {
+          throw Error(
+            '[css-render/plugin-bem/notM]: using modifier inside multiple elements is not allowed'
+          )
+        }
+        return `&:not(${_bPrefix}${ctx.bem.block as string}${
+          (els !== null && els.length > 0) ? `${_ePrefix}${els[0]}` : ''
         }${_mPrefix}${arg})`
       }
     }
   }
 
+  const hB = ((...args: any[]) => h(b(args[0]), args[1], args[2])) as createCNode
+  const hE = ((...args: any[]) => h(e(args[0]), args[1], args[2])) as createCNode
+  const hM = ((...args: any[]) => h(m(args[0]), args[1], args[2])) as createCNode
+  const hNotM = ((...args: any[]) => h(notM(args[0]), args[1], args[2])) as createCNode
+
   Object.assign(plugin, {
-    b, e, m, notM
+    b, e, m, notM, hB, hE, hM, hNotM
   })
 
   return plugin
