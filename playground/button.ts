@@ -1,10 +1,16 @@
-import { h, render, context } from '@css-render/core/index'
-import { setup, b, e, m, notM } from '@css-render/plugins/bem'
+import { CSSRender } from 'css-render'
+import CSSRenderBEMPlugin from '@css-render/plugins/bem/index'
 import { CNode } from '@css-render/core/src/types'
 
-setup(context, {
-  blockPrefix: 'n-'
-})
+const cssr = CSSRender()
+const plugin = CSSRenderBEMPlugin()
+cssr.use(plugin)
+const {
+  h, render
+} = cssr
+const {
+  b, e, m, notM
+} = plugin
 
 type colorType = 'info' | 'success' | 'warning' | 'error'
 

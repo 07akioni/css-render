@@ -19,7 +19,7 @@ export interface CSSRenderInstance {
   id: string
   h: createCNode
   render: (node: CNode) => string
-  mount: (nodes: CNode[] | CNode, id: string | number) => void
+  mount: (nodes: CNode[] | CNode, id: string | number) => HTMLStyleElement
   use: (plugin: CSSRenderPlugin, ...args: any[]) => void
   config: CSSRenderConfig
 }

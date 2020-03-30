@@ -5,6 +5,7 @@
     "moduleResolution": "node",
     "allowJs": false,
     "declaration": true,
+    "outDir": "./dist",
     "paths": {
       "@css-render/*": [
         "./*"
