@@ -4,6 +4,7 @@
     "sourceMap": false,
     "moduleResolution": "node",
     "allowJs": false,
+    "module": "commonjs",
     "declaration": true,
     "outDir": "./dist",
     "paths": {

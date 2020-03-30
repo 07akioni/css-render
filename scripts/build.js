@@ -1,27 +1,10 @@
 const execa = require('execa')
-const fs = require('fs')
 const chalk = require('chalk')
 const path = require('path')
 const rimraf = require('rimraf')
 
-const packagesDir = path.resolve(__dirname, '..', 'packages')
-const buildConfigFileName = 'tsconfig.build.json'
-
-function getBuildTargets () {
-  const buildTargets = []
-  function traverse (dir) {
-    if (!fs.statSync(dir).isDirectory()) return
-    const fileList = fs.readdirSync(dir)
-    const configExists = fileList.includes(buildConfigFileName)
-    if (configExists) {
-      buildTargets.push(dir)
-      return
-    }
-    fileList.forEach(fileName => traverse(path.resolve(dir, fileName)))
-  }
-  traverse(packagesDir)
-  return buildTargets
-}
+const { buildConfigFileName } = require('./config')
+const { getBuildTargets } = require('./utils')
 
 const build = async (targetDir) => {
   const packageConfigFilePath = path.resolve(targetDir, 'package.json')

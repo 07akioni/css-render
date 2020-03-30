@@ -1,10 +1,24 @@
 {
   "name": "@css-render/plugin-bem",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "license": "MIT",
   "types": "./dist/index.d.ts",
+  "keywords": [
+    "css-render",
+    "css",
+    "style",
+    "css in js",
+    "css-in-js",
+    "bem"
+  ],
   "files": [
     "dist"
-  ]
+  ],
+  "author": "07akioni",
+  "homepage": "https://github.com/07akioni/css-render",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/07akioni/css-render"
+  }
 }
