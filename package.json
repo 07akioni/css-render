@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text --reporter=lcov ./node_modules/mocha/bin/mocha --reporter spec -r ts-node/register -r tsconfig-paths/register ./packages/**/*.spec.ts",
+    "test": "karma start karma.conf.js",
+    "test:cov": "npm run test && http-server ./coverage",
     "build": "node scripts/build.js"
   },
   "author": "07akioni",
@@ -19,6 +20,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "execa": "^4.0.0",
+    "http-server": "^0.12.1",
     "karma": "^4.4.1",
     "karma-chrome-launcher": "^3.1.0",
     "karma-mocha": "^1.3.0",

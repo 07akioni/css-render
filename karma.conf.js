@@ -17,7 +17,8 @@ module.exports = function (config) {
         module: 'commonjs'
       },
       reports: {
-        text: ''
+        text: '',
+        html: 'coverage'
       },
       tsconfig: './tsconfig.json'
     }
