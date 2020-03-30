@@ -2,6 +2,7 @@ const execa = require('execa')
 const fs = require('fs')
 const chalk = require('chalk')
 const path = require('path')
+const rimraf = require('rimraf')
 
 const packagesDir = path.resolve(__dirname, '..', 'packages')
 const buildConfigFileName = 'tsconfig.build.json'
@@ -23,9 +24,17 @@ function getBuildTargets () {
 }
 
 const build = async (targetDir) => {
-  const configFilePath = path.resolve(targetDir, 'package.json')
-  const config = require(configFilePath)
-  console.log('Building package [', config.name, ']')
+  const packageConfigFilePath = path.resolve(targetDir, 'package.json')
+  const packageConfig = require(packageConfigFilePath)
+  const buildConfigFilePath = path.resolve(targetDir, buildConfigFileName)
+  const buildConfig = require(buildConfigFilePath)
+  const outDir = buildConfig.compilerOptions && buildConfig.compilerOptions.outDir
+  if (outDir) {
+    rimraf.sync(path.resolve(targetDir, outDir))
+  } else {
+    throw Error('package [', packageConfig.name, '] has no outDir')
+  }
+  console.log('Building package [', packageConfig.name, ']')
   try {
     await execa('tsc', ['-b', buildConfigFileName], {
       cwd: targetDir
