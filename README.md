@@ -1,6 +1,4 @@
-# css-render
-![GitHub](https://img.shields.io/github/license/07akioni/css-render)
-[![Coverage Status](https://coveralls.io/repos/github/07akioni/css-render/badge.svg?branch=master)](https://coveralls.io/github/07akioni/css-render?branch=master)
+# css-render &middot; [![GitHub Liscense](https://img.shields.io/github/license/07akioni/css-render)]() [![Coverage Status](https://coveralls.io/repos/github/07akioni/css-render/badge.svg?branch=master)](https://coveralls.io/github/07akioni/css-render?branch=master)
 
 `css-render` is a library focusing on using JS to generate CSS at client side in a flexible and extensible way.
 
