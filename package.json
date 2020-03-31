@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "test": "karma start karma.conf.js",
     "test:cov": "npm run test && http-server ./coverage/html",
