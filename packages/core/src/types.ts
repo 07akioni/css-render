@@ -3,14 +3,14 @@ export interface CContext {
 }
 
 export interface CSelector {
-  beforeEnter?: (context: CContext) => any
-  afterLeave?: (context: CContext) => any
+  before?: (context: CContext) => any
+  after?: (context: CContext) => any
   selector: (context: CContext) => string
 }
 
 export interface CNode {
   path: string | CSelector
-  properties: CProperties | null
+  props: CProperties | null
   children: CNode[] | null
   instance: CSSRenderInstance
   render: () => string
@@ -23,8 +23,8 @@ export interface CProperties {
 export interface createCNode {
   (path: string | CSelector): CNode
   (path: string | CSelector, children: CNode[]): CNode
-  (path: string | CSelector, properties: CProperties): CNode
-  (path: string | CSelector, properties: CProperties, children: CNode[]): CNode
+  (path: string | CSelector, props: CProperties): CNode
+  (path: string | CSelector, props: CProperties, children: CNode[]): CNode
 }
 
 export interface CSSRenderInstance {

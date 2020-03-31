@@ -1,6 +1,6 @@
 {
   "name": "css-render",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "main": "dist/index.js",
   "module": "esm/index.js",
   "license": "MIT",
@@ -13,7 +13,8 @@
     "css-in-js"
   ],
   "files": [
-    "dist"
+    "dist",
+    "esm"
   ],
   "author": "07akioni",
   "homepage": "https://github.com/07akioni/css-render",

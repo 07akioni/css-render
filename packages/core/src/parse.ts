@@ -6,11 +6,10 @@ import {
 function resolveSelector (amp: string, selector: string): string {
   if (selector.includes(',')) {
     return selector.split(',').map(part => {
-      const trimmedPart = part
-      if (/&/g.test(trimmedPart)) {
-        return trimmedPart.replace(/&/g, amp)
+      if (/&/g.test(part)) {
+        return part.replace(/&/g, amp)
       } else {
-        return amp + ' ' + trimmedPart
+        return amp + ' ' + part
       }
     }).join(', ')
   } else if (/&/g.test(selector)) {

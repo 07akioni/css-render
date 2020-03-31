@@ -20,7 +20,7 @@
       "DOM"
     ],
     "strict": true,
-    "target": "ESNext"
+    "target": "ES6"
   },
   "include": [
     "packages/**/*",

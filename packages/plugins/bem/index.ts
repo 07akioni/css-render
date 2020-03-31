@@ -41,13 +41,13 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
     let memorizedB: string | null
     let memorizedE: string | null
     return {
-      beforeEnter (ctx) {
+      before (ctx) {
         memorizedB = ctx.bem.block
         memorizedE = ctx.bem.elements
         ctx.bem.block = arg
         ctx.bem.elements = null
       },
-      afterLeave (ctx) {
+      after (ctx) {
         ctx.bem.block = memorizedB
         ctx.bem.elements = memorizedE
       },
@@ -60,14 +60,14 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
   function e (arg: string): CSelector {
     let memorizedE: string | null
     return {
-      beforeEnter (ctx) {
+      before (ctx) {
         if (ctx.bem.elements !== null) {
           throw Error('[css-render/plugin-bem/e]: nested element is not allowed')
         }
         memorizedE = ctx.bem.elements
         ctx.bem.elements = arg.split(',').map(v => v.trim())
       },
-      afterLeave (ctx) {
+      after (ctx) {
         ctx.bem.elements = memorizedE
       },
       selector (ctx) {
@@ -117,10 +117,10 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
     }
   }
 
-  const hB = ((...args: any[]) => h(b(args[0]), args[1], args[2])) as createCNode
-  const hE = ((...args: any[]) => h(e(args[0]), args[1], args[2])) as createCNode
-  const hM = ((...args: any[]) => h(m(args[0]), args[1], args[2])) as createCNode
-  const hNotM = ((...args: any[]) => h(notM(args[0]), args[1], args[2])) as createCNode
+  const hB = ((...a: any[]) => h(b(a[0]), a[1], a[2])) as createCNode
+  const hE = ((...a: any[]) => h(e(a[0]), a[1], a[2])) as createCNode
+  const hM = ((...a: any[]) => h(m(a[0]), a[1], a[2])) as createCNode
+  const hNotM = ((...a: any[]) => h(notM(a[0]), a[1], a[2])) as createCNode
 
   Object.assign(plugin, {
     b, e, m, notM, hB, hE, hM, hNotM

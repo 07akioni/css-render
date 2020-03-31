@@ -9,20 +9,18 @@ import { parseSelectorPath } from './parse'
 const kebabRegex = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
 
 function kebabCase (pattern: string): string {
-  return pattern.replace(kebabRegex, function (match) {
-    return '-' + match.toLowerCase()
-  })
+  return pattern.replace(kebabRegex, match => '-' + match.toLowerCase())
 }
 
 function createStyle (
   selector: string,
-  properties: CProperties | null,
+  props: CProperties | null,
   instance: CSSRenderInstance
 ): string | null {
-  if (properties === null) {
+  if (props === null) {
     return null
   }
-  const propertyNames = Object.keys(properties)
+  const propertyNames = Object.keys(props)
   if (propertyNames.length === 0) {
     if (instance.config.preserveEmptyBlock) return selector + ' {}'
     return null
@@ -31,7 +29,7 @@ function createStyle (
     selector + ' {'
   ]
   propertyNames.forEach(propertyName => {
-    const property = properties[propertyName]
+    const property = props[propertyName]
     const unwrappedProperty: string = String(typeof property === 'function' ? property() : property)
     propertyName = kebabCase(propertyName)
     statements.push(`  ${propertyName}: ${unwrappedProperty};`)
@@ -49,11 +47,11 @@ function traverse (
   const pathIsString = typeof node.path === 'string'
   if (pathIsString) paths.push(node.path)
   else {
-    if ((node.path as CSelector).beforeEnter !== undefined) ((node.path as CSelector).beforeEnter as Function)(instance.context)
+    if ((node.path as CSelector).before !== undefined) ((node.path as CSelector).before as Function)(instance.context)
     paths.push((node.path as CSelector).selector(instance.context))
   }
   const selector = parseSelectorPath(paths, instance)
-  const style = createStyle(selector, node.properties, instance)
+  const style = createStyle(selector, node.props, instance)
   if (style !== null) styles.push(style)
   if (node.children !== null) {
     node.children.forEach(childNode => {
@@ -61,7 +59,7 @@ function traverse (
     })
   }
   paths.pop()
-  if (!pathIsString && (node.path as CSelector).afterLeave !== undefined) ((node.path as CSelector).afterLeave as Function)(instance.context)
+  if (!pathIsString && (node.path as CSelector).after !== undefined) ((node.path as CSelector).after as Function)(instance.context)
 }
 
 export function render (node: CNode, instance: CSSRenderInstance): string {
