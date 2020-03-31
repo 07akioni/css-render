@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import {
   CSelector,
   CSSRenderPlugin,
@@ -15,25 +17,28 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
   let _ePrefix: string = '__'
   let _mPrefix: string = '--'
   let h: createCNode
-
-  if (options !== undefined) {
-    if (options.blockPrefix !== undefined) {
-      _bPrefix = options.blockPrefix
+  if (options) {
+    let t = options.blockPrefix
+    if (t) {
+      _bPrefix = t
     }
-    if (options.elementPrefix !== undefined) {
-      _ePrefix = options.elementPrefix
+    t = options.elementPrefix
+    if (t) {
+      _ePrefix = t
     }
-    if (options.modifierPrefix !== undefined) {
-      _mPrefix = options.modifierPrefix
+    t = options.modifierPrefix
+    if (t) {
+      _mPrefix = t
     }
   }
 
   const plugin: CSSRenderPlugin = {
     install (instance) {
       h = instance.h
-      instance.context.bem = {}
-      instance.context.bem.block = null
-      instance.context.bem.elements = null
+      const ctx = instance.context
+      ctx.bem = {}
+      ctx.bem.block = null
+      ctx.bem.elements = null
     }
   }
 
@@ -101,7 +106,7 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
     }
   }
 
-  const notM = function (arg: string): CSelector {
+  function notM (arg: string): CSelector {
     return {
       selector (ctx) {
         const els = ctx.bem.elements as null | string[]
@@ -117,10 +122,10 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
     }
   }
 
-  const hB = ((...a: any[]) => h(b(a[0]), a[1], a[2])) as createCNode
-  const hE = ((...a: any[]) => h(e(a[0]), a[1], a[2])) as createCNode
-  const hM = ((...a: any[]) => h(m(a[0]), a[1], a[2])) as createCNode
-  const hNotM = ((...a: any[]) => h(notM(a[0]), a[1], a[2])) as createCNode
+  const hB = ((...args: any[]) => h(b(args[0]), args[1], args[2])) as createCNode
+  const hE = ((...args: any[]) => h(e(args[0]), args[1], args[2])) as createCNode
+  const hM = ((...args: any[]) => h(m(args[0]), args[1], args[2])) as createCNode
+  const hNotM = ((...args: any[]) => h(notM(args[0]), args[1], args[2])) as createCNode
 
   Object.assign(plugin, {
     b, e, m, notM, hB, hE, hM, hNotM

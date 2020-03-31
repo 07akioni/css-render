@@ -3,7 +3,8 @@ import {
   CSSRenderInstance
 } from './types'
 
-function resolveSelector (amp: string, selector: string): string {
+/** resolve selector */
+function r$ (amp: string, selector: string): string {
   if (selector.includes(',')) {
     return selector.split(',').map(part => {
       if (/&/g.test(part)) {
@@ -19,7 +20,8 @@ function resolveSelector (amp: string, selector: string): string {
   }
 }
 
-export function parseSelectorPath (
+/** parse selector path */
+export function p$p (
   selectors: Array<string | CSelector>,
   instance: CSSRenderInstance
 ): string {
@@ -29,10 +31,10 @@ export function parseSelectorPath (
     if (/,/g.test(amp)) {
       amp = amp
         .split(',')
-        .map(ampPart => resolveSelector(ampPart, adpatedSelector))
+        .map(ampPart => r$(ampPart, adpatedSelector))
         .join(', ')
     } else {
-      amp = resolveSelector(amp, adpatedSelector)
+      amp = r$(amp, adpatedSelector)
     }
   })
   return amp.trim().replace(/\s+/g, ' ')

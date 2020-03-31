@@ -4,15 +4,18 @@ import {
   CSelector,
   CSSRenderInstance
 } from './types'
-import { parseSelectorPath } from './parse'
+import { p$p } from './parse'
 
-const kebabRegex = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
+/** kebab regex */
+const kr = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
 
-function kebabCase (pattern: string): string {
-  return pattern.replace(kebabRegex, match => '-' + match.toLowerCase())
+/** kebab case */
+function kc (pattern: string): string {
+  return pattern.replace(kr, match => '-' + match.toLowerCase())
 }
 
-function createStyle (
+/** create style */
+function cs (
   selector: string,
   props: CProperties | null,
   instance: CSSRenderInstance
@@ -31,7 +34,7 @@ function createStyle (
   propertyNames.forEach(propertyName => {
     const property = props[propertyName]
     const unwrappedProperty: string = String(typeof property === 'function' ? property() : property)
-    propertyName = kebabCase(propertyName)
+    propertyName = kc(propertyName)
     statements.push(`  ${propertyName}: ${unwrappedProperty};`)
   })
   statements.push('}')
@@ -50,8 +53,8 @@ function traverse (
     if ((node.path as CSelector).before !== undefined) ((node.path as CSelector).before as Function)(instance.context)
     paths.push((node.path as CSelector).selector(instance.context))
   }
-  const selector = parseSelectorPath(paths, instance)
-  const style = createStyle(selector, node.props, instance)
+  const selector = p$p(paths, instance)
+  const style = cs(selector, node.props, instance)
   if (style !== null) styles.push(style)
   if (node.children !== null) {
     node.children.forEach(childNode => {
