@@ -41,7 +41,8 @@ function cs (
   return statements.join('\n')
 }
 
-function traverse (
+/** traverse */
+function t (
   node: CNode,
   paths: Array<string | CSelector>,
   styles: string[],
@@ -51,14 +52,14 @@ function traverse (
   if (pathIsString) paths.push(node.path)
   else {
     if ((node.path as CSelector).before !== undefined) ((node.path as CSelector).before as Function)(instance.context)
-    paths.push((node.path as CSelector).selector(instance.context))
+    paths.push((node.path as CSelector).$(instance.context))
   }
   const selector = p$p(paths, instance)
   const style = cs(selector, node.props, instance)
   if (style !== null) styles.push(style)
   if (node.children !== null) {
     node.children.forEach(childNode => {
-      traverse(childNode, paths, styles, instance)
+      t(childNode, paths, styles, instance)
     })
   }
   paths.pop()
@@ -67,6 +68,6 @@ function traverse (
 
 export function render (node: CNode, instance: CSSRenderInstance): string {
   const styles: string[] = []
-  traverse(node, [], styles, instance)
+  t(node, [], styles, instance)
   return styles.join('\n')
 }

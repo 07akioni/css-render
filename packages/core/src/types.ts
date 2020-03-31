@@ -5,7 +5,7 @@ export interface CContext {
 export interface CSelector {
   before?: (context: CContext) => any
   after?: (context: CContext) => any
-  selector: (context: CContext) => string
+  $: (context: CContext) => string
 }
 
 export interface CNode {

@@ -12,7 +12,7 @@ interface BEMPluginOptions {
   modifierPrefix?: string
 }
 
-export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRenderPlugin {
+export default function BEMPlguin (options?: BEMPluginOptions): CSSRenderPlugin {
   let _bPrefix: string = '.'
   let _ePrefix: string = '__'
   let _mPrefix: string = '--'
@@ -56,7 +56,7 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
         ctx.bem.block = memorizedB
         ctx.bem.elements = memorizedE
       },
-      selector (ctx) {
+      $ (ctx) {
         return `${_bPrefix}${ctx.bem.block as string}`
       }
     }
@@ -75,7 +75,7 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
       after (ctx) {
         ctx.bem.elements = memorizedE
       },
-      selector (ctx) {
+      $ (ctx) {
         return (ctx.bem.elements as string[])
           .map(el => `${_bPrefix}${ctx.bem.block as string}__${el}`).join(', ')
       }
@@ -84,7 +84,7 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
 
   function m (arg: string): CSelector {
     return {
-      selector (ctx) {
+      $ (ctx) {
         const modifiers = arg.split(',').map(v => v.trim())
         function elementToSelector (el?: string): string {
           return modifiers.map(modifier => `&${_bPrefix}${ctx.bem.block as string}${
@@ -108,7 +108,7 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
 
   function notM (arg: string): CSelector {
     return {
-      selector (ctx) {
+      $ (ctx) {
         const els = ctx.bem.elements as null | string[]
         if (process.env.NODE_ENV !== 'production' && els !== null && els.length >= 2) {
           throw Error(

@@ -27,7 +27,7 @@ export function p$p (
 ): string {
   let amp = ''
   selectors.forEach(selector => {
-    const adpatedSelector = typeof selector === 'string' ? selector : selector.selector(instance.context)
+    const adpatedSelector = typeof selector === 'string' ? selector : selector.$(instance.context)
     if (/,/g.test(amp)) {
       amp = amp
         .split(',')
