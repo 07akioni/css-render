@@ -1,9 +1,9 @@
 import {
   CNode,
   CProperties,
-  CSelector
+  CSelector,
+  CSSRenderInstance
 } from './types'
-import { CSSRenderInstance } from './CSSRender'
 import { parseSelectorPath } from './parse'
 
 const kebabRegex = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g

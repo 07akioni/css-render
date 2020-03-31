@@ -2,9 +2,9 @@ import {
   CSelector,
   CNode,
   CProperties,
-  CContext
+  CContext,
+  CSSRenderInstance
 } from './types'
-import { CSSRenderInstance } from './CSSRender'
 import { render } from './render'
 
 export interface createInstanceCNode {

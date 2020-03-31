@@ -1,7 +1,7 @@
 import {
-  CSelector
+  CSelector,
+  CSSRenderInstance
 } from './types'
-import { CSSRenderInstance } from './CSSRender'
 
 function resolveSelector (amp: string, selector: string): string {
   if (selector.includes(',')) {

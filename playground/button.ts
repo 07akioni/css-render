@@ -1,6 +1,5 @@
-import CSSRender from 'css-render'
+import { CSSRender, CNode } from 'css-render'
 import CSSRenderBEMPlugin from '@css-render/plugins/bem/index'
-import { CNode } from '@css-render/core/src/types'
 
 const cssr = CSSRender()
 const plugin = CSSRenderBEMPlugin()

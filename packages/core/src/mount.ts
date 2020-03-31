@@ -1,7 +1,7 @@
 import {
-  CNode
+  CNode,
+  CSSRenderInstance
 } from './types'
-import { CSSRenderInstance } from './CSSRender'
 
 export function mount (
   nodes: CNode[] | CNode,
