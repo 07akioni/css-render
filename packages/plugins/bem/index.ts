@@ -61,7 +61,7 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
     let memorizedE: string | null
     return {
       before (ctx) {
-        if (ctx.bem.elements !== null) {
+        if (process.env.NODE_ENV !== 'production' && ctx.bem.elements !== null) {
           throw Error('[css-render/plugin-bem/e]: nested element is not allowed')
         }
         memorizedE = ctx.bem.elements
@@ -88,7 +88,7 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
         }
         const els = ctx.bem.elements
         if (els !== null) {
-          if (els.length >= 2) {
+          if (process.env.NODE_ENV !== 'production' && els.length >= 2) {
             throw Error(
               '[css-render/plugin-bem/m]: using modifier inside multiple elements is not allowed'
             )
@@ -105,7 +105,7 @@ export default function CSSRenderBEMPlugin (options?: BEMPluginOptions): CSSRend
     return {
       selector (ctx) {
         const els = ctx.bem.elements as null | string[]
-        if (els !== null && els.length >= 2) {
+        if (process.env.NODE_ENV !== 'production' && els !== null && els.length >= 2) {
           throw Error(
             '[css-render/plugin-bem/notM]: using modifier inside multiple elements is not allowed'
           )

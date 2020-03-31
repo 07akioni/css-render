@@ -1,11 +1,11 @@
 {
-  "version": "0.0.4",
+  "version": "0.0.8",
   "scripts": {
     "test": "karma start karma.conf.js",
     "test:cov": "npm run test && http-server ./coverage/html",
     "lint": "eslint \"packages/**/*.{ts|js}\" \"scripts/**/*.js\" --no-error-on-unmatched-pattern",
     "build": "node scripts/build.js",
-    "release": "node scripts/release.js"
+    "release": "npm run build && node scripts/release.js"
   },
   "author": "07akioni",
   "devDependencies": {
