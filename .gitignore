@@ -5,5 +5,6 @@ coverage
 yarn.lock
 dist
 **/*/dist
+**/*/esm
 .vscode
 .DS_Store

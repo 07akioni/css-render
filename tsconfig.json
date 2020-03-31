@@ -2,10 +2,9 @@
   "compilerOptions": {
     "baseUrl": "./packages",
     "sourceMap": false,
-    "esModuleInterop": true,
     "moduleResolution": "node",
     "allowJs": false,
-    "module": "commonjs",
+    "module": "ESNext",
     "declaration": true,
     "outDir": "./dist",
     "paths": {

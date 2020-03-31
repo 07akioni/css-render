@@ -1,6 +1,6 @@
 const path = require('path')
 
 module.exports = {
-  buildConfigFileName: 'tsconfig.build.json',
+  buildConfigFileNames: ['tsconfig.build.cjs.json', 'tsconfig.build.esm.json'],
   packagesDir: path.resolve(__dirname, '..', 'packages')
 }
