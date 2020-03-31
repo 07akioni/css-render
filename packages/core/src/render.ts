@@ -14,6 +14,19 @@ function kc (pattern: string): string {
   return pattern.replace(kr, match => '-' + match.toLowerCase())
 }
 
+/** upwrap property */
+/** TODO: refine it */
+function up (prop: string | number | object, indent: string = '  '): string {
+  if (typeof prop === 'object') {
+    return (
+      ' {\n' +
+      Object.entries(prop).map(v => indent + `  ${kc(v[0])}: ${v[1] as string};`).join('\n') +
+      '\n' + indent + '}'
+    )
+  }
+  return `: ${String(prop)};`
+}
+
 /** create style */
 function cs (
   selector: string,
@@ -33,9 +46,9 @@ function cs (
   ]
   propertyNames.forEach(propertyName => {
     const property = props[propertyName]
-    const unwrappedProperty: string = String(typeof property === 'function' ? property() : property)
+    const unwrappedProperty: string | number | object = typeof property === 'function' ? property() : property
     propertyName = kc(propertyName)
-    statements.push(`  ${propertyName}: ${unwrappedProperty};`)
+    statements.push(`  ${propertyName}${up(unwrappedProperty)}`)
   })
   statements.push('}')
   return statements.join('\n')
@@ -69,5 +82,5 @@ function t (
 export function render (node: CNode, instance: CSSRenderInstance): string {
   const styles: string[] = []
   t(node, [], styles, instance)
-  return styles.join('\n')
+  return styles.join('\n\n')
 }
