@@ -17,7 +17,7 @@ export interface CNode {
 }
 
 export interface CProperties {
-  [propertyName: string]: string | number | (() => string | number)
+  [propertyName: string]: string | number | object | (() => string | number | object)
 }
 
 export interface createCNode {

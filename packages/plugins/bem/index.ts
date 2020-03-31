@@ -12,7 +12,18 @@ interface BEMPluginOptions {
   modifierPrefix?: string
 }
 
-export default function BEMPlguin (options?: BEMPluginOptions): CSSRenderPlugin {
+interface CSSRenderBEMPlugin extends CSSRenderPlugin {
+  b: CSelector
+  e: CSelector
+  m: CSelector
+  notM: CSelector
+  hB: createCNode
+  hE: createCNode
+  hM: createCNode
+  hNotM: createCNode
+}
+
+function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
   let _bPrefix: string = '.'
   let _ePrefix: string = '__'
   let _mPrefix: string = '--'
@@ -32,7 +43,7 @@ export default function BEMPlguin (options?: BEMPluginOptions): CSSRenderPlugin 
     }
   }
 
-  const plugin: CSSRenderPlugin = {
+  const _plugin: CSSRenderPlugin = {
     install (instance) {
       h = instance.h
       const ctx = instance.context
@@ -67,7 +78,7 @@ export default function BEMPlguin (options?: BEMPluginOptions): CSSRenderPlugin 
     return {
       before (ctx) {
         if (process.env.NODE_ENV !== 'production' && ctx.bem.elements !== null) {
-          throw Error('[css-render/plugin-bem/e]: nested element is not allowed')
+          throw Error('[css-render/_plugin-bem/e]: nested element is not allowed')
         }
         memorizedE = ctx.bem.elements
         ctx.bem.elements = arg.split(',').map(v => v.trim())
@@ -95,7 +106,7 @@ export default function BEMPlguin (options?: BEMPluginOptions): CSSRenderPlugin 
         if (els !== null) {
           if (process.env.NODE_ENV !== 'production' && els.length >= 2) {
             throw Error(
-              '[css-render/plugin-bem/m]: using modifier inside multiple elements is not allowed'
+              '[css-render/_plugin-bem/m]: using modifier inside multiple elements is not allowed'
             )
           }
           return elementToSelector(els[0])
@@ -112,7 +123,7 @@ export default function BEMPlguin (options?: BEMPluginOptions): CSSRenderPlugin 
         const els = ctx.bem.elements as null | string[]
         if (process.env.NODE_ENV !== 'production' && els !== null && els.length >= 2) {
           throw Error(
-            '[css-render/plugin-bem/notM]: using modifier inside multiple elements is not allowed'
+            '[css-render/_plugin-bem/notM]: using modifier inside multiple elements is not allowed'
           )
         }
         return `&:not(${_bPrefix}${ctx.bem.block as string}${
@@ -127,9 +138,12 @@ export default function BEMPlguin (options?: BEMPluginOptions): CSSRenderPlugin 
   const hM = ((...args: any[]) => h(m(args[0]), args[1], args[2])) as createCNode
   const hNotM = ((...args: any[]) => h(notM(args[0]), args[1], args[2])) as createCNode
 
-  Object.assign(plugin, {
+  Object.assign(_plugin, {
     b, e, m, notM, hB, hE, hM, hNotM
   })
 
-  return plugin
+  return _plugin as CSSRenderBEMPlugin
 }
+
+export { plugin }
+export default plugin

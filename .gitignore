@@ -6,5 +6,6 @@ yarn.lock
 dist
 **/*/dist
 **/*/esm
+playground/*.css
 .vscode
 .DS_Store
