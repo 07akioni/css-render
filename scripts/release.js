@@ -5,10 +5,16 @@ const execa = require('execa')
 const packageConfig = require('../package.json')
 const { getBuildTargets } = require('./utils')
 
-function updateVersion (filePath, version) {
+function updateSubmodulePackageJSON (filePath, packageConfig) {
   const config = require(filePath)
   console.log('  Update version of package [', config.name, ']')
-  config.version = version
+  config.version = packageConfig.version
+  /**
+   * Maybe later I need to update dependencies automatically.
+   * So keep the code here waiting to be refined.
+   * console.log('  Update dependencies of package [', config.name, ']')
+   * config.dependencies = packageConfig.dependencies
+   */
   fs.writeFileSync(filePath, JSON.stringify(config, 0, 2))
 }
 
@@ -16,9 +22,9 @@ async function main () {
   const buildTargets = getBuildTargets()
   console.log('Update version', packageConfig.version)
   buildTargets.forEach(target => {
-    updateVersion(
+    updateSubmodulePackageJSON(
       path.resolve(target, 'package.json'),
-      packageConfig.version
+      packageConfig
     )
   })
   console.log()

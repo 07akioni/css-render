@@ -1,6 +1,5 @@
 {
   "name": "css-render",
-  "version": "0.1.1",
   "main": "dist/index.js",
   "module": "esm/index.js",
   "license": "MIT",
@@ -21,5 +20,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/07akioni/css-render"
+  },
+  "version": "0.1.6",
+  "dependencies": {
+    "csstype": "^2.6.10"
   }
 }

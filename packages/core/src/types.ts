@@ -1,6 +1,6 @@
 import {
   Properties
-} from 'csstype/index'
+} from 'csstype'
 
 export interface CContext {
   [key: string]: any

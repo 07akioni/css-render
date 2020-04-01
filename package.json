@@ -1,6 +1,7 @@
 {
-  "version": "0.1.2",
+  "version": "0.1.6",
   "scripts": {
+    "init:playground": "node scripts/initPlayground.js",
     "test": "node scripts/beforeTest && karma start karma.conf.js",
     "test:cov": "npm run test && http-server ./coverage/html",
     "lint": "eslint \"packages/**/*.{ts|js}\" \"scripts/**/*.js\" --no-error-on-unmatched-pattern",
@@ -15,6 +16,7 @@
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
     "chai": "^4.2.0",
+    "csstype": "^2.6.10",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-config-standard-with-typescript": "^15.0.0",
@@ -32,12 +34,10 @@
     "mocha": "^7.1.1",
     "puppeteer": "^2.1.1",
     "rimraf": "^3.0.2",
+    "shelljs": "^0.8.3",
     "ts-node": "^8.7.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.8.3",
     "typescript-transform-paths": "^1.1.14"
-  },
-  "dependencies": {
-    "csstype": "^2.6.10"
   }
 }

@@ -3,4 +3,5 @@
 3. declarationMap, tsbuildinfo 都是什么玩意？Project Reference 又是啥？
 4. <del>可能把 render 方法放在 CNode 上比较好</del>✅
 5. 插件 API 是不是友好？把 selector 换成 $ 可以带来 1% 左右的打包尺寸提升，emmmm，十分困扰，是要维持还说换呢
-6. 对属性的类型得写的严谨一点
+6. <del>对属性的类型得写的严谨一点</del> <del>通过 `csstype` 包已经解决了这个问题，可是关键是为啥本地 typescript 就不能帮我 resolve 正确的类型呢？我没法在这个文件夹内部测试啊！！！搞的只能 xjb 涨 npm 版本号（这必然也是个错误的行为）</del> 我通过软连接解决这个问题了，似乎是一个说的过去的解决方案...
+7. `karma-typescript` 似乎有个 bug，没法正确的 resolve 一个只包含 index.d.ts 的 npm 包！麻烦

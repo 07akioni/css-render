@@ -1,5 +1,5 @@
-const { CSSRender } = require('../packages/core/dist')
-const { plugin } = require('../packages/plugins/bem/dist')
+const { CSSRender } = require('css-render')
+const { plugin } = require('@css-render/plugin-bem')
 
 const cssr = CSSRender()
 const bemPlugin = plugin({
@@ -247,11 +247,11 @@ function buttonRippleMixin (type) {
   ]
 }
 
-const {
-  performance
-} = require('perf_hooks')
+// const {
+//   performance
+// } = require('perf_hooks')
 
-const start = performance.now()
+// const start = performance.now()
 
 /** ripple */
 const rippleStyle = Object.keys(buttonType).map(type => {
@@ -447,7 +447,7 @@ const buttonGroupStyle = hB('button-group', {
   ])
 ]).render()
 
-const end = performance.now()
+// const end = performance.now()
 
 console.log(rippleStyle)
 console.log(buttonStyle)
