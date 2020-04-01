@@ -247,15 +247,209 @@ function buttonRippleMixin (type) {
   ]
 }
 
-Object.keys(buttonType).forEach(type => {
-  buttonRippleMixin(type).forEach(style => {
-    console.log(style.render())
-  })
-})
+const {
+  performance
+} = require('perf_hooks')
 
-console.log(hB('button', [
+const start = performance.now()
+
+/** ripple */
+const rippleStyle = Object.keys(buttonType).map(type => {
+  return buttonRippleMixin(type).map(style => {
+    return style.render()
+  }).join('\n')
+}).join('\n')
+
+/** button */
+const buttonStyle = hB('button', {
+  boxSizing: 'border-box',
+  outline: 'none',
+  position: 'relative',
+  zIndex: 'auto',
+  fontFamily: 'inherit',
+  display: 'inline-block',
+  alignItems: 'center',
+  justifyContent: 'center',
+  userSelect: 'none',
+  textAlign: 'center',
+  transition: `
+    background-color .3s ease-in-out,
+    opacity .3s ease-in-out,
+    border-color .3s ease-in-out
+  `,
+  cursor: 'pointer'
+}, [
+  h('&::after', {
+    pointerEvents: 'none',
+    content: '\'\'',
+    borderRadius: 'inherit',
+    position: 'absolute',
+    left: '-1px',
+    top: '-1px',
+    right: '-1px',
+    bottom: '-1px'
+  }),
+  hE('border-mask', {
+    position: 'absolute',
+    left: '-1px',
+    top: '-1px',
+    right: '-1px',
+    bottom: '-1px',
+    borderRadius: 'inherit',
+    boxShadow: 'inset 0 0 0 1px transparent',
+    transition: 'box-shadow .3s $--n-ease-in-out-cubic-bezier',
+    pointerEvents: 'none',
+    zIndex: 1
+  }),
+  hE('icon', {
+    transition: 'color .3s $--n-ease-in-out-cubic-bezier'
+  }),
+  hE('content', {
+    whiteSpace: 'nowrap',
+    transition: 'color .3s $--n-ease-in-out-cubic-bezier'
+  }),
+  hM('left-icon', [
+    hE('icon', {
+      marginRight: '6px'
+    })
+  ]),
+  hM('right-icon', [
+    hE('icon', {
+      marginLeft: '6px'
+    })
+  ]),
+  hM('block', {
+    display: 'block',
+    width: '100%'
+  }),
+  hM('loading', {
+    display: 'block',
+    width: '100%'
+  }),
+  hM('disabled', {
+    cursor: 'not-allowed'
+  }),
+  h('&::-moz-focus-inner', {
+    border: 0
+  }),
   buttonSizeMixin('small'),
   buttonSizeMixin('medium'),
   buttonSizeMixin('large'),
   ...Object.keys(buttonType).map(type => buttonTypeMixin(type))
-]).render())
+]).render()
+
+const buttonGroupStyle = hB('button-group', {
+  whiteSpace: 'nowrap',
+  display: 'inline-block',
+  position: 'relative'
+}, [
+  hNotM('vertical', {
+    display: 'flex',
+    flexWrap: 'nowrap'
+  }, [
+    hE('button', {
+      flexGrow: 1
+    }),
+    hB('button', [
+      h('&:first-child:not(:last-child)', {
+        marginRight: '0 !important',
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0
+      }),
+      h('&:last-child:not(:first-child)', {
+        marginLeft: '0 !important',
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0
+      }),
+      h('&:not(first-child):not(:last-child)', {
+        marginLeft: '0 !important',
+        marginRight: '0 !important',
+        borderRadius: '0 !important'
+      }),
+      hM('default-type', [
+        h('& +', [
+          hB('button', [
+            hM('default-type', {
+              borderLeftWidth: 0
+            })
+          ])
+        ])
+      ]),
+      hM('ghost', [
+        ...[
+          'primary',
+          'info',
+          'success',
+          'warning',
+          'error'
+        ].map(v => hM(v + '-type', [
+          h('& +', [
+            hB('button', [
+              hM('default-type', {
+                borderLeftWidth: 0
+              })
+            ])
+          ])
+        ]))
+      ])
+    ])
+  ]),
+  hM('vertical', {
+    display: 'inline-flex',
+    flexDirection: 'column'
+  }, [
+    hB('button', [
+      h('&:first-child:not(:last-child)', {
+        marginBottom: '0 !important',
+        marginLeft: '0 !important',
+        marginRight: '0 !important',
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0
+      }),
+      h('&:last-child:not(:first-child)', {
+        marginTop: '0 !important',
+        marginLeft: '0 !important',
+        marginRight: '0 !important',
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0
+      }),
+      h('&:not(first-child):not(:last-child)', {
+        margin: '0 !important',
+        borderRadius: '0 !important'
+      }),
+      hM('default-type', [
+        h('& +', [
+          hB('button', [
+            hM('default-type', {
+              borderTopWidth: 0
+            })
+          ])
+        ])
+      ]),
+      hM('ghost', [
+        ...[
+          'primary',
+          'info',
+          'success',
+          'warning',
+          'error'
+        ].map(v => hM(v + '-type', [
+          h('& +', [
+            hB('button', [
+              hM('default-type', {
+                borderTopWidth: 0
+              })
+            ])
+          ])
+        ]))
+      ])
+    ])
+  ])
+]).render()
+
+const end = performance.now()
+
+console.log(rippleStyle)
+console.log(buttonStyle)
+console.log(buttonGroupStyle)
+// console.log(end - start)

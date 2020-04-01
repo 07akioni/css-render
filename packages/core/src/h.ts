@@ -7,7 +7,7 @@ import {
 } from './types'
 import { render } from './render'
 
-export interface createInstanceCNode {
+export interface createCNodeInstance {
   (instance: CSSRenderInstance, path: string | CSelector): CNode
   (instance: CSSRenderInstance, path: string | CSelector, children: CNode[]): CNode
   (instance: CSSRenderInstance, path: string | CSelector, props: CProperties): CNode
@@ -18,7 +18,7 @@ function _r (this: CNode): string {
   return render(this, this.instance)
 }
 
-export const h: createInstanceCNode = function (
+export const h: createCNodeInstance = function (
   instance: CSSRenderInstance,
   path: any,
   props: any,
@@ -59,7 +59,7 @@ export const h: createInstanceCNode = function (
       }
     }
   }
-} as createInstanceCNode
+} as createCNodeInstance
 
 export {
   CSelector,

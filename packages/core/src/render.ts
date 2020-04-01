@@ -2,7 +2,8 @@ import {
   CNode,
   CProperties,
   CSelector,
-  CSSRenderInstance
+  CSSRenderInstance,
+  CProperty
 } from './types'
 import { p$p } from './parse'
 
@@ -20,7 +21,9 @@ function up (prop: string | number | object, indent: string = '  '): string {
   if (typeof prop === 'object') {
     return (
       ' {\n' +
-      Object.entries(prop).map(v => indent + `  ${kc(v[0])}: ${v[1] as string};`).join('\n') +
+      Object.entries(prop).map(v => {
+        return indent + `  ${kc(v[0])}: ${v[1] as string};`
+      }).join('\n') +
       '\n' + indent + '}'
     )
   }
@@ -46,9 +49,11 @@ function cs (
   ]
   propertyNames.forEach(propertyName => {
     const property = props[propertyName]
-    const unwrappedProperty: string | number | object = typeof property === 'function' ? property() : property
+    const unwrappedProperty: CProperty = typeof property === 'function' ? property() : property
     propertyName = kc(propertyName)
-    statements.push(`  ${propertyName}${up(unwrappedProperty)}`)
+    if (unwrappedProperty !== undefined) {
+      statements.push(`  ${propertyName}${up(unwrappedProperty)}`)
+    }
   })
   statements.push('}')
   return statements.join('\n')

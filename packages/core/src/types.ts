@@ -1,3 +1,7 @@
+import {
+  Properties
+} from 'csstype'
+
 export interface CContext {
   [key: string]: any
 }
@@ -16,8 +20,10 @@ export interface CNode {
   render: () => string
 }
 
-export interface CProperties {
-  [propertyName: string]: string | number | object | (() => string | number | object)
+export type CProperty = CProperties | string | number | undefined
+
+export interface CProperties extends Properties<string | number> {
+  [nonPropertyLiteral: string]: CProperty | (() => CProperty)
 }
 
 export interface createCNode {
@@ -40,7 +46,6 @@ export interface CSSRenderInstance {
 
 export interface CSSRenderPlugin {
   install: (instance: CSSRenderInstance, ...args: any[]) => void
-  [key: string]: any
 }
 
 export interface CSSRenderConfig {
