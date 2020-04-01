@@ -17,7 +17,7 @@ function kc (pattern: string): string {
 
 /** upwrap property */
 /** TODO: refine it */
-function up (prop: string | number | object, indent: string = '  '): string {
+function up (prop: CProperty, indent: string = '  '): string {
   if (typeof prop === 'object') {
     return (
       ' {\n' +

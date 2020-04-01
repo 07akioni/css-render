@@ -3,6 +3,8 @@ const path = require('path')
 
 /** soft link bundle package to node_modules, it makes test locally possible */
 
+/** DONT FORGET TO REMOVE LINKS BEFORE TESTING, THEY WILL CONFUSE MODULE RESOLVER */
+
 shell.ln('-sf',
   path.resolve(__dirname, '..', 'packages', 'core'),
   path.resolve(__dirname, '..', 'node_modules', 'css-render')

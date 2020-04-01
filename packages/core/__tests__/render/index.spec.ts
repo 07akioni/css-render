@@ -52,4 +52,28 @@ describe('#render', () => {
       width: 100%;
     }`)
   })
+  it('should render as excepted(3)', () => {
+    assertEqual(
+      h('@keyframes what-a-good-animation', {
+        from: {
+          color: 'white',
+          backgroundColor: 'black'
+        },
+        to: {
+          color: 'black',
+          backgroundColor: 'white'
+        }
+      }).render(),
+      `@keyframes what-a-good-animation {
+        from {
+          color: white;
+          background-color: black;
+        }
+        to {
+          color: black;
+          background-color: white;
+        }
+      }`
+    )
+  })
 })
