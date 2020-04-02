@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import {
-  CSelector,
+  CNodeOptions,
   CSSRenderPlugin,
   createCNode
 } from 'css-render'
@@ -13,10 +13,6 @@ interface BEMPluginOptions {
 }
 
 interface CSSRenderBEMPlugin extends CSSRenderPlugin {
-  b: CSelector
-  e: CSelector
-  m: CSelector
-  notM: CSelector
   hB: createCNode
   hE: createCNode
   hM: createCNode
@@ -53,7 +49,7 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     }
   }
 
-  function b (arg: string): CSelector {
+  function b (arg: string): CNodeOptions {
     let memorizedB: string | null
     let memorizedE: string | null
     return {
@@ -73,7 +69,7 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     }
   }
 
-  function e (arg: string): CSelector {
+  function e (arg: string): CNodeOptions {
     let memorizedE: string | null
     return {
       before (ctx) {
@@ -93,7 +89,7 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     }
   }
 
-  function m (arg: string): CSelector {
+  function m (arg: string): CNodeOptions {
     return {
       $ (ctx) {
         const modifiers = arg.split(',').map(v => v.trim())
@@ -117,7 +113,7 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     }
   }
 
-  function notM (arg: string): CSelector {
+  function notM (arg: string): CNodeOptions {
     return {
       $ (ctx) {
         const els = ctx.bem.elements as null | string[]
@@ -139,7 +135,7 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
   const hNotM = ((...args: any[]) => h(notM(args[0]), args[1], args[2])) as createCNode
 
   Object.assign(_plugin, {
-    b, e, m, notM, hB, hE, hM, hNotM
+    hB, hE, hM, hNotM
   })
 
   return _plugin as CSSRenderBEMPlugin

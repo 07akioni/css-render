@@ -1,7 +1,7 @@
 import {
   CNode,
   CProperties,
-  CSelector,
+  CNodeOptions,
   CSSRenderInstance,
   CProperty
 } from './types'
@@ -36,9 +36,7 @@ function cs (
   props: CProperties | null,
   instance: CSSRenderInstance
 ): string | null {
-  if (props === null) {
-    return null
-  }
+  if (props === null) return null
   const propertyNames = Object.keys(props)
   if (propertyNames.length === 0) {
     if (instance.config.preserveEmptyBlock) return selector + ' {}'
@@ -49,10 +47,9 @@ function cs (
   ]
   propertyNames.forEach(propertyName => {
     const property = props[propertyName]
-    const unwrappedProperty: CProperty = typeof property === 'function' ? property() : property
     propertyName = kc(propertyName)
-    if (unwrappedProperty !== undefined) {
-      statements.push(`  ${propertyName}${up(unwrappedProperty)}`)
+    if (property !== undefined) {
+      statements.push(`  ${propertyName}${up(property)}`)
     }
   })
   statements.push('}')
@@ -62,26 +59,26 @@ function cs (
 /** traverse */
 function t (
   node: CNode,
-  paths: Array<string | CSelector>,
+  selectorPaths: Array<string | CNodeOptions>,
   styles: string[],
   instance: CSSRenderInstance
 ): void {
-  const pathIsString = typeof node.path === 'string'
-  if (pathIsString) paths.push(node.path)
-  else {
-    if ((node.path as CSelector).before !== undefined) ((node.path as CSelector).before as Function)(instance.context)
-    paths.push((node.path as CSelector).$(instance.context))
+  if (typeof node.$ === 'string') {
+    selectorPaths.push(node.$)
+  } else if (node.$.$ !== undefined) {
+    if (node.$.before !== undefined) node.$.before(instance.context)
+    selectorPaths.push(node.$.$(instance.context))
   }
-  const selector = p$p(paths, instance)
+  const selector = p$p(selectorPaths, instance)
   const style = cs(selector, node.props, instance)
   if (style !== null) styles.push(style)
   if (node.children !== null) {
     node.children.forEach(childNode => {
-      t(childNode, paths, styles, instance)
+      t(childNode, selectorPaths, styles, instance)
     })
   }
-  paths.pop()
-  if (!pathIsString && (node.path as CSelector).after !== undefined) ((node.path as CSelector).after as Function)(instance.context)
+  selectorPaths.pop()
+  if (!(typeof node.$ === 'string') && node.$.after !== undefined) node.$.after(instance.context)
 }
 
 export function render (node: CNode, instance: CSSRenderInstance): string {

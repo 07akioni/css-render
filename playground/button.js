@@ -247,11 +247,11 @@ function buttonRippleMixin (type) {
   ]
 }
 
-// const {
-//   performance
-// } = require('perf_hooks')
+const {
+  performance
+} = require('perf_hooks')
 
-// const start = performance.now()
+const start = performance.now()
 
 /** ripple */
 const rippleStyle = Object.keys(buttonType).map(type => {
@@ -447,9 +447,9 @@ const buttonGroupStyle = hB('button-group', {
   ])
 ]).render()
 
-// const end = performance.now()
+const end = performance.now()
 
-console.log(rippleStyle)
-console.log(buttonStyle)
-console.log(buttonGroupStyle)
-// console.log(end - start)
+// console.log(rippleStyle)
+// console.log(buttonStyle)
+// console.log(buttonGroupStyle)
+console.log(end - start)

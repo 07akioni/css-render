@@ -3,7 +3,6 @@
   "main": "dist/index.js",
   "module": "esm/index.js",
   "license": "MIT",
-  "types": "./dist/index.d.ts",
   "keywords": [
     "css-render",
     "css",

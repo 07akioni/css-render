@@ -1,5 +1,5 @@
 import {
-  CSelector,
+  CNodeOptions,
   CSSRenderInstance
 } from './types'
 
@@ -22,11 +22,11 @@ function r$ (amp: string, selector: string): string {
 
 /** parse selector path */
 export function p$p (
-  selectors: Array<string | CSelector>,
+  selectorPaths: Array<string | CNodeOptions>,
   instance: CSSRenderInstance
 ): string {
   let amp = ''
-  selectors.forEach(selector => {
+  selectorPaths.forEach(selector => {
     const adpatedSelector = typeof selector === 'string' ? selector : selector.$(instance.context)
     if (/,/g.test(amp)) {
       amp = amp
