@@ -1,6 +1,6 @@
 # css-render &middot; [![GitHub Liscense](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/07akioni/css-render/blob/master/LICENSE) [![Coverage Status](https://coveralls.io/repos/github/07akioni/css-render/badge.svg?branch=master)](https://coveralls.io/github/07akioni/css-render?branch=master) [![npm](https://img.shields.io/npm/v/css-render)](https://www.npmjs.com/package/css-render)
 
-Generate CSS using JS with considerable flexibility and extensibility, at both server side and client side.
+Generating CSS using JS with considerable flexibility and extensibility, at both server side and client side.
 
 It's design to be a progressive tool which can just work as a supplementary of your style files or totally replace your `.css` files.
 
@@ -10,6 +10,9 @@ It's design to be a progressive tool which can just work as a supplementary of y
 3. You want to write style variables in JS.
 
 ## Get Started
+```bash
+$ npm install --save-dev css-render
+```
 ```js
 import CSSRender from 'css-render'
 /**
@@ -51,7 +54,12 @@ body .container {
 
 ## Plugins
 ### BEM
+```bash
+$ npm install --save-dev css-render @css-render/plugin-bem
+```
+
 You can use bem plugin to generate bem CSS like this:
+
 ```js
 import CSSRender from 'css-render'
 import CSSRenderBEMPlugin from '@css-render/plugin-bem'

@@ -3,6 +3,7 @@
   "main": "dist/index.js",
   "module": "esm/index.js",
   "license": "MIT",
+  "description": "Generating CSS using JS with considerable flexibility and extensibility, at both server side and client side.",
   "keywords": [
     "css-render",
     "css",

@@ -3,6 +3,7 @@
   "main": "dist/index.js",
   "module": "esm/index.js",
   "license": "MIT",
+  "description": "A plugin of css-render that helping generate BEM standard CSS",
   "keywords": [
     "css-render",
     "css",
