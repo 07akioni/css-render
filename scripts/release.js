@@ -30,6 +30,7 @@ async function main () {
   /** copy readme from project root to core package */
   console.log('Copy readme from project root to core package')
   copyReadme()
+  console.log()
   const buildTargets = getBuildTargets()
   console.log('Update version', packageConfig.version)
   buildTargets.forEach(target => {

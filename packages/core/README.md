@@ -10,6 +10,9 @@ It's design to be a progressive tool which can just work as a supplementary of y
 3. You want to write style variables in JS.
 
 ## Get Started
+```bash
+$ npm install --save-dev css-render
+```
 ```js
 import CSSRender from 'css-render'
 /**
@@ -51,7 +54,12 @@ body .container {
 
 ## Plugins
 ### BEM
+```bash
+$ npm install --save-dev css-render @css-render/plugin-bem
+```
+
 You can use bem plugin to generate bem CSS like this:
+
 ```js
 import CSSRender from 'css-render'
 import CSSRenderBEMPlugin from '@css-render/plugin-bem'

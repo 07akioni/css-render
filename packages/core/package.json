@@ -21,7 +21,7 @@
     "type": "git",
     "url": "https://github.com/07akioni/css-render"
   },
-  "version": "0.1.8",
+  "version": "0.1.9",
   "dependencies": {
     "csstype": "^2.6.10"
   }
