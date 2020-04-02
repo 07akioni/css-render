@@ -1,15 +1,21 @@
 # css-render &middot; [![GitHub Liscense](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/07akioni/css-render/blob/master/LICENSE) [![Coverage Status](https://coveralls.io/repos/github/07akioni/css-render/badge.svg?branch=master)](https://coveralls.io/github/07akioni/css-render?branch=master) [![npm](https://img.shields.io/npm/v/css-render)](https://www.npmjs.com/package/css-render)
 
-`css-render` is a library focusing on using JS to generate CSS at client side in a flexible and extensible way.
+Generate CSS using JS with considerable flexibility and extensibility, at both server side and client side.
 
-It can
-1. Reduce your CSS bundle size if there're many styles generated in duplicate logic.
-2. Generate styles dynamically based on JS variables (which can styling something like `::before` or `:hover` more easliy than inline style).
-3. Reuse of style generation logic in JS.
+It's design to be a progressive tool which can just work as a supplementary of your style files or totally replace your `.css` files.
+
+## Why Using `css-render`
+1. If you have a large CSS bundle with duplicate generation logic, such as a `button.css` with info, success, warning, error and ... buttons, you will need to transfer all the styles literals in network. By using `css-render`, you can generate CSS at client side and reduce your app's bundle size. (This is a exchange between `bandwidth` and `CPU time`)
+2. You may write `sass`, `less` or other preprocessors' mixins. However the logic can't be reused at client side. For example, you can generate a red button's style in preprocessors at server side, but you can't handle a dynamic color input at client side. By using `css-render`, you can generate styles dynamically based on JS variables (which can styling something like `::before` or `:hover` more easliy than inline style).
+3. You want to write style variables in JS.
 
 ## Get Started
 ```js
 import CSSRender from 'css-render'
+/**
+ * or in common js:
+ * const { CSSRender } = require('css-render')
+ */
 
 const {
   h
@@ -35,11 +41,9 @@ body {
   margin: 0;
   background-color: white;
 }
-
 body.dark {
   background-color: black;
 }
-
 body .container {
   width: '100%';
 }
@@ -47,10 +51,15 @@ body .container {
 
 ## Plugins
 ### BEM
-You can use bem plugin to generate bem css like this:
+You can use bem plugin to generate bem CSS like this:
 ```js
 import CSSRender from 'css-render'
 import CSSRenderBEMPlugin from '@css-render/plugin-bem'
+/**
+ * or in common js:
+ * const { CSSRender } = require('css-render')
+ * const { plugin: CSSRenderBEMPlugin } = require('@css-render/plugin-bem')
+ */
 
 const cssr = CSSRender()
 const plugin = CSSRenderBEMPlugin({
@@ -91,9 +100,7 @@ which outputs
 .c-container .c-container__left, .c-container .c-container__right {
   width: 50%;
 }
-
-.c-container.c-container--dark .c-container__left,
-.c-container.c-container--dark .c-container__right {
+.c-container.c-container--dark .c-container__left, .c-container.c-container--dark .c-container__right {
   background-color: black;
 }
 ```
