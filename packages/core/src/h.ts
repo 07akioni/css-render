@@ -3,18 +3,36 @@ import {
   CNode,
   CProperties,
   CContext,
-  CSSRenderInstance
+  CSSRenderInstance,
+  CNodeChildren
 } from './types'
 import { render } from './render'
 
 export interface createCNodeForInstance {
-  (instance: CSSRenderInstance, $: string | CNodeOptions, children: CNode[]): CNode
-  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties | (() => CProperties)): CNode
-  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties | (() => CProperties), children: CNode[]): CNode
+  (instance: CSSRenderInstance, $: string | CNodeOptions, children: CNodeChildren): CNode
+  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties): CNode
+  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties, children: CNodeChildren): CNode
 }
 
 function _r (this: CNode): string {
   return render(this, this.instance)
+}
+
+function _t (children: CNodeChildren, flattenedNodes: CNode[]): void {
+  children.forEach(child => {
+    if (Array.isArray(child)) {
+      _t(child, flattenedNodes)
+    } else {
+      flattenedNodes.push(child)
+    }
+  })
+}
+
+/** flatten */
+function _f (children: CNodeChildren): CNode[] {
+  const flattenedNodes: CNode[] = []
+  _t(children, flattenedNodes)
+  return flattenedNodes
 }
 
 export const h: createCNodeForInstance = function (
@@ -27,7 +45,7 @@ export const h: createCNodeForInstance = function (
     return {
       $,
       props: null,
-      children: props,
+      children: _f(props),
       instance,
       render: _r
     }
@@ -35,7 +53,7 @@ export const h: createCNodeForInstance = function (
     return {
       $,
       props,
-      children,
+      children: _f(children),
       instance,
       render: _r
     }

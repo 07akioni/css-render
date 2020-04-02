@@ -26,10 +26,12 @@ export interface CProperties extends Properties<string | number> {
   [nonPropertyLiteral: string]: CProperty
 }
 
+export type CNodeChildren = Array<CNode | CNodeChildren>
+
 export interface createCNode {
-  (selector: string | CNodeOptions, children: CNode[]): CNode
-  (selector: string | CNodeOptions, props: CProperties | (() => CProperties)): CNode
-  (selector: string | CNodeOptions, props: CProperties | (() => CProperties), children: CNode[]): CNode
+  (selector: string | CNodeOptions, children: CNodeChildren): CNode
+  (selector: string | CNodeOptions, props: CProperties): CNode
+  (selector: string | CNodeOptions, props: CProperties, children: CNodeChildren): CNode
 }
 
 export interface CSSRenderInstance {
