@@ -16,8 +16,12 @@ function _r (this: CNode): string {
   return render(this, this.instance)
 }
 
+/** is node */
+const _in: boolean = typeof document === 'undefined'
+
 /** mount wrapper */
-function _m (this: CNode, target?: HTMLStyleElement | string | number): HTMLStyleElement {
+function _m (this: CNode, target?: HTMLStyleElement | string | number): HTMLStyleElement | null {
+  if (_in) return null
   const targetElement = mount(this.instance, this, target)
   const els = this.els
   if (!els.includes(targetElement)) {
@@ -28,6 +32,7 @@ function _m (this: CNode, target?: HTMLStyleElement | string | number): HTMLStyl
 
 /** unmount */
 function _um (this: CNode, target?: HTMLStyleElement | string | number): void {
+  if (_in) return
   const els = this.els
   if (target === undefined) {
     els.forEach(_re)

@@ -19,7 +19,7 @@ export interface CNode {
   instance: CSSRenderInstance
   els: HTMLStyleElement[]
   render: () => string
-  mount: (target?: HTMLStyleElement | string | number) => HTMLStyleElement
+  mount: (target?: HTMLStyleElement | string | number) => HTMLStyleElement | null
   unmount: (target?: HTMLStyleElement | string | number) => void
 }
 
