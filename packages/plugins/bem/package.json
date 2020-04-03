@@ -14,6 +14,7 @@
   ],
   "files": [
     "dist",
+    "lib",
     "esm"
   ],
   "author": "07akioni",

@@ -21,9 +21,9 @@ const build = async (targetDir) => {
     if (outDir) {
       rimraf.sync(path.resolve(targetDir, outDir))
     } else {
-      throw Error('package [', packageConfig.name, '] has no outDir')
+      throw Error('  package [', packageConfig.name, '] has no outDir')
     }
-    console.log('Building package [', packageConfig.name, '] (', moduleExtensitionName, ')')
+    console.log('  Building package [', packageConfig.name, '] (', moduleExtensitionName, ')')
     try {
       await execa('tsc', ['-b', buildConfigFileName], {
         cwd: targetDir
@@ -36,8 +36,14 @@ const build = async (targetDir) => {
 
 const runBuild = async () => {
   const targets = getBuildTargets()
+  console.log('Build libs')
   for (const target of targets) {
     await build(target)
+  }
+  console.log('Build bundles')
+  console.log('  Remove dist files')
+  for (const target of targets) {
+    rimraf.sync(path.resolve(target, 'dist'))
   }
   console.log()
 }
