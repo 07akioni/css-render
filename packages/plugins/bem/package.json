@@ -1,6 +1,6 @@
 {
   "name": "@css-render/plugin-bem",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "module": "esm/index.js",
   "license": "MIT",
   "description": "A plugin of css-render that helping generate BEM standard CSS",
@@ -23,5 +23,5 @@
     "type": "git",
     "url": "https://github.com/07akioni/css-render"
   },
-  "version": "0.3.0-dev2"
+  "version": "0.3.0-dev3"
 }
