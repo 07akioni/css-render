@@ -72,6 +72,11 @@ describe('# mount & unmount with id', () => {
     style.unmount()
     expect(style.els.length).to.equal(0)
   })
+  it('should be mounted to target element is a element is passed', () => {
+    const styleElement = document.createElement('style')
+    style.mount(styleElement)
+    expect(styleElement.innerHTML.length).to.not.equal(0)
+  })
   after(() => {
     document.body.removeChild(sandbox)
     style.unmount()
