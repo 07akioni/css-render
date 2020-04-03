@@ -13,17 +13,17 @@ interface BEMPluginOptions {
 }
 
 interface CSSRenderBEMPlugin extends CSSRenderPlugin {
-  hB: createCNode
-  hE: createCNode
-  hM: createCNode
-  hNotM: createCNode
+  cB: createCNode
+  cE: createCNode
+  cM: createCNode
+  cNotM: createCNode
 }
 
 function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
   let _bPrefix: string = '.'
   let _ePrefix: string = '__'
   let _mPrefix: string = '--'
-  let h: createCNode
+  let c: createCNode
   if (options) {
     let t = options.blockPrefix
     if (t) {
@@ -41,7 +41,7 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
 
   const _plugin: CSSRenderPlugin = {
     install (instance) {
-      h = instance.h
+      c = instance.c
       const ctx = instance.context
       ctx.bem = {}
       ctx.bem.block = null
@@ -129,13 +129,13 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     }
   }
 
-  const hB = ((...args: any[]) => h(b(args[0]), args[1], args[2])) as createCNode
-  const hE = ((...args: any[]) => h(e(args[0]), args[1], args[2])) as createCNode
-  const hM = ((...args: any[]) => h(m(args[0]), args[1], args[2])) as createCNode
-  const hNotM = ((...args: any[]) => h(notM(args[0]), args[1], args[2])) as createCNode
+  const cB = ((...args: any[]) => c(b(args[0]), args[1], args[2])) as createCNode
+  const cE = ((...args: any[]) => c(e(args[0]), args[1], args[2])) as createCNode
+  const cM = ((...args: any[]) => c(m(args[0]), args[1], args[2])) as createCNode
+  const cNotM = ((...args: any[]) => c(notM(args[0]), args[1], args[2])) as createCNode
 
   Object.assign(_plugin, {
-    hB, hE, hM, hNotM
+    cB, cE, cM, cNotM
   })
 
   return _plugin as CSSRenderBEMPlugin

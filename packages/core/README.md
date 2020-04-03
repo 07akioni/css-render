@@ -21,17 +21,17 @@ import CSSRender from 'css-render'
  */
 
 const {
-  h
+  c
 } = CSSRender()
 
-const style = h('body', {
+const style = c('body', {
   margin: 0,
   backgroundColor: 'white'
 }, [
-  h('&.dark', {
+  c('&.dark', {
     backgroundColor: 'black'
   }),
-  h('.container', {
+  c('.container', {
     width: '100%'
   })
 ])
@@ -85,22 +85,22 @@ const plugin = CSSRenderBEMPlugin({
 })
 cssr.use(plugin)
 const {
-  hB, hE, hM
+  cB, cE, cM
 } = plugin
 
-const style = hB(
+const style = cB(
   'container',
   [
-    hE(
+    cE(
       'left, right', 
       {
         width: '50%'
       }
     ),
-    hM(
+    cM(
       'dark', 
       [
-        hE(
+        cE(
           'left, right',
           {
             backgroundColor: 'black'

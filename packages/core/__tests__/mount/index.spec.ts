@@ -5,12 +5,12 @@ const expect = chai.expect
 const cssr = CSSRender()
 
 const {
-  h
+  c
 } = cssr
 
 describe('# mount with no target', () => {
   let sandbox: HTMLElement
-  const style = h('.red-block', {
+  const style = c('.red-block', {
     backgroundColor: 'red'
   })
   before(() => {
@@ -34,7 +34,7 @@ describe('# mount with no target', () => {
 
 describe('# mount & unmount with id', () => {
   let sandbox: HTMLElement
-  const style = h('.red-block', {
+  const style = c('.red-block', {
     backgroundColor: 'red'
   })
   before(() => {

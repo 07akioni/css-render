@@ -13,24 +13,24 @@ const plugin = CSSRenderBEMPlugin({
 cssr.use(plugin)
 
 const {
-  hB,
-  hE,
-  hM,
-  hNotM
+  cB,
+  cE,
+  cM,
+  cNotM
 } = plugin
 
 describe('# bem.b', function () {
   it('should use blockPrefix', function () {
     assertEqual(
-      hB('b', {}).render(),
+      cB('b', {}).render(),
       '.c-b {}'
     )
   })
   it('should generate correct selector when nested', function () {
     assertEqual(
-      hB(
+      cB(
         'b',
-        [hB('b2', {})]
+        [cB('b2', {})]
       ).render(),
       '.c-b .c-b2 {}'
     )
@@ -40,13 +40,13 @@ describe('# bem.b', function () {
 describe('# bem.e', function () {
   it('should work with bem.b', function () {
     assertEqual(
-      hB('b', [hE('e', {})]).render(),
+      cB('b', [cE('e', {})]).render(),
       '.c-b .c-b__e {}'
     )
   })
   it('should work with comma selector', function () {
     assertEqual(
-      hB('b', [hE('e1, e2', {})]).render(),
+      cB('b', [cE('e1, e2', {})]).render(),
       '.c-b .c-b__e1, .c-b .c-b__e2 {}'
     )
   })
@@ -55,23 +55,23 @@ describe('# bem.e', function () {
 describe('# bem.m', function () {
   it('should work with bem.b', function () {
     assertEqual(
-      hB('b', [hM('m', {})]).render(),
+      cB('b', [cM('m', {})]).render(),
       '.c-b.c-b--m {}'
     )
   })
   it('should work with bem.e', function () {
     assertEqual(
-      hB('b', [hE('e', [hM('m', {})])]).render(),
+      cB('b', [cE('e', [cM('m', {})])]).render(),
       '.c-b .c-b__e.c-b__e--m {}'
     )
   })
   it('should work with comma selector', function () {
     assertEqual(
-      hB('b', [hM('m1, m2', {})]).render(),
+      cB('b', [cM('m1, m2', {})]).render(),
       '.c-b.c-b--m1, .c-b.c-b--m2 {}'
     )
     assertEqual(
-      hB('b', [hE('e', [hM('m1, m2', {})])]).render(),
+      cB('b', [cE('e', [cM('m1, m2', {})])]).render(),
       '.c-b .c-b__e.c-b__e--m1, .c-b .c-b__e.c-b__e--m2 {}'
     )
   })
@@ -80,13 +80,13 @@ describe('# bem.m', function () {
 describe('# bem.notM', function () {
   it('should work with bem.b', function () {
     assertEqual(
-      hB('b', [hNotM('m', {})]).render(),
+      cB('b', [cNotM('m', {})]).render(),
       '.c-b:not(.c-b--m) {}'
     )
   })
   it('should work with bem.e', function () {
     assertEqual(
-      hB('b', [hE('e', [hNotM('m', {})])]).render(),
+      cB('b', [cE('e', [cNotM('m', {})])]).render(),
       '.c-b .c-b__e:not(.c-b__e--m) {}'
     )
   })
@@ -95,19 +95,19 @@ describe('# bem.notM', function () {
 describe('# bem', function () {
   it('should pass test case#1', function () {
     assertEqual(
-      hB(
+      cB(
         'container',
         [
-          hE(
+          cE(
             'left, right',
             {
               width: '50%'
             }
           ),
-          hM(
+          cM(
             'dark',
             [
-              hE(
+              cE(
                 'left, right',
                 {
                   backgroundColor: 'black'

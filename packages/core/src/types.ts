@@ -50,7 +50,7 @@ export interface CSSRenderInstance {
     [key: string]: any
   }
   id: string
-  h: createCNode
+  c: createCNode
   use: (plugin: CSSRenderPlugin, ...args: any[]) => void
   config: CSSRenderConfig
 }

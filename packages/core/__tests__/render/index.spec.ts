@@ -2,23 +2,23 @@ import CSSRender from 'css-render'
 import { assertEqual } from '@css-render/shared/utils'
 
 const {
-  h
+  c
 } = CSSRender()
 
 describe('#render', () => {
   it('should work with nested nodes array', () => {
     assertEqual(
-      h('body', {
+      c('body', {
         margin: 0,
         backgroundColor: 'white'
       }, [
         [
           [
-            h('&.dark', {
+            c('&.dark', {
               backgroundColor: 'black'
             })
           ],
-          h('.container', {
+          c('.container', {
             width: '100%'
           })
         ]
@@ -39,14 +39,14 @@ describe('#render', () => {
   })
   it('should render as expected(1)', () => {
     assertEqual(
-      h('body', {
+      c('body', {
         margin: 0,
         backgroundColor: 'white'
       }, [
-        h('&.dark', {
+        c('&.dark', {
           backgroundColor: 'black'
         }),
-        h('.container', {
+        c('.container', {
           width: '100%'
         })
       ]).render()
@@ -66,11 +66,11 @@ describe('#render', () => {
   })
   it('should render as expected(2)', () => {
     assertEqual(
-      h('body', [
-        h('&.dark', {
+      c('body', [
+        c('&.dark', {
           backgroundColor: 'black'
         }),
-        h('.container', {
+        c('.container', {
           width: '100%'
         })
       ]).render()
@@ -85,7 +85,7 @@ describe('#render', () => {
   })
   it('should render as excepted(3)', () => {
     assertEqual(
-      h('@keyframes what-a-good-animation', {
+      c('@keyframes what-a-good-animation', {
         from: {
           color: 'white',
           backgroundColor: 'black'
@@ -109,7 +109,7 @@ describe('#render', () => {
   })
   it('should render a function typed prop', () => {
     assertEqual(
-      h('@keyframes what-a-good-animation', () => ({
+      c('@keyframes what-a-good-animation', () => ({
         from: {
           color: 'white',
           backgroundColor: 'black'
@@ -133,18 +133,18 @@ describe('#render', () => {
   })
   it('should render an array as root', () => {
     assertEqual(
-      h([
-        h('sel1', {
+      c([
+        c('sel1', {
           position: 'relative'
         }, [
-          h('&.sel2', {
+          c('&.sel2', {
             position: 'relative'
           })
         ]),
-        h('sel1', {
+        c('sel1', {
           position: 'relative'
         }, [
-          h('&.sel2', {
+          c('&.sel2', {
             position: 'relative'
           })
         ])

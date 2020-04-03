@@ -80,7 +80,7 @@ function _cc (instance: CSSRenderInstance, $: any, props: any, children: any): C
   }
 }
 
-export const h: createCNodeForCSSRenderInstance = function (
+export const c: createCNodeForCSSRenderInstance = function (
   instance: CSSRenderInstance,
   $: any,
   props: any,
