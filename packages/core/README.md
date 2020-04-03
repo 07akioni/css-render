@@ -24,27 +24,27 @@ const {
   h
 } = CSSRender()
 
-const style = (
-  h('body', {
-    margin: 0,
-    backgroundColor: 'white'
-  }, [
-    h('&.dark', {
-      backgroundColor: 'black'
-    }),
-    h('.container', {
-      width: '100%'
-    })
-  ])
-)
+const style = h('body', {
+  margin: 0,
+  backgroundColor: 'white'
+}, [
+  h('&.dark', {
+    backgroundColor: 'black'
+  }),
+  h('.container', {
+    width: '100%'
+  })
+])
 
 /** use it as string */
 console.log(style.render())
 /**
  * or mount on document.head
- * the following line MUST be run in browser
+ * the following lines only works in browser
  */
 style.mount()
+// ...
+style.unmount()
 ```
 which outputs
 ```css
@@ -115,9 +115,11 @@ const style = hB(
 console.log(style.render())
 /**
  * or mount on document.head
- * the following line MUST be run in browser
+ * the following lines only works in browser
  */
 style.mount()
+// ...
+style.unmount()
 ```
 which outputs
 ```css

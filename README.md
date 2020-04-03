@@ -40,9 +40,11 @@ const style = h('body', {
 console.log(style.render())
 /**
  * or mount on document.head
- * the following line MUST be run in browser
+ * the following lines only works in browser
  */
 style.mount()
+// ...
+style.unmount()
 ```
 which outputs
 ```css
@@ -113,9 +115,11 @@ const style = hB(
 console.log(style.render())
 /**
  * or mount on document.head
- * the following line MUST be run in browser
+ * the following lines only works in browser
  */
 style.mount()
+// ...
+style.unmount()
 ```
 which outputs
 ```css
