@@ -36,6 +36,7 @@ function _um (this: CNode, target?: HTMLStyleElement | string | number): void {
   const els = this.els
   if (target === undefined) {
     els.forEach(_re)
+    this.els = []
   } else if (typeof target === 'string' || typeof target === 'number') {
     const targetElement = _qe(target)
     this.els = els.filter(el => el !== targetElement)
