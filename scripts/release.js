@@ -1,17 +1,9 @@
 const path = require('path')
 const fs = require('fs')
 const execa = require('execa')
-const shell = require('shelljs')
 
 const packageConfig = require('../package.json')
 const { getBuildTargets } = require('./utils')
-
-function copyReadme () {
-  shell.cp(
-    path.resolve(__dirname, '..', 'README.md'),
-    path.resolve(__dirname, '..', 'packages', 'core')
-  )
-}
 
 function updateSubmodulePackageJSON (filePath, packageConfig) {
   const config = require(filePath)
@@ -27,10 +19,6 @@ function updateSubmodulePackageJSON (filePath, packageConfig) {
 }
 
 async function main () {
-  /** copy readme from project root to core package */
-  console.log('Copy readme from project root to core package')
-  copyReadme()
-  console.log()
   const buildTargets = getBuildTargets()
   console.log('Update version', packageConfig.version)
   buildTargets.forEach(target => {

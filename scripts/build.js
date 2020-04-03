@@ -2,9 +2,17 @@ const execa = require('execa')
 const chalk = require('chalk')
 const path = require('path')
 const rimraf = require('rimraf')
+const shell = require('shelljs')
 
 const { buildConfigFileNames } = require('./config')
 const { getBuildTargets } = require('./utils')
+
+function copyReadme () {
+  shell.cp(
+    path.resolve(__dirname, '..', 'README.md'),
+    path.resolve(__dirname, '..', 'packages', 'core')
+  )
+}
 
 function getModuleExtensionName (fileName) {
   return fileName.split('.').reverse()[1]
@@ -35,6 +43,10 @@ const build = async (targetDir) => {
 }
 
 const runBuild = async () => {
+  /** copy readme from project root to core package */
+  console.log('Copy readme from project root to core package')
+  copyReadme()
+  console.log()
   const targets = getBuildTargets()
   console.log('Build libs')
   for (const target of targets) {
