@@ -2,6 +2,10 @@ interface CSelectorTestCase { input: string[], output: string }
 
 const testCases: CSelectorTestCase[] = [
   {
+    input: ['', '.a', '.b'],
+    output: '.a .b'
+  },
+  {
     input: ['.a', '.b'],
     output: '.a .b'
   },
@@ -22,7 +26,15 @@ const testCases: CSelectorTestCase[] = [
     output: '.a > b.c.e, .a > b.c > .f, .a > b.d.e, .a > b.d > .f'
   },
   {
+    input: ['', '.a', '> b', '&.c, &.d', '&.e, > .f'],
+    output: '.a > b.c.e, .a > b.c > .f, .a > b.d.e, .a > b.d > .f'
+  },
+  {
     input: ['.a > b', '&', '&', '&'],
+    output: '.a > b'
+  },
+  {
+    input: ['', '.a > b', '&', '&', '&'],
     output: '.a > b'
   }
 ]

@@ -24,7 +24,7 @@ const {
   h
 } = CSSRender()
 
-console.log((
+const style = (
   h('body', {
     margin: 0,
     backgroundColor: 'white'
@@ -36,7 +36,15 @@ console.log((
       width: '100%'
     })
   ])
-).render())
+)
+
+/** use it as string */
+console.log(style.render())
+/**
+ * or mount on document.head
+ * the following line MUST be run in browser
+ */
+style.mount()
 ```
 which outputs
 ```css
@@ -80,30 +88,36 @@ const {
   hB, hE, hM
 } = plugin
 
-console.log(
-  hB(
-    'container',
-    [
-      hE(
-        'left, right', 
-        {
-          width: '50%'
-        }
-      ),
-      hM(
-        'dark', 
-        [
-          hE(
-            'left, right',
-            {
-              backgroundColor: 'black'
-            }
-          )
-        ]
-      )
-    ]
-  ).render()
+const style = hB(
+  'container',
+  [
+    hE(
+      'left, right', 
+      {
+        width: '50%'
+      }
+    ),
+    hM(
+      'dark', 
+      [
+        hE(
+          'left, right',
+          {
+            backgroundColor: 'black'
+          }
+        )
+      ]
+    )
+  ]
 )
+
+/** use it as string */
+console.log(style.render())
+/**
+ * or mount on document.head
+ * the following line MUST be run in browser
+ */
+style.mount()
 ```
 which outputs
 ```css

@@ -32,9 +32,17 @@ export interface CProperties extends Properties<string | number> {
 export type CNodeChildren = Array<CNode | CNodeChildren>
 
 export interface createCNode {
+  (children: CNodeChildren): CNode
   (selector: string | CNodeOptions, children: CNodeChildren): CNode
   (selector: string | CNodeOptions, props: CProperties): CNode
   (selector: string | CNodeOptions, props: CProperties, children: CNodeChildren): CNode
+}
+
+export interface createCNodeForCSSRenderInstance {
+  (instance: CSSRenderInstance, children: CNodeChildren): CNode
+  (instance: CSSRenderInstance, $: string | CNodeOptions, children: CNodeChildren): CNode
+  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties): CNode
+  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties, children: CNodeChildren): CNode
 }
 
 export interface CSSRenderInstance {

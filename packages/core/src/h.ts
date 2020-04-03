@@ -4,17 +4,12 @@ import {
   CProperties,
   CContext,
   CSSRenderInstance,
+  createCNodeForCSSRenderInstance,
   CNodeChildren
 } from './types'
 import { render } from './render'
 import { mount } from './mount'
 import { _qe, _re } from './utils'
-
-export interface createCNodeForInstance {
-  (instance: CSSRenderInstance, $: string | CNodeOptions, children: CNodeChildren): CNode
-  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties): CNode
-  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties, children: CNodeChildren): CNode
-}
 
 /** render wrapper */
 function _r (this: CNode): string {
@@ -59,53 +54,43 @@ function _t (children: CNodeChildren, flattenedNodes: CNode[]): void {
 }
 
 /** flatten */
-function _f (children: CNodeChildren): CNode[] {
+function _f (children: CNodeChildren | null): CNode[] | null {
+  if (children === null) return null
   const flattenedNodes: CNode[] = []
   _t(children, flattenedNodes)
   return flattenedNodes
 }
 
-export const h: createCNodeForInstance = function (
+/** create CNode */
+function _cc (instance: CSSRenderInstance, $: any, props: any, children: any): CNode {
+  return {
+    instance,
+    $,
+    props,
+    children: _f(children),
+    els: [],
+    render: _r,
+    mount: _m,
+    unmount: _um
+  }
+}
+
+export const h: createCNodeForCSSRenderInstance = function (
   instance: CSSRenderInstance,
   $: any,
   props: any,
   children: any
 ): CNode {
-  if (Array.isArray(props)) {
-    return {
-      $,
-      props: null,
-      children: _f(props),
-      instance,
-      els: [],
-      render: _r,
-      mount: _m,
-      unmount: _um
-    }
+  if (Array.isArray($)) {
+    return _cc(instance, '', null, $)
+  } if (Array.isArray(props)) {
+    return _cc(instance, $, null, props)
   } else if (Array.isArray(children)) {
-    return {
-      $,
-      props,
-      children: _f(children),
-      instance,
-      els: [],
-      render: _r,
-      mount: _m,
-      unmount: _um
-    }
+    return _cc(instance, $, props, children)
   } else {
-    return {
-      $,
-      props,
-      children: null,
-      instance,
-      els: [],
-      render: _r,
-      mount: _m,
-      unmount: _um
-    }
+    return _cc(instance, $, props, null)
   }
-} as createCNodeForInstance
+} as createCNodeForCSSRenderInstance
 
 export {
   CNodeOptions,

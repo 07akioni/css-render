@@ -107,4 +107,38 @@ describe('#render', () => {
       }`
     )
   })
+  it('should render an array as root', () => {
+    assertEqual(
+      h([
+        h('sel1', {
+          position: 'relative'
+        }, [
+          h('&.sel2', {
+            position: 'relative'
+          })
+        ]),
+        h('sel1', {
+          position: 'relative'
+        }, [
+          h('&.sel2', {
+            position: 'relative'
+          })
+        ])
+      ]).render(),
+      `
+      sel1 {
+        position: relative;
+      }
+      sel1.sel2 {
+        position: relative;
+      }
+      sel1 {
+        position: relative;
+      }
+      sel1.sel2 {
+        position: relative;
+      }
+      `
+    )
+  })
 })
