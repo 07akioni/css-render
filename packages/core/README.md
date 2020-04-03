@@ -44,9 +44,11 @@ body {
   margin: 0;
   background-color: white;
 }
+
 body.dark {
   background-color: black;
 }
+
 body .container {
   width: '100%';
 }
@@ -108,6 +110,7 @@ which outputs
 .c-container .c-container__left, .c-container .c-container__right {
   width: 50%;
 }
+
 .c-container.c-container--dark .c-container__left, .c-container.c-container--dark .c-container__right {
   background-color: black;
 }
