@@ -24,19 +24,17 @@ const {
   h
 } = CSSRender()
 
-const style = (
-  h('body', {
-    margin: 0,
-    backgroundColor: 'white'
-  }, [
-    h('&.dark', {
-      backgroundColor: 'black'
-    }),
-    h('.container', {
-      width: '100%'
-    })
-  ])
-)
+const style = h('body', {
+  margin: 0,
+  backgroundColor: 'white'
+}, [
+  h('&.dark', {
+    backgroundColor: 'black'
+  }),
+  h('.container', {
+    width: '100%'
+  })
+])
 
 /** use it as string */
 console.log(style.render())
