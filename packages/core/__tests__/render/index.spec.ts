@@ -107,6 +107,30 @@ describe('#render', () => {
       }`
     )
   })
+  it('should render a function typed prop', () => {
+    assertEqual(
+      h('@keyframes what-a-good-animation', () => ({
+        from: {
+          color: 'white',
+          backgroundColor: 'black'
+        },
+        to: {
+          color: 'black',
+          backgroundColor: 'white'
+        }
+      })).render(),
+      `@keyframes what-a-good-animation {
+        from {
+          color: white;
+          background-color: black;
+        }
+        to {
+          color: black;
+          background-color: white;
+        }
+      }`
+    )
+  })
   it('should render an array as root', () => {
     assertEqual(
       h([

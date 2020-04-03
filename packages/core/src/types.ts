@@ -14,7 +14,7 @@ export interface CNodeOptions {
 
 export interface CNode {
   $: string | CNodeOptions
-  props: CProperties | null
+  props: CProperties | ((context?: CContext) => CProperties) | null
   children: CNode[] | null
   instance: CSSRenderInstance
   els: HTMLStyleElement[]
@@ -34,15 +34,15 @@ export type CNodeChildren = Array<CNode | CNodeChildren>
 export interface createCNode {
   (children: CNodeChildren): CNode
   (selector: string | CNodeOptions, children: CNodeChildren): CNode
-  (selector: string | CNodeOptions, props: CProperties): CNode
-  (selector: string | CNodeOptions, props: CProperties, children: CNodeChildren): CNode
+  (selector: string | CNodeOptions, props: CProperties | ((context?: CContext) => CProperties)): CNode
+  (selector: string | CNodeOptions, props: CProperties | ((context?: CContext) => CProperties), children: CNodeChildren): CNode
 }
 
 export interface createCNodeForCSSRenderInstance {
   (instance: CSSRenderInstance, children: CNodeChildren): CNode
   (instance: CSSRenderInstance, $: string | CNodeOptions, children: CNodeChildren): CNode
-  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties): CNode
-  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties, children: CNodeChildren): CNode
+  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties | ((context?: CContext) => CProperties)): CNode
+  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties | ((context?: CContext) => CProperties), children: CNodeChildren): CNode
 }
 
 export interface CSSRenderInstance {

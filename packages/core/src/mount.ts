@@ -21,6 +21,8 @@ export function mount (
     if (targetElement === null) {
       targetElement = _ce(target)
       document.head.appendChild(targetElement)
+    } else {
+      return targetElement
     }
   } else {
     targetElement = target

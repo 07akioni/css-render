@@ -3,7 +3,8 @@ import {
   CProperties,
   CNodeOptions,
   CSSRenderInstance,
-  CProperty
+  CProperty,
+  CContext
 } from './types'
 import { p$p } from './parse'
 
@@ -30,14 +31,24 @@ function _up (prop: CProperty, indent: string = '  '): string {
   return `: ${String(prop)};`
 }
 
+/** unwrap properties */
+function _ups (
+  props: CProperties | ((context?: CContext) => CProperties),
+  instance: CSSRenderInstance
+): CProperties {
+  if (typeof props === 'function') return props(instance.context)
+  return props
+}
+
 /** create style */
 function _cs (
   selector: string,
-  props: CProperties | null,
+  props: CProperties | ((context?: CContext) => CProperties) | null,
   instance: CSSRenderInstance
 ): string | null {
   if (props === null) return null
-  const propertyNames = Object.keys(props)
+  const unwrappedProps = _ups(props, instance)
+  const propertyNames = Object.keys(unwrappedProps)
   if (propertyNames.length === 0) {
     if (instance.config.preserveEmptyBlock) return selector + ' {}'
     return null
@@ -46,7 +57,7 @@ function _cs (
     selector + ' {'
   ]
   propertyNames.forEach(propertyName => {
-    const property = props[propertyName]
+    const property = unwrappedProps[propertyName]
     propertyName = _kc(propertyName)
     if (property !== undefined) {
       statements.push(`  ${propertyName}${_up(property)}`)
