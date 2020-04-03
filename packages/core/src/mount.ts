@@ -3,22 +3,29 @@ import {
   CSSRenderInstance
 } from './types'
 
+import {
+  _ce, _qe
+} from './utils'
+
 export function mount (
-  nodes: CNode[] | CNode,
-  id: string | number,
-  instance: CSSRenderInstance
+  instance: CSSRenderInstance,
+  node: CNode,
+  target?: HTMLStyleElement | string | number
 ): HTMLStyleElement {
-  let targetElement = document.querySelector(`style[css-render-id="${id}"][css-render-ns="${instance.id}]"`) as HTMLStyleElement
-  if (targetElement === null) {
-    const styleElement = document.createElement('style')
-    styleElement.setAttribute('css-render-id', String(id))
-    styleElement.setAttribute('css-render-ns', String(instance.id))
-    targetElement = styleElement
+  let targetElement: HTMLStyleElement | null = null
+  if (target === undefined) {
+    targetElement = document.createElement('style')
     document.head.appendChild(targetElement)
+  } else if (typeof target === 'string' || typeof target === 'number') {
+    targetElement = _qe(target)
+    if (targetElement === null) {
+      targetElement = _ce(target)
+      document.head.appendChild(targetElement)
+    }
+  } else {
+    targetElement = target
   }
-  const style = Array.isArray(nodes)
-    ? nodes.map(node => node.render()).join('\n')
-    : nodes.render()
+  const style = node.render()
   if (targetElement.innerHTML !== style) {
     targetElement.innerHTML = style
   }

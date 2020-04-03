@@ -17,7 +17,10 @@ export interface CNode {
   props: CProperties | null
   children: CNode[] | null
   instance: CSSRenderInstance
+  els: HTMLStyleElement[]
   render: () => string
+  mount: (target?: HTMLStyleElement | string | number) => HTMLStyleElement
+  unmount: (target?: HTMLStyleElement | string | number) => void
 }
 
 export type CProperty = CProperties | string | number | undefined
@@ -40,7 +43,6 @@ export interface CSSRenderInstance {
   }
   id: string
   h: createCNode
-  mount: (nodes: CNode[] | CNode, id: string | number) => HTMLStyleElement
   use: (plugin: CSSRenderPlugin, ...args: any[]) => void
   config: CSSRenderConfig
 }

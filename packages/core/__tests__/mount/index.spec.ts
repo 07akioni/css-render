@@ -5,31 +5,22 @@ const expect = chai.expect
 const cssr = CSSRender()
 
 const {
-  h, mount
+  h
 } = cssr
 
-function teardown (el: HTMLStyleElement): void {
-  if (el.parentElement !== null) {
-    el.parentElement.removeChild(el)
-  }
-}
-
 describe('# mount', () => {
-  let styleEl: HTMLStyleElement
   let sandbox: HTMLElement
+  const style = h('.red-block', {
+    backgroundColor: 'red'
+  })
   before(() => {
-    const style = h('.red-block', {
-      backgroundColor: 'red'
-    })
-    styleEl = mount(style, 'style-id')
+    style.mount()
     sandbox = document.createElement('div')
     document.body.appendChild(sandbox)
+    console.log('head', document.head.outerHTML)
   })
   afterEach(() => {
     sandbox.innerHTML = ''
-  })
-  it('should mount style node on head', () => {
-    expect(document.head.contains(styleEl)).to.equal(true)
   })
   it('should make element styled', () => {
     sandbox.innerHTML = '<div class="red-block"></div>'
@@ -38,6 +29,6 @@ describe('# mount', () => {
   })
   after(() => {
     document.body.removeChild(sandbox)
-    teardown(styleEl)
+    style.unmount()
   })
 })

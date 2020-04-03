@@ -8,21 +8,21 @@ import {
 import { p$p } from './parse'
 
 /** kebab regex */
-const kr = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
+const _kr = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
 
 /** kebab case */
-function kc (pattern: string): string {
-  return pattern.replace(kr, match => '-' + match.toLowerCase())
+function _kc (pattern: string): string {
+  return pattern.replace(_kr, match => '-' + match.toLowerCase())
 }
 
-/** upwrap property */
+/** _upwrap property */
 /** TODO: refine it */
-function up (prop: CProperty, indent: string = '  '): string {
+function _up (prop: CProperty, indent: string = '  '): string {
   if (typeof prop === 'object') {
     return (
       ' {\n' +
       Object.entries(prop).map(v => {
-        return indent + `  ${kc(v[0])}: ${v[1] as string};`
+        return indent + `  ${_kc(v[0])}: ${v[1] as string};`
       }).join('\n') +
       '\n' + indent + '}'
     )
@@ -31,7 +31,7 @@ function up (prop: CProperty, indent: string = '  '): string {
 }
 
 /** create style */
-function cs (
+function _cs (
   selector: string,
   props: CProperties | null,
   instance: CSSRenderInstance
@@ -47,9 +47,9 @@ function cs (
   ]
   propertyNames.forEach(propertyName => {
     const property = props[propertyName]
-    propertyName = kc(propertyName)
+    propertyName = _kc(propertyName)
     if (property !== undefined) {
-      statements.push(`  ${propertyName}${up(property)}`)
+      statements.push(`  ${propertyName}${_up(property)}`)
     }
   })
   statements.push('}')
@@ -70,7 +70,7 @@ function t (
     selectorPaths.push(node.$.$(instance.context))
   }
   const selector = p$p(selectorPaths, instance)
-  const style = cs(selector, node.props, instance)
+  const style = _cs(selector, node.props, instance)
   if (style !== null) styles.push(style)
   if (node.children !== null) {
     node.children.forEach(childNode => {
