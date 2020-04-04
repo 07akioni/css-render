@@ -67,4 +67,6 @@ It will remove all the mounted style elemented of the `style` object.
 
 If you want to mount& unmount percisely, see `Advanced Mount & Unmount Options`.
 
-If you want to know the detail of creating a `CNode`, see `Create a CNode`.
+If you want to know the detail of creating a `CNode` and rendering `CNode` tree , see `Create a CNode & Render a CNode Tree`.
+
+If you a interested in developing a plugin, see `Plugin Development`.
