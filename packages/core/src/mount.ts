@@ -77,7 +77,12 @@ export function _m (
     }
   } else {
     targetElement = target
-    _sc(targetElement, _gc(targetElement) + 1)
+    const mountCount = _gc(targetElement)
+    if (mountCount > 0) {
+      _sc(targetElement, mountCount + 1)
+    } else {
+      return targetElement
+    }
   }
   const style = node.render(props)
   if (targetElement.innerHTML !== style) {
