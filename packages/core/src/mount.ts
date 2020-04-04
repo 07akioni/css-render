@@ -80,8 +80,7 @@ export function _m (
     const mountCount = _gc(targetElement)
     if (mountCount > 0) {
       _sc(targetElement, mountCount + 1)
-    } else {
-      return targetElement
+      return target
     }
   }
   const style = node.render(props)

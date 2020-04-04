@@ -94,7 +94,7 @@ describe('# mount & unmount with id', () => {
       .not.to.equal(null)
     expect(style.els.length).to.equal(2)
   })
-  it('should be mounted to target element is a element is passed', () => {
+  it('should be mounted to target element when a element is passed', () => {
     const styleElement = document.createElement('style')
     style.mount({
       target: styleElement
