@@ -26,6 +26,21 @@ describe('# mount with no target', () => {
     const backgroundColor = getComputedStyle(sandbox.children[0]).backgroundColor
     expect(backgroundColor).to.equal('rgb(255, 0, 0)')
   })
+  it('should support props of render', () => {
+    sandbox.innerHTML = '<sel1></sel1>'
+    const style = c('sel1', ({ props }) => {
+      return {
+        backgroundColor: props.color
+      }
+    })
+    style.mount({
+      props: {
+        color: 'red'
+      }
+    })
+    const backgroundColor = getComputedStyle(sandbox.children[0]).backgroundColor
+    expect(backgroundColor).to.equal('rgb(255, 0, 0)')
+  })
   after(() => {
     document.body.removeChild(sandbox)
     style.unmount()

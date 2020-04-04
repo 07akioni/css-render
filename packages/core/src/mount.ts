@@ -26,7 +26,7 @@ export {
 export function _u (
   intance: CSSRenderInstance,
   node: CNode,
-  target?: HTMLStyleElement | string | number
+  target: HTMLStyleElement | string | number | undefined
 ): void {
   const els = node.els
   if (target === undefined) {
@@ -58,8 +58,8 @@ export function _u (
 export function _m (
   instance: CSSRenderInstance,
   node: CNode,
-  target?: HTMLStyleElement | string | number,
-  props?: any
+  target: HTMLStyleElement | string | number | undefined,
+  props: any
 ): HTMLStyleElement {
   let targetElement: HTMLStyleElement | null = null
   if (target === undefined) {

@@ -23,7 +23,12 @@ function _wm (
     props?: any
   }
 ): HTMLStyleElement {
-  const targetElement = _m(this.instance, this, options?.target)
+  const targetElement = _m(
+    this.instance,
+    this,
+    options?.target,
+    options?.props
+  )
   const els = this.els
   if (!els.includes(targetElement)) {
     els.push(targetElement)

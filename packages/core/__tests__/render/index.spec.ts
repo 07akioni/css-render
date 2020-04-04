@@ -165,4 +165,21 @@ describe('#render', () => {
       `
     )
   })
+  it('should render with props', () => {
+    const style = c('sel1', ({ props }) => {
+      return {
+        color: props.color
+      }
+    })
+    assertEqual(
+      style.render({
+        color: 'red'
+      }),
+      `
+      sel1 {
+        color: red;
+      }
+      `
+    )
+  })
 })

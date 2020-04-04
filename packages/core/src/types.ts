@@ -12,7 +12,7 @@ export interface CNodeOptions {
   $: (context: CContext) => string
 }
 
-export type LazyCProperties = ((options?: {
+export type LazyCProperties = ((options: {
   context?: CContext
   props?: any
 }) => CProperties)
