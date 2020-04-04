@@ -8,8 +8,7 @@ import {
   CNodeChildren
 } from './types'
 import { render } from './render'
-import { mount } from './mount'
-import { _qe, _re } from './utils'
+import { _m, _u } from './mount'
 
 /** render wrapper */
 function _r (this: CNode): string {
@@ -19,10 +18,10 @@ function _r (this: CNode): string {
 /** is node */
 const _in: boolean = typeof document === 'undefined'
 
-/** mount wrapper */
-function _m (this: CNode, target?: HTMLStyleElement | string | number): HTMLStyleElement | null {
+/** wrapped mount */
+function _wm (this: CNode, target?: HTMLStyleElement | string | number): HTMLStyleElement | null {
   if (_in) return null
-  const targetElement = mount(this.instance, this, target)
+  const targetElement = _m(this.instance, this, target)
   const els = this.els
   if (!els.includes(targetElement)) {
     els.push(targetElement)
@@ -30,21 +29,10 @@ function _m (this: CNode, target?: HTMLStyleElement | string | number): HTMLStyl
   return targetElement
 }
 
-/** unmount */
-function _um (this: CNode, target?: HTMLStyleElement | string | number): void {
+/** wrapped _u */
+function _wu (this: CNode, target?: HTMLStyleElement | string | number): void {
   if (_in) return
-  const els = this.els
-  if (target === undefined) {
-    els.forEach(_re)
-    this.els = []
-  } else if (typeof target === 'string' || typeof target === 'number') {
-    const targetElement = _qe(target)
-    this.els = els.filter(el => el !== targetElement)
-    _re(targetElement)
-  } else {
-    this.els = els.filter(el => el !== target)
-    _re(target)
-  }
+  _u(this.instance, this, target)
 }
 
 /** traverse */
@@ -75,8 +63,8 @@ function _cc (instance: CSSRenderInstance, $: any, props: any, children: any): C
     children: _f(children),
     els: [],
     render: _r,
-    mount: _m,
-    unmount: _um
+    mount: _wm,
+    unmount: _wu
   }
 }
 
