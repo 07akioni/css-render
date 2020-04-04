@@ -50,7 +50,7 @@ It outputs:
 `CNodeOptions` is a object looks like:
 ```typescript
 interface CNodeOptions {
-  $: (context) => string,
+  $: ((context) => string) | string,
   before: (context) => void,
   after: (context) => void
 }
