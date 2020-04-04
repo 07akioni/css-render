@@ -1,4 +1,4 @@
-# Overview (`CNode`)
+# First Step
 `css-render` has a concept of `CNode`.
 
 Basically, a `CNode` is an object with `selector`, `properties` and `chilren`(child `CNodes`) properties.
@@ -68,5 +68,7 @@ It will remove all the mounted style elemented of the `style` object.
 If you want to mount & unmount percisely, see [Advanced Mount & Unmount Options](https://github.com/07akioni/css-render/blob/master/docs/mount.md).
 
 If you want to know the detail of creating a `CNode` and rendering `CNode` tree , see [Create a CNode & Render a CNode Tree](https://github.com/07akioni/css-render/blob/master/docs/cnode-and-render.md).
+
+If you want to know what does the `CSSRender` function returns, see [CSSRender Instance](https://github.com/07akioni/css-render/blob/master/docs/css-render-instance.md).
 
 If you are interested in developing a plugin, see [Plugin Development](https://github.com/07akioni/css-render/blob/master/docs/plugin-development.md).
