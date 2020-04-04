@@ -36,11 +36,11 @@ export interface CProperties extends Properties<string | number> {
 
 export type CNodeChildren = Array<CNode | CNodeChildren>
 
-export interface createCNode {
+export interface createCNode <T> {
   (children: CNodeChildren): CNode
-  (selector: string | CNodeOptions, children: CNodeChildren): CNode
-  (selector: string | CNodeOptions, props: CProperties | LazyCProperties): CNode
-  (selector: string | CNodeOptions, props: CProperties | LazyCProperties, children: CNodeChildren): CNode
+  (selector: T, children: CNodeChildren): CNode
+  (selector: T, props: CProperties | LazyCProperties): CNode
+  (selector: T, props: CProperties | LazyCProperties, children: CNodeChildren): CNode
 }
 
 export interface createCNodeForCSSRenderInstance {
@@ -55,7 +55,7 @@ export interface CSSRenderInstance {
     [key: string]: any
   }
   id: string
-  c: createCNode
+  c: createCNode<string | CNodeOptions>
   use: (plugin: CSSRenderPlugin, ...args: any[]) => void
   config: CSSRenderConfig
 }
