@@ -1,11 +1,11 @@
 # Create a `CNode` & Render a `CNode` Tree
-To create a `CNode`, you need to create a `CSSRender` instance and get the `c` method out of it:
+To create a `CNode`, you need to create a [CSSRender instance](https://github.com/07akioni/css-render/blob/master/docs/css-render-instance.md) and get the `c` method out of it:
 ```js
 import CSSRender from 'css-render'
 
 const {
   c
-} = CSSRender()
+} = CSSRender() // return a CSSRender instance
 ```
 The `c` method is use to create a `CNode`.
 ## `c` method
@@ -57,9 +57,9 @@ interface CNodeOptions {
 ```
 `context` is the `context` of `c` method's corresponding `CSSRender` instance.
 
-If you want to know more about `context`, see `CSSRender`.
+If you want to know more about `context`, see [CSSRender](https://github.com/07akioni/css-render/blob/master/docs/css-render-instance.md).
 
-- `$` accept the context and return a selector string as demostrated before.
+- `$` is a selector string or a function that accepts the context and return a selector string as demostrated before.
 - `before` is the hook before the `CNode` tree is rendered. You can setup the `context` in the hook.
 - `after` is the hook after the `CNode` tree is rendered. You can do some cleaning in the hook.
 ### `properties`
@@ -95,7 +95,7 @@ It outputs:
 }
 ```
 #### function typed `properties`
-If you want to determine the properties of a `CNode` when rendering. Use a `({ context?, props? }) => CSSProperties` typed properties as the properties of `CNode`.
+If you want to determine the properties of a `CNode` at rendering phase. Use a `({ context?, props? }) => CSSProperties` typed properties as the properties of `CNode`.
 
 - `context` is the `context` of `c` method's corresponding `CSSRender` instance.
 - `props` is the `props` argument passed to `render` function.
