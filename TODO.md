@@ -7,3 +7,4 @@
 7. `karma-typescript` 似乎有个 bug，没法正确的 resolve 一个只包含 index.d.ts 的 npm 包！麻烦
 8. mount 函数的测试
 9. Minify 的 build，使用 rollup 和 terser
+10. 在 render 时候类型的传递我似乎应该用泛型，现在全都是 any，not good

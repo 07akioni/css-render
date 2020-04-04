@@ -4,7 +4,7 @@ import {
   CNodeOptions,
   CSSRenderInstance,
   CProperty,
-  CContext
+  LazyCProperties
 } from './types'
 import { p$p } from './parse'
 
@@ -33,21 +33,28 @@ function _up (prop: CProperty, indent: string = '  '): string {
 
 /** unwrap properties */
 function _ups (
-  props: CProperties | ((context?: CContext) => CProperties),
-  instance: CSSRenderInstance
+  props: CProperties | LazyCProperties,
+  instance: CSSRenderInstance,
+  params: any
 ): CProperties {
-  if (typeof props === 'function') return props(instance.context)
+  if (typeof props === 'function') {
+    return props({
+      context: instance.context,
+      props: params
+    })
+  }
   return props
 }
 
 /** create style */
 function _cs (
   selector: string,
-  props: CProperties | ((context?: CContext) => CProperties) | null,
-  instance: CSSRenderInstance
+  props: CProperties | LazyCProperties | null,
+  instance: CSSRenderInstance,
+  params: any
 ): string | null {
   if (props === null) return null
-  const unwrappedProps = _ups(props, instance)
+  const unwrappedProps = _ups(props, instance, params)
   const propertyNames = Object.keys(unwrappedProps)
   if (propertyNames.length === 0) {
     if (instance.config.preserveEmptyBlock) return selector + ' {}'
@@ -72,7 +79,8 @@ function t (
   node: CNode,
   selectorPaths: Array<string | CNodeOptions>,
   styles: string[],
-  instance: CSSRenderInstance
+  instance: CSSRenderInstance,
+  params: any
 ): void {
   if (typeof node.$ === 'string') {
     selectorPaths.push(node.$)
@@ -81,19 +89,19 @@ function t (
     selectorPaths.push(node.$.$(instance.context))
   }
   const selector = p$p(selectorPaths, instance)
-  const style = _cs(selector, node.props, instance)
+  const style = _cs(selector, node.props, instance, params)
   if (style !== null) styles.push(style)
   if (node.children !== null) {
     node.children.forEach(childNode => {
-      t(childNode, selectorPaths, styles, instance)
+      t(childNode, selectorPaths, styles, instance, params)
     })
   }
   selectorPaths.pop()
   if (!(typeof node.$ === 'string') && node.$.after !== undefined) node.$.after(instance.context)
 }
 
-export function render (node: CNode, instance: CSSRenderInstance): string {
+export function render (node: CNode, instance: CSSRenderInstance, params?: any): string {
   const styles: string[] = []
-  t(node, [], styles, instance)
+  t(node, [], styles, instance, params)
   return styles.join('\n\n')
 }

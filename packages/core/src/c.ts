@@ -11,13 +11,19 @@ import { render } from './render'
 import { _m, _u } from './mount'
 
 /** render wrapper */
-function _r (this: CNode): string {
-  return render(this, this.instance)
+function _r (this: CNode, props?: any): string {
+  return render(this, this.instance, props)
 }
 
 /** wrapped mount */
-function _wm (this: CNode, target?: HTMLStyleElement | string | number): HTMLStyleElement {
-  const targetElement = _m(this.instance, this, target)
+function _wm (
+  this: CNode,
+  options?: {
+    target?: HTMLStyleElement | string | number
+    props?: any
+  }
+): HTMLStyleElement {
+  const targetElement = _m(this.instance, this, options?.target)
   const els = this.els
   if (!els.includes(targetElement)) {
     els.push(targetElement)
@@ -26,8 +32,8 @@ function _wm (this: CNode, target?: HTMLStyleElement | string | number): HTMLSty
 }
 
 /** wrapped _u */
-function _wu (this: CNode, target?: HTMLStyleElement | string | number): void {
-  _u(this.instance, this, target)
+function _wu (this: CNode, options?: { target?: HTMLStyleElement | string | number }): void {
+  _u(this.instance, this, options?.target)
 }
 
 /** traverse */

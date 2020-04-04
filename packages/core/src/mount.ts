@@ -58,7 +58,8 @@ export function _u (
 export function _m (
   instance: CSSRenderInstance,
   node: CNode,
-  target?: HTMLStyleElement | string | number
+  target?: HTMLStyleElement | string | number,
+  props?: any
 ): HTMLStyleElement {
   let targetElement: HTMLStyleElement | null = null
   if (target === undefined) {
@@ -78,7 +79,7 @@ export function _m (
     targetElement = target
     _sc(targetElement, _gc(targetElement) + 1)
   }
-  const style = node.render()
+  const style = node.render(props)
   if (targetElement.innerHTML !== style) {
     targetElement.innerHTML = style
   }
