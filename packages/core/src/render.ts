@@ -1,7 +1,6 @@
 import {
   CNode,
   CProperties,
-  CNodeOptions,
   CSSRenderInstance,
   CProperty,
   LazyCProperties
@@ -77,16 +76,20 @@ function _cs (
 /** traverse */
 function t (
   node: CNode,
-  selectorPaths: Array<string | CNodeOptions>,
+  selectorPaths: string[],
   styles: string[],
   instance: CSSRenderInstance,
   params: any
 ): void {
   if (typeof node.$ === 'string') {
     selectorPaths.push(node.$)
-  } else if (node.$.$ !== undefined) {
+  } else {
     if (node.$.before !== undefined) node.$.before(instance.context)
-    selectorPaths.push(node.$.$(instance.context))
+    if (typeof node.$.$ === 'string') {
+      selectorPaths.push(node.$.$)
+    } else {
+      selectorPaths.push(node.$.$(instance.context))
+    }
   }
   const selector = p$p(selectorPaths, instance)
   const style = _cs(selector, node.props, instance, params)

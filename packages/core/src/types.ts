@@ -7,9 +7,9 @@ export interface CContext {
 }
 
 export interface CNodeOptions {
+  $: ((context: CContext) => string) | string
   before?: (context: CContext) => any
   after?: (context: CContext) => any
-  $: (context: CContext) => string
 }
 
 export type LazyCProperties = ((options: {

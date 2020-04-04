@@ -1,5 +1,4 @@
 import {
-  CNodeOptions,
   CSSRenderInstance
 } from './types'
 
@@ -22,12 +21,12 @@ function r$ (amp: string, selector: string): string {
 
 /** parse selector path */
 export function p$p (
-  selectorPaths: Array<string | CNodeOptions>,
+  selectorPaths: string[],
   instance: CSSRenderInstance
 ): string {
   let amp = ''
   selectorPaths.forEach(selector => {
-    const adpatedSelector = typeof selector === 'string' ? selector : selector.$(instance.context)
+    const adpatedSelector = selector
     if (/,/g.test(amp)) {
       amp = amp
         .split(',')

@@ -182,4 +182,27 @@ describe('#render', () => {
       `
     )
   })
+  it('should work with CNodeOptions', () => {
+    assertEqual(
+      c({
+        $: 'body'
+      }, [
+        c({
+          $: () => '&.dark'
+        }, {
+          backgroundColor: 'black'
+        }),
+        c('.container', {
+          width: '100%'
+        })
+      ]).render()
+      ,
+    `body.dark {
+      background-color: black;
+    }
+    
+    body .container {
+      width: 100%;
+    }`)
+  })
 })
