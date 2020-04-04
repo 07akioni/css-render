@@ -8,24 +8,26 @@ They can help you mount style to the HTML document.
 ## Mount
 Render the `CNode`'s style and mount it to document.
 
-```mount(options?: { target?: string | number | HTMLStyleElement, props?: any })```
+```mount(options?: { target?: string | number | HTMLStyleElement | null, props?: any })```
 
 ### target
 - If `target` or `options` is `undefined`, every call of mount method will create a `style` element with rendered styles and mount it `document.head`.
 - If `target` is a `string` or `number`. It will mount the style to a `style[css-render-id="${target}"]` element to `document.head` and set `mount-count` attribute of the element to `1`. If the element already exists, the `mount` method will **not** refresh the content of the element but plus the `mount-count` attribute of the element by `1`.
 - If `target` is a `HTMLStyleElement`, and the `target` has no `mount-count` attribute, the `innerHTML` of the `target` will be set to the rendered style and the `mount-count` attribute will be set to `1`, or it will only plus the `mount-count` attribute of the `target` by `1` and not refresh the target's content.
+- If `target` is `null`, it will do nothing.
 ### props
 The `props` will be used as the render function's `prop` during this mount.
 ## Unmount
 Unmount the style of the CNode.
 
-```unmount(options?: { target?: string | number | HTMLStyleElement })```
+```unmount(options?: { target?: string | number | HTMLStyleElement | null })```
 
 ### Target
 - If `target` or `options` is `undefined`, every mounted elements of the `CNode` will be unmounted.
 - If `target` is `undefined`, every mounted elements of the `CNode` will be unmounted.
 - If `target` is a `string` or `number`. It will unmount `style[css-render-id="${target}"]` element mounted by the `CNode` if the element's `mount-count` is `1`. Or it will minus the element's `mount-count` by `1`.
 - If `target` is a `HTMLStyleElement`. It will unmount `target` element if it is mounted by the `CNode` when the element's `mount-count` is `1`. Or it will minus the element's `mount-count` by `1`.
+- If `target` is `null`, it will do nothing.
 
 ---
 

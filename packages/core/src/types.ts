@@ -27,8 +27,8 @@ export interface CNode {
   instance: CSSRenderInstance
   els: HTMLStyleElement[]
   render: (props?: any) => string
-  mount: (options?: { target?: HTMLStyleElement | string | number, props?: any }) => HTMLStyleElement
-  unmount: (options?: { target?: HTMLStyleElement | string | number }) => void
+  mount: (options?: { target?: HTMLStyleElement | string | number | null, props?: any }) => HTMLStyleElement | null
+  unmount: (options?: { target?: HTMLStyleElement | string | number | null }) => void
 }
 
 export type CProperty = CProperties | string | number | undefined

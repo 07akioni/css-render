@@ -19,14 +19,16 @@ function _r (this: CNode, props?: any): string {
 function _wm (
   this: CNode,
   options?: {
-    target?: HTMLStyleElement | string | number
+    target?: HTMLStyleElement | string | number | null
     props?: any
   }
-): HTMLStyleElement {
+): HTMLStyleElement | null {
+  const target = options === undefined ? undefined : options.target
+  if (target === null) return null
   const targetElement = _m(
     this.instance,
     this,
-    options?.target,
+    target,
     options?.props
   )
   const els = this.els
@@ -37,8 +39,10 @@ function _wm (
 }
 
 /** wrapped _u */
-function _wu (this: CNode, options?: { target?: HTMLStyleElement | string | number }): void {
-  _u(this.instance, this, options?.target)
+function _wu (this: CNode, options?: { target?: HTMLStyleElement | string | number | null }): void {
+  const target = options === undefined ? undefined : options.target
+  if (target === null) return
+  _u(this.instance, this, target)
 }
 
 /** traverse */
