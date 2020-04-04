@@ -63,8 +63,8 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
         ctx.bem.block = memorizedB
         ctx.bem.elements = memorizedE
       },
-      $ (ctx) {
-        return `${_bPrefix}${ctx.bem.block as string}`
+      $ ({ context }) {
+        return `${_bPrefix}${context.bem.block as string}`
       }
     }
   }
@@ -82,23 +82,23 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
       after (ctx) {
         ctx.bem.elements = memorizedE
       },
-      $ (ctx) {
-        return (ctx.bem.elements as string[])
-          .map(el => `${_bPrefix}${ctx.bem.block as string}__${el}`).join(', ')
+      $ ({ context }) {
+        return (context.bem.elements as string[])
+          .map(el => `${_bPrefix}${context.bem.block as string}__${el}`).join(', ')
       }
     }
   }
 
   function m (arg: string): CNodeOptions {
     return {
-      $ (ctx) {
+      $ ({ context }) {
         const modifiers = arg.split(',').map(v => v.trim())
         function elementToSelector (el?: string): string {
-          return modifiers.map(modifier => `&${_bPrefix}${ctx.bem.block as string}${
+          return modifiers.map(modifier => `&${_bPrefix}${context.bem.block as string}${
             el !== undefined ? `${_ePrefix}${el}` : ''
           }${_mPrefix}${modifier}`).join(', ')
         }
-        const els = ctx.bem.elements
+        const els = context.bem.elements
         if (els !== null) {
           if (process.env.NODE_ENV !== 'production' && els.length >= 2) {
             throw Error(
@@ -115,14 +115,14 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
 
   function notM (arg: string): CNodeOptions {
     return {
-      $ (ctx) {
-        const els = ctx.bem.elements as null | string[]
+      $ ({ context }) {
+        const els = context.bem.elements as null | string[]
         if (process.env.NODE_ENV !== 'production' && els !== null && els.length >= 2) {
           throw Error(
             '[css-render/_plugin-bem/notM]: using modifier inside multiple elements is not allowed'
           )
         }
-        return `&:not(${_bPrefix}${ctx.bem.block as string}${
+        return `&:not(${_bPrefix}${context.bem.block as string}${
           (els !== null && els.length > 0) ? `${_ePrefix}${els[0]}` : ''
         }${_mPrefix}${arg})`
       }

@@ -88,7 +88,10 @@ function t (
     if (typeof node.$.$ === 'string') {
       selectorPaths.push(node.$.$)
     } else {
-      selectorPaths.push(node.$.$(instance.context))
+      selectorPaths.push(node.$.$({
+        context: instance.context,
+        props: params
+      }))
     }
   }
   const selector = p$p(selectorPaths, instance)

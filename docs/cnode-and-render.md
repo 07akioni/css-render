@@ -50,7 +50,7 @@ It outputs:
 `CNodeOptions` is a object looks like:
 ```typescript
 interface CNodeOptions {
-  $: ((context) => string) | string,
+  $: ((context, props) => string) | string,
   before: (context) => void,
   after: (context) => void
 }
@@ -59,7 +59,7 @@ interface CNodeOptions {
 
 If you want to know more about `context`, see [CSSRender](https://github.com/07akioni/css-render/blob/master/docs/css-render-instance.md).
 
-- `$` is a selector string or a function that accepts the context and return a selector string as demostrated before.
+- `$` is a selector string or a function that accepts the context and return a selector string as demostrated before. `props` is the passed from itself or it ascendant node's render function, for example, `cnode.render({ color: 'black' })`.
 - `before` is the hook before the `CNode` tree is rendered. You can setup the `context` in the hook.
 - `after` is the hook after the `CNode` tree is rendered. You can do some cleaning in the hook.
 ### `properties`

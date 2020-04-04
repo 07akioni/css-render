@@ -7,7 +7,10 @@ export interface CContext {
 }
 
 export interface CNodeOptions {
-  $: ((context: CContext) => string) | string
+  $: ((options: {
+    context: CContext
+    props?: any
+  }) => string) | string
   before?: (context: CContext) => any
   after?: (context: CContext) => any
 }
