@@ -40,7 +40,7 @@ const style = c('body', {
 console.log(style.render())
 /**
  * or mount on document.head
- * the following lines only work in browser
+ * the following lines only works in browser, don't call them in node.js
  */
 style.mount()
 // ...
@@ -115,7 +115,7 @@ const style = cB(
 console.log(style.render())
 /**
  * or mount on document.head
- * the following lines only works in browser
+ * the following lines only works in browser, don't call them in node.js
  */
 style.mount()
 // ...

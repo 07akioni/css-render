@@ -38,19 +38,19 @@ export function _u (
       const mountCount = _gc(targetElement)
       if (mountCount === 1) {
         _re(targetElement)
+        node.els = els.filter(el => el !== targetElement)
       } else {
         _sc(targetElement, mountCount - 1)
       }
-      node.els = els.filter(el => el !== targetElement)
     }
   } else if (els.includes(target)) {
     const mountCount = _gc(target)
     if (mountCount === 1) {
       _re(target)
+      node.els = els.filter(el => el !== target)
     } else {
       _sc(target, mountCount - 1)
     }
-    node.els = els.filter(el => el !== target)
   }
 }
 

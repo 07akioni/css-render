@@ -44,7 +44,6 @@ describe('# mount & unmount with id', () => {
     style.mount(14139)
     sandbox = document.createElement('div')
     document.body.appendChild(sandbox)
-    console.log('head', document.head.outerHTML)
   })
   afterEach(() => {
     sandbox.innerHTML = ''
@@ -68,14 +67,34 @@ describe('# mount & unmount with id', () => {
       .not.to.equal(null)
     expect(style.els.length).to.equal(2)
   })
-  it('should unmount all related styles elements', () => {
-    style.unmount()
-    expect(style.els.length).to.equal(0)
-  })
   it('should be mounted to target element is a element is passed', () => {
     const styleElement = document.createElement('style')
     style.mount(styleElement)
     expect(styleElement.innerHTML.length).to.not.equal(0)
+  })
+  it('should unmount all related styles elements', () => {
+    style.unmount()
+    expect(style.els.length).to.equal(0)
+  })
+  it('should mount element with mount count', () => {
+    const styleElement = style.mount(14138)
+    expect(styleElement.getAttribute('mount-count')).to.equal('1')
+    style.mount(14138)
+    expect(styleElement.getAttribute('mount-count')).to.equal('2')
+    style.mount(14138)
+    expect(styleElement.getAttribute('mount-count')).to.equal('3')
+  })
+  it('should minus mount count when mounted multiple times', () => {
+    const styleElement = style.mount(14138)
+    style.unmount(14138)
+    expect(styleElement.getAttribute('mount-count')).to.equal('3')
+    style.unmount(14138)
+    expect(styleElement.getAttribute('mount-count')).to.equal('2')
+    style.unmount(14138)
+    expect(styleElement.getAttribute('mount-count')).to.equal('1')
+    expect(styleElement.parentElement).not.to.equal(null)
+    style.unmount(14138)
+    expect(styleElement.parentElement).to.equal(null)
   })
   after(() => {
     document.body.removeChild(sandbox)
