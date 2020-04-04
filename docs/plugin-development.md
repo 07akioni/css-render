@@ -2,7 +2,7 @@
 A `css-render` plugin should be a function that return a plugin object.
 
 The plugin need to follow the following rules:
-1. If you want to access the properties of a `CSSRender` instance, the object should has a `install` method. For example:
+1. If you want to access the properties of a [CSSRender](https://github.com/07akioni/css-render/blob/master/docs/css-render-instance.md) instance, the object should has a `install` method. For example:
 2. If you want your plugin has options, you should accept the options from the plugin function's params.
 ```js
 import CSSRender from 'css-render'
@@ -78,4 +78,4 @@ It outputs:
 }
 ```
 
-If you still have no idea on how to create a plugin, you may see `@css-render/plugin-bem` for some inspirations.
+If you still have no idea on how to create a plugin, you may see [@css-render/plugin-bem](https://github.com/07akioni/css-render/tree/master/packages/plugins/bem) for some inspirations.
