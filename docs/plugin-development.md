@@ -30,19 +30,21 @@ import CSSRender from 'css-render'
 const cssr = CSSRender()
 
 const Plugin = function ({
+  startsFrom
+} = {
   startsFrom: 1
 }) {
   let context
   let c
   return {
     install (CSSRenderInstance) {
-      c = CSSRenderInstance
+      c = CSSRenderInstance.c
       context = CSSRenderInstance.context
       context.number = startsFrom
     },
     cAcc () {
-      return h({
-        $: '.number'
+      return c({
+        $: '.number',
         before: (context) => {
           context.number += 1
         }
@@ -58,9 +60,11 @@ cssr.use(plugin) // it will make install methods called
 
 const { cAcc } = plugin
 
-console.log(cAcc.render())
-console.log(cAcc.render())
-console.log(cAcc.render())
+console.log(cAcc().render())
+console.log()
+console.log(cAcc().render())
+console.log()
+console.log(cAcc().render())
 ```
 It outputs:
 

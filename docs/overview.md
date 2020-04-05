@@ -47,7 +47,7 @@ body.dark {
 }
 
 body .container {
-  width: '100%';
+  width: 100%;
 }
 ```
 ## Mount `CNode` to HTML document

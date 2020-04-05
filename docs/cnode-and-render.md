@@ -68,7 +68,9 @@ You can put just a plain object:
 ```js
 console.log(c('.button', {
   backgroundColor: 'green'
-}))
+}).render())
+
+console.log()
 
 console.log(c('@keyframes my-animation', {
   from: {
@@ -77,7 +79,7 @@ console.log(c('@keyframes my-animation', {
   to: {
     color: 'black'
   }
-}))
+}).render())
 ```
 It outputs:
 ```css
@@ -108,6 +110,9 @@ const style = c('.button', ({
 }))
 
 console.log(style.render({ color: 'red' }))
+
+console.log()
+
 console.log(style.render({ color: 'blue' }))
 ```
 It outputs:

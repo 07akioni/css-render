@@ -54,7 +54,7 @@ style.mount()
 // ...
 style.unmount()
 ```
-which outputs
+It outputs
 ```css
 body {
   margin: 0;
@@ -66,7 +66,7 @@ body.dark {
 }
 
 body .container {
-  width: '100%';
+  width: 100%;
 }
 ```
 
@@ -128,7 +128,7 @@ style.mount()
 // ...
 style.unmount()
 ```
-which outputs
+It outputs
 ```css
 .c-container .c-container__left, .c-container .c-container__right {
   width: 50%;
