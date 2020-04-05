@@ -10,3 +10,5 @@
 10. 在 render 时候类型的传递我似乎应该用泛型，现在全都是 any，not good
 11. <del>感觉我应该允许 mount 和 unmount `null`, `undefined`，因为初始化的时候真的很难避免这两个值</del> 我琢磨了一下，`undefined` 和现有的 API 冲突，里面还要传 props 呢，所以就只让 `null` 什么都不干好了✅
 12. 然后我还感觉发布的包类型提醒不老对的，是不是重启 vscode 就能好了？
+13. <del>处理 `:is(a, b, c)` 这种 selector</del>✅
+14. mount 的返回值类型不能改改吗，某些情况下不可能返回 null 的

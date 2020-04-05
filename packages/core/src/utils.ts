@@ -1,8 +1,10 @@
 /* remove el */
 export function _re (el: HTMLStyleElement | null): void {
-  if (el === null) return
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (!el) return
   const parentElement = el.parentElement
-  if (parentElement !== null) parentElement.removeChild(el)
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (parentElement) parentElement.removeChild(el)
 }
 
 /** query element */

@@ -34,7 +34,8 @@ export function _u (
     node.els = []
   } else if (typeof target === 'string' || typeof target === 'number') {
     const targetElement = _qe(target)
-    if (targetElement !== null && els.includes(targetElement)) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (targetElement && els.includes(targetElement)) {
       const mountCount = _gc(targetElement)
       if (mountCount === 1) {
         _re(targetElement)
