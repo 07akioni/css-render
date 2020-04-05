@@ -12,7 +12,7 @@ Render the `CNode`'s style and mount it to document.
 
 ### target
 - If `target` or `options` is `undefined`, every call of mount method will create a `style` element with rendered styles and mount it `document.head`.
-- If `target` is a `string` or `number`. It will mount the style to a `style[css-render-id="${target}"]` element to `document.head` and set `mount-count` attribute of the element to `1`. If the element already exists, the `mount` method will **not** refresh the content of the element but plus the `mount-count` attribute of the element by `1`.
+- If `target` is a `string` or `number`. It will mount the style on a `style[css-render-id="${target}"]` element to `document.head` and set `mount-count` attribute of the element to `1`. For example: `<head><style css-render-id="target" mount-count="1">...</style></head>`. If the element already exists, the `mount` method will **not** refresh the content of the element but plus the `mount-count` attribute of the element by `1`.
 - If `target` is a `HTMLStyleElement`, and the `target` has no `mount-count` attribute, the `innerHTML` of the `target` will be set to the rendered style and the `mount-count` attribute will be set to `1`, or it will only plus the `mount-count` attribute of the `target` by `1` and not refresh the target's content.
 - If `target` is `null`, it will do nothing.
 ### props
