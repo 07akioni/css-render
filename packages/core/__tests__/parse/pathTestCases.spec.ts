@@ -36,6 +36,18 @@ const testCases: CSelectorTestCase[] = [
   {
     input: ['', '.a > b', '&', '&', '&'],
     output: '.a > b'
+  },
+  {
+    input: ['a, b', 'c, d', 'e, f'],
+    output: 'a c e, a c f, a d e, a d f, b c e, b c f, b d e, b d f'
+  },
+  {
+    input: ['a, b', '& + c, d', 'e, & + f'],
+    output: 'a + c e, a + c + f, a d e, a d + f, b + c e, b + c + f, b d e, b d + f'
+  },
+  {
+    input: ['@keyframes good-animation'],
+    output: '@keyframes good-animation'
   }
 ]
 
