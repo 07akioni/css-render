@@ -5,10 +5,10 @@ const cssr = CSSRender()
 const bemPlugin = plugin({
   blockPrefix: '.n-'
 })
-const { h } = cssr
+const { c } = cssr
 cssr.use(bemPlugin)
 const {
-  hB, hE, hM, hNotM
+  cB, cE, cM, cNotM
 } = bemPlugin
 
 const buttonType = {
@@ -29,39 +29,39 @@ const buttonSize = {
 function buttonSizeMixin (size) {
   const bs = buttonSize[size]
   return (
-    hM(size + '-size', {
+    cM(size + '-size', {
       borderRadius: bs,
       fontSize: bs,
       whiteSpace: 'nowrap'
     }, [
-      hNotM('text', {
+      cNotM('text', {
         height: bs,
         lineHeight: bs,
         padding: bs
       }),
-      hM('round', {
+      cM('round', {
         padding: bs,
         borderRadius: bs
       }),
-      hM('circle', {
+      cM('circle', {
         width: bs,
         borderRadius: bs,
         padding: '0 !important'
       }),
-      hM('text', {
+      cM('text', {
         padding: 0,
         borderRadius: 0
       }, [
-        hE('icon', {
+        cE('icon', {
           height: bs,
           lineHeight: bs
         })
       ]),
-      hE('content', {
+      cE('content', {
         display: 'inline-block',
         lineHeight: 'inherit'
       }),
-      hE('icon', {
+      cE('icon', {
         display: 'inline-block',
         position: 'relative',
         lineHeight: bs,
@@ -70,10 +70,10 @@ function buttonSizeMixin (size) {
         maxWidth: bs,
         verticalAlign: 'bottom'
       }, [
-        hB('icon', {
+        cB('icon', {
           fontSize: bs
         }),
-        hB('base-loading', {
+        cB('base-loading', {
           height: bs,
           width: bs,
           position: 'absolute',
@@ -82,14 +82,14 @@ function buttonSizeMixin (size) {
           transform: 'translateY(-50%)',
           display: 'block'
         }),
-        hM('slot', {
+        cM('slot', {
           width: bs,
           fontSize: bs,
           display: 'inline-block',
           alignItems: 'center',
           verticalAlign: 'bottom'
         }, [
-          hB('icon-slot', {
+          cB('icon-slot', {
             position: 'absolute',
             left: 0,
             top: '50%',
@@ -118,47 +118,47 @@ function buttonTypeMixin (type) {
   const boxShadowStyle = {
     boxShadow: bt
   }
-  const borderMaskMixin = hE('border-mask', {
+  const borderMaskMixin = cE('border-mask', {
     ...boxShadowStyle
   })
-  const iconMixin = hE('icon', [
-    hB('icon', {
+  const iconMixin = cE('icon', [
+    cB('icon', {
       fill: bt,
       stroke: bt
     }),
-    hB('base-loading', {
+    cB('base-loading', {
       fill: bt,
       stroke: bt
     })
   ])
-  return hM(type + '-type', {
+  return cM(type + '-type', {
     ...borderStyle,
     ...commonStyle
   }, [
-    hM('ghost, text', [
-      hNotM('disabled', [
-        hM('enter-pressed', {
+    cM('ghost, text', [
+      cNotM('disabled', [
+        cM('enter-pressed', {
           ...commonStyle
         }, [
           borderMaskMixin,
           iconMixin
         ]),
-        h('&:not(:active):focus', [
-          hNotM('enter-pressed', {
+        c('&:not(:active):focus', [
+          cNotM('enter-pressed', {
             ...commonStyle
           }, [
             borderMaskMixin,
             iconMixin
           ])
         ]),
-        hNotM('enter-pressed', [
-          h('&:hover', {
+        cNotM('enter-pressed', [
+          c('&:hover', {
             ...commonStyle
           }, [
             borderMaskMixin,
             iconMixin
           ]),
-          h('&:active', {
+          c('&:active', {
             ...commonStyle
           }, [
             borderMaskMixin,
@@ -168,60 +168,60 @@ function buttonTypeMixin (type) {
       ]),
       iconMixin
     ]),
-    hM('text', {
+    cM('text', {
       border: 'none',
       ...commonStyle
     }, [
       borderMaskMixin,
-      hNotM('disabled', [
-        hM('rippling', [
-          h('&::after', {
+      cNotM('disabled', [
+        cM('rippling', [
+          c('&::after', {
             display: 'none'
           })
         ]),
-        hM('enter-pressed', {
+        cM('enter-pressed', {
           ...commonStyle
         }),
-        h('&:not(:active):focus', [
-          hNotM('enter-pressed', {
+        c('&:not(:active):focus', [
+          cNotM('enter-pressed', {
             ...commonStyle
           })
         ]),
-        hNotM('enter-pressed', [
-          h('&:hover', {
+        cNotM('enter-pressed', [
+          c('&:hover', {
             ...commonStyle
           }),
-          h('&:active', {
+          c('&:active', {
             ...commonStyle
           })
         ])
       ])
     ]),
     iconMixin,
-    hNotM('disabled', [
-      hM('enter-pressed', {
+    cNotM('disabled', [
+      cM('enter-pressed', {
         ...commonStyle
       }, [
         borderMaskMixin,
         iconMixin
       ]),
-      hM('rippling', [
-        h('&::after', {
+      cM('rippling', [
+        c('&::after', {
           zIndex: 1,
           animationName: bt,
           animationDuration: bt,
           animationTimingFunction: bt
         }),
-        h('&:not(:active):focus', [
-          hNotM('enter-pressed', {
+        c('&:not(:active):focus', [
+          cNotM('enter-pressed', {
             ...commonStyle
           }, [
             borderMaskMixin,
             iconMixin
           ])
         ]),
-        hNotM('enter-pressed', [
-          h('&:hover', {
+        cNotM('enter-pressed', [
+          c('&:hover', {
             ...commonStyle
           }, [
             borderMaskMixin,
@@ -236,11 +236,11 @@ function buttonTypeMixin (type) {
 function buttonRippleMixin (type) {
   const bt = buttonType[type]
   return [
-    h(`@keyframes ${type}-button-ripple--spread`, {
+    c(`@keyframes ${type}-button-ripple--spread`, {
       from: { boxShadow: bt },
       to: { boxShadow: bt }
     }),
-    h(`@keyframes ${type}-button-ripple--opacity`, {
+    c(`@keyframes ${type}-button-ripple--opacity`, {
       from: { opacity: 0.4 },
       to: { opacity: 0 }
     })
@@ -255,13 +255,11 @@ const start = performance.now()
 
 /** ripple */
 const rippleStyle = Object.keys(buttonType).map(type => {
-  return buttonRippleMixin(type).map(style => {
-    return style.render()
-  }).join('\n')
-}).join('\n')
+  return buttonRippleMixin(type)
+})
 
 /** button */
-const buttonStyle = hB('button', {
+const buttonStyle = cB('button', {
   boxSizing: 'border-box',
   outline: 'none',
   position: 'relative',
@@ -279,7 +277,7 @@ const buttonStyle = hB('button', {
   `,
   cursor: 'pointer'
 }, [
-  h('&::after', {
+  c('&::after', {
     pointerEvents: 'none',
     content: '\'\'',
     borderRadius: 'inherit',
@@ -289,7 +287,7 @@ const buttonStyle = hB('button', {
     right: '-1px',
     bottom: '-1px'
   }),
-  hE('border-mask', {
+  cE('border-mask', {
     position: 'absolute',
     left: '-1px',
     top: '-1px',
@@ -301,91 +299,92 @@ const buttonStyle = hB('button', {
     pointerEvents: 'none',
     zIndex: 1
   }),
-  hE('icon', {
+  cE('icon', {
     transition: 'color .3s $--n-ease-in-out-cubic-bezier'
   }),
-  hE('content', {
+  cE('content', {
     whiteSpace: 'nowrap',
     transition: 'color .3s $--n-ease-in-out-cubic-bezier'
   }),
-  hM('left-icon', [
-    hE('icon', {
+  cM('left-icon', [
+    cE('icon', {
       marginRight: '6px'
     })
   ]),
-  hM('right-icon', [
-    hE('icon', {
+  cM('right-icon', [
+    cE('icon', {
       marginLeft: '6px'
     })
   ]),
-  hM('block', {
+  cM('block', {
     display: 'block',
     width: '100%'
   }),
-  hM('loading', {
+  cM('loading', {
     display: 'block',
     width: '100%'
   }),
-  hM('disabled', {
+  cM('disabled', {
     cursor: 'not-allowed'
   }),
-  h('&::-moz-focus-inner', {
+  c('&::-moz-focus-inner', {
     border: 0
   }),
+  buttonSizeMixin('tiny'),
   buttonSizeMixin('small'),
   buttonSizeMixin('medium'),
   buttonSizeMixin('large'),
   ...Object.keys(buttonType).map(type => buttonTypeMixin(type))
-]).render()
+])
 
-const buttonGroupStyle = hB('button-group', {
+const buttonGroupStyle = cB('button-group', {
   whiteSpace: 'nowrap',
   display: 'inline-block',
   position: 'relative'
 }, [
-  hNotM('vertical', {
+  cNotM('vertical', {
     display: 'flex',
     flexWrap: 'nowrap'
   }, [
-    hE('button', {
+    cE('button', {
       flexGrow: 1
     }),
-    hB('button', [
-      h('&:first-child:not(:last-child)', {
+    cB('button', [
+      c('&:first-child:not(:last-child)', {
         marginRight: '0 !important',
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0
       }),
-      h('&:last-child:not(:first-child)', {
+      c('&:last-child:not(:first-child)', {
         marginLeft: '0 !important',
         borderTopLeftRadius: 0,
         borderBottomLeftRadius: 0
       }),
-      h('&:not(first-child):not(:last-child)', {
+      c('&:not(first-child):not(:last-child)', {
         marginLeft: '0 !important',
         marginRight: '0 !important',
         borderRadius: '0 !important'
       }),
-      hM('default-type', [
-        h('& +', [
-          hB('button', [
-            hM('default-type', {
+      cM('default-type', [
+        c('& +', [
+          cB('button', [
+            cM('default-type', {
               borderLeftWidth: 0
             })
           ])
         ])
       ]),
-      hM('ghost', [
+      cM('ghost', [
         ...[
           'primary',
           'info',
           'success',
           'warning',
           'error'
-        ].map(v => hM(v + '-type', [
-          h('& +', [
-            hB('button', [
-              hM('default-type', {
+        ].map(v => cM(v + '-type', [
+          c('& +', [
+            cB('button', [
+              cM('default-type', {
                 borderLeftWidth: 0
               })
             ])
@@ -394,49 +393,49 @@ const buttonGroupStyle = hB('button-group', {
       ])
     ])
   ]),
-  hM('vertical', {
+  cM('vertical', {
     display: 'inline-flex',
     flexDirection: 'column'
   }, [
-    hB('button', [
-      h('&:first-child:not(:last-child)', {
+    cB('button', [
+      c('&:first-child:not(:last-child)', {
         marginBottom: '0 !important',
         marginLeft: '0 !important',
         marginRight: '0 !important',
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0
       }),
-      h('&:last-child:not(:first-child)', {
+      c('&:last-child:not(:first-child)', {
         marginTop: '0 !important',
         marginLeft: '0 !important',
         marginRight: '0 !important',
         borderTopLeftRadius: 0,
         borderBottomLeftRadius: 0
       }),
-      h('&:not(first-child):not(:last-child)', {
+      c('&:not(first-child):not(:last-child)', {
         margin: '0 !important',
         borderRadius: '0 !important'
       }),
-      hM('default-type', [
-        h('& +', [
-          hB('button', [
-            hM('default-type', {
+      cM('default-type', [
+        c('& +', [
+          cB('button', [
+            cM('default-type', {
               borderTopWidth: 0
             })
           ])
         ])
       ]),
-      hM('ghost', [
+      cM('ghost', [
         ...[
           'primary',
           'info',
           'success',
           'warning',
           'error'
-        ].map(v => hM(v + '-type', [
-          h('& +', [
-            hB('button', [
-              hM('default-type', {
+        ].map(v => cM(v + '-type', [
+          c('& +', [
+            cB('button', [
+              cM('default-type', {
                 borderTopWidth: 0
               })
             ])
@@ -445,11 +444,15 @@ const buttonGroupStyle = hB('button-group', {
       ])
     ])
   ])
+])
+
+const output = c([
+  rippleStyle,
+  buttonStyle,
+  buttonGroupStyle
 ]).render()
 
 const end = performance.now()
 
-// console.log(rippleStyle)
-// console.log(buttonStyle)
-// console.log(buttonGroupStyle)
+// console.log(output)
 console.log(end - start)
