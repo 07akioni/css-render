@@ -109,15 +109,15 @@ describe('# mount & unmount with id', () => {
     const styleElement = style.mount({
       target: 14138
     })
-    expect(styleElement?.getAttribute('mount-count')).to.equal('1')
+    expect(styleElement.getAttribute('mount-count')).to.equal('1')
     style.mount({
       target: 14138
     })
-    expect(styleElement?.getAttribute('mount-count')).to.equal('2')
+    expect(styleElement.getAttribute('mount-count')).to.equal('2')
     style.mount({
       target: 14138
     })
-    expect(styleElement?.getAttribute('mount-count')).to.equal('3')
+    expect(styleElement.getAttribute('mount-count')).to.equal('3')
   })
   it('should minus mount count when mounted multiple times', () => {
     const styleElement = style.mount({
@@ -126,20 +126,20 @@ describe('# mount & unmount with id', () => {
     style.unmount({
       target: 14138
     })
-    expect(styleElement?.getAttribute('mount-count')).to.equal('3')
+    expect(styleElement.getAttribute('mount-count')).to.equal('3')
     style.unmount({
       target: 14138
     })
-    expect(styleElement?.getAttribute('mount-count')).to.equal('2')
+    expect(styleElement.getAttribute('mount-count')).to.equal('2')
     style.unmount({
       target: 14138
     })
-    expect(styleElement?.getAttribute('mount-count')).to.equal('1')
-    expect(styleElement?.parentElement).not.to.equal(null)
+    expect(styleElement.getAttribute('mount-count')).to.equal('1')
+    expect(styleElement.parentElement).not.to.equal(null)
     style.unmount({
       target: 14138
     })
-    expect(styleElement?.parentElement).to.equal(null)
+    expect(styleElement.parentElement).to.equal(null)
   })
   it('should not mount when target is null', () => {
     style.unmount()

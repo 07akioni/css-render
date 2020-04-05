@@ -5,42 +5,44 @@ import {
   CContext,
   CSSRenderInstance,
   createCNodeForCSSRenderInstance,
-  CNodeChildren
+  CNodeChildren,
+  CRenderProps
 } from './types'
 import { render } from './render'
 import { _m, _u } from './mount'
 
 /** render wrapper */
-function _r (this: CNode, props?: any): string {
+function _r <T extends CRenderProps> (this: CNode, props?: T): string {
   return render(this, this.instance, props)
 }
 
 /** wrapped mount */
-function _wm (
+function _wm <T extends null | undefined | HTMLStyleElement | string | number, V extends CRenderProps> (
   this: CNode,
   options?: {
-    target?: HTMLStyleElement | string | number | null
-    props?: any
+    target?: T
+    props?: V
   }
-): HTMLStyleElement | null {
+): (T extends null ? null : HTMLStyleElement) {
   const target = options === undefined ? undefined : options.target
-  if (target === null) return null
+  if (target === null) return null as (T extends null ? null : HTMLStyleElement)
   const targetElement = _m(
     this.instance,
     this,
-    target,
+    target as (HTMLStyleElement | string | number | undefined),
     options?.props
   )
   const els = this.els
   if (!els.includes(targetElement)) {
     els.push(targetElement)
   }
-  return targetElement
+  return targetElement as (T extends null ? null : HTMLStyleElement)
 }
 
 /** wrapped _u */
-function _wu (this: CNode, options?: { target?: HTMLStyleElement | string | number | null }): void {
-  const target = options === undefined ? undefined : options.target
+function _wu (this: CNode, options?: { target?: HTMLStyleElement | string | number | null | undefined }): void {
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  const target = !options ? undefined : options.target
   if (target === null) return
   _u(this.instance, this, target)
 }

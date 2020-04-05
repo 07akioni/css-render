@@ -3,7 +3,8 @@ import {
   CProperties,
   CSSRenderInstance,
   CProperty,
-  LazyCProperties
+  CRenderProps,
+  CLazyProperties
 } from './types'
 import { p$p } from './parse'
 
@@ -31,10 +32,10 @@ function _up (prop: CProperty, indent: string = '  '): string {
 }
 
 /** unwrap properties */
-function _ups (
-  props: CProperties | LazyCProperties,
+function _ups <T extends CRenderProps> (
+  props: CProperties | CLazyProperties,
   instance: CSSRenderInstance,
-  params: any
+  params: T
 ): CProperties {
   if (typeof props === 'function') {
     return props({
@@ -46,11 +47,11 @@ function _ups (
 }
 
 /** create style */
-function _cs (
+function _cs <T extends CRenderProps> (
   selector: string,
-  props: CProperties | LazyCProperties | null,
+  props: CProperties | CLazyProperties | null,
   instance: CSSRenderInstance,
-  params: any
+  params: T
 ): string | null {
   if (props === null) return null
   const unwrappedProps = _ups(props, instance, params)
@@ -74,12 +75,12 @@ function _cs (
 }
 
 /** traverse */
-function t (
+function t <T extends CRenderProps> (
   node: CNode,
   selectorPaths: string[],
   styles: string[],
   instance: CSSRenderInstance,
-  params: any
+  params: T
 ): void {
   if (typeof node.$ === 'string') {
     selectorPaths.push(node.$)
@@ -106,8 +107,8 @@ function t (
   if (!(typeof node.$ === 'string') && node.$.after !== undefined) node.$.after(instance.context)
 }
 
-export function render (node: CNode, instance: CSSRenderInstance, params?: any): string {
+export function render <T extends CRenderProps> (node: CNode, instance: CSSRenderInstance, props?: T): string {
   const styles: string[] = []
-  t(node, [], styles, instance, params)
+  t(node, [], styles, instance, props)
   return styles.join('\n\n')
 }

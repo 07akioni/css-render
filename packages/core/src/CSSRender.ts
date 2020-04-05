@@ -15,7 +15,6 @@ export function CSSRender (config: CSSRenderConfig = {
   const cssr: CSSRenderInstance = {
     c: ((...args: any[]) => c(cssr, ...args as [any, any, any])) as createCNode<string | CNodeOptions>,
     use: (plugin: CSSRenderPlugin, ...args: any[]) => plugin.install(cssr, ...args),
-    id: Math.random().toString(36).slice(2, 10),
     context: {},
     config
   }

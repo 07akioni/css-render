@@ -6,29 +6,31 @@ export interface CContext {
   [key: string]: any
 }
 
+export type CRenderProps = any
+
 export interface CNodeOptions {
   $: ((options: {
     context: CContext
-    props: any
+    props: CRenderProps
   }) => string) | string
   before?: (context: CContext) => any
   after?: (context: CContext) => any
 }
 
-export type LazyCProperties = ((options: {
+export type CLazyProperties = ((options: {
   context?: CContext
-  props?: any
+  props?: CRenderProps
 }) => CProperties)
 
 export interface CNode {
   $: string | CNodeOptions
-  props: CProperties | LazyCProperties | null
+  props: CProperties | CLazyProperties | null
   children: CNode[] | null
   instance: CSSRenderInstance
   els: HTMLStyleElement[]
-  render: (props?: any) => string
-  mount: (options?: { target?: HTMLStyleElement | string | number | null, props?: any }) => HTMLStyleElement | null
-  unmount: (options?: { target?: HTMLStyleElement | string | number | null }) => void
+  render: <T extends CRenderProps> (props?: T) => string
+  mount: <T extends HTMLStyleElement | string | number | null |undefined, V extends CRenderProps> (options?: { target?: T, props?: V }) => (T extends null ? null : HTMLStyleElement)
+  unmount: (options?: { target?: HTMLStyleElement | string | number | null | undefined }) => void
 }
 
 export type CProperty = CProperties | string | number | undefined
@@ -40,24 +42,23 @@ export interface CProperties extends Properties<string | number> {
 export type CNodeChildren = Array<CNode | CNodeChildren>
 
 export interface createCNode <T> {
-  (children: CNodeChildren): CNode
+  (selector: T, props: CProperties | CLazyProperties, children: CNodeChildren): CNode
+  (selector: T, props: CProperties | CLazyProperties): CNode
   (selector: T, children: CNodeChildren): CNode
-  (selector: T, props: CProperties | LazyCProperties): CNode
-  (selector: T, props: CProperties | LazyCProperties, children: CNodeChildren): CNode
+  (children: CNodeChildren): CNode
 }
 
 export interface createCNodeForCSSRenderInstance {
+  (instance: CSSRenderInstance, selector: string | CNodeOptions, props: CProperties | CLazyProperties, children: CNodeChildren): CNode
+  (instance: CSSRenderInstance, selector: string | CNodeOptions, props: CProperties | CLazyProperties): CNode
+  (instance: CSSRenderInstance, selector: string | CNodeOptions, children: CNodeChildren): CNode
   (instance: CSSRenderInstance, children: CNodeChildren): CNode
-  (instance: CSSRenderInstance, $: string | CNodeOptions, children: CNodeChildren): CNode
-  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties | LazyCProperties): CNode
-  (instance: CSSRenderInstance, $: string | CNodeOptions, props: CProperties | LazyCProperties, children: CNodeChildren): CNode
 }
 
 export interface CSSRenderInstance {
   context: {
     [key: string]: any
   }
-  id: string
   c: createCNode<string | CNodeOptions>
   use: (plugin: CSSRenderPlugin, ...args: any[]) => void
   config: CSSRenderConfig
