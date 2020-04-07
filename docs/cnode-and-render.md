@@ -92,7 +92,7 @@ It outputs:
     color: white;
   }
   to {
-    color: black
+    color: black;
   }
 }
 ```
