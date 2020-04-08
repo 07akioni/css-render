@@ -2,7 +2,7 @@
 
 Generating CSS using JS with considerable flexibility and extensibility, at both server side and client side.
 
-It's design to be a progressive tool which can just work as a supplementary of your style files or totally replace your `.css` files.
+It is not designed to totally replace other style-related solutions, but to be a progressive tool which can just work as a supplementary of your style files or totally replace your `.css` files.
 
 ## Why Using It
 1. If you have a large CSS bundle with duplicate generation logic, such as a `button.css` with info, success, warning, error and ... buttons, you will need to transfer all the style literals in network. By using `css-render`, you can generate CSS at client side and reduce your app's bundle size. (This is a exchange between `bandwidth` and `CPU time`)
