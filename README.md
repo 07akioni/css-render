@@ -9,6 +9,8 @@ It is not designed to totally replace other style-related solutions, but to be a
 2. You may write `sass`, `less` or other preprocessors' mixins. However the logic can't be reused at client side (at a small cost). For example, you can generate a red button's style in preprocessors at server side, but you can't handle a dynamic color input at client side. By using `css-render`, you can generate styles dynamically based on JS variables (which can styling something like `::before` or `:hover` more easliy than inline style).
 3. You want to write style variables in JS.
 
+If you still have any question, [Q&A](docs/qa.md) may help you.
+
 ## Documentation
 - [First Step](https://github.com/07akioni/css-render/blob/master/docs/overview.md)
 - [Create a CNode & Render a CNode Tree](https://github.com/07akioni/css-render/blob/master/docs/cnode-and-render.md)
@@ -70,7 +72,7 @@ body .container {
 }
 ```
 
-### BEM Plugin Examples
+### BEM Plugin Example
 ```bash
 $ npm install --save-dev css-render @css-render/plugin-bem
 ```

@@ -16,7 +16,7 @@ function _kc (pattern: string): string {
   return pattern.replace(_kr, match => '-' + match.toLowerCase())
 }
 
-/** _upwrap property */
+/** upwrap property */
 /** TODO: refine it */
 function _up (prop: CProperty, indent: string = '  '): string {
   if (typeof prop === 'object') {
