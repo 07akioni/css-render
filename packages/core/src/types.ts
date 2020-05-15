@@ -39,7 +39,7 @@ export interface CNode {
 
 type CLazyChildren = (option: CRenderOption) => CNodeChildren | CNode
 
-export type CProperty = CProperties | string | number | undefined
+export type CProperty = CProperties | string | number | undefined | null
 
 export interface CProperties extends Properties<string | number> {
   [nonPropertyLiteral: string]: CProperty

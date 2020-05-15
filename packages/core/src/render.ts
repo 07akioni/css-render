@@ -21,7 +21,7 @@ function _kc (pattern: string): string {
 /** upwrap property */
 /** TODO: refine it */
 function _up (prop: CProperty, indent: string = '  '): string {
-  if (typeof prop === 'object') {
+  if (typeof prop === 'object' && prop !== null) {
     return (
       ' {\n' +
       Object.entries(prop).map(v => {
@@ -68,7 +68,7 @@ function _cs <T extends CRenderProps> (
   propertyNames.forEach(propertyName => {
     const property = unwrappedProps[propertyName]
     propertyName = _kc(propertyName)
-    if (property !== undefined) {
+    if (property !== undefined && property !== null) {
       statements.push(`  ${propertyName}${_up(property)}`)
     }
   })
