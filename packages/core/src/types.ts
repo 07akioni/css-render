@@ -34,7 +34,7 @@ export interface CNode {
   els: HTMLStyleElement[]
   render: <T extends CRenderProps> (props?: T) => string
   mount: <T extends HTMLStyleElement | string | number | null |undefined, V extends CRenderProps> (options?: { target?: T, props?: V }) => (T extends null ? null : HTMLStyleElement)
-  unmount: (options?: { target?: HTMLStyleElement | string | number | null | undefined }) => void
+  unmount: (options?: { target?: HTMLStyleElement | string | number | null | undefined, delay?: number }) => void
 }
 
 type CLazyChildren = (option: CRenderOption) => CNodeChildren | CNode

@@ -152,6 +152,22 @@ describe('# mount & unmount with id', () => {
       target: null
     })
   })
+  it('should delay unmount when delay is set', function (done) {
+    style.mount({
+      target: 14138
+    })
+    style.unmount({
+      target: 14138,
+      delay: 100
+    })
+    expect(document.head.querySelector('[css-render-id="14138"]'))
+      .not.to.equal(null)
+    setTimeout(() => {
+      expect(document.head.querySelector('[css-render-id="14138"]'))
+        .to.equal(null)
+      done()
+    }, 200)
+  })
   after(() => {
     document.body.removeChild(sandbox)
     style.unmount()

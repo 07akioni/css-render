@@ -39,11 +39,15 @@ function _wm <T extends null | undefined | HTMLStyleElement | string | number, V
 }
 
 /** wrapped _u */
-function _wu (this: CNode, options?: { target?: HTMLStyleElement | string | number | null | undefined }): void {
+function _wu (this: CNode, options?: { target?: HTMLStyleElement | string | number | null | undefined, delay?: number }): void {
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   const target = !options ? undefined : options.target
+  const delay = options === undefined ? 0 : options.delay === undefined ? 0 : options.delay
   if (target === null) return
-  _u(this.instance, this, target)
+  if (delay === 0) _u(this.instance, this, target)
+  else {
+    setTimeout(() => _u(this.instance, this, target), delay)
+  }
 }
 
 /** create CNode */
