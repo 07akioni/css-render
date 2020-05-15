@@ -128,3 +128,36 @@ describe('# bem', function () {
     )
   })
 })
+
+describe('# function typed selector', function () {
+  it('should pass test case#1', function () {
+    assertEqual(
+      cB(({ props }) => props.value as string + 'block', {
+        key: 'value'
+      }, [
+        cE(({ props }) => props.value as string + 'el', {
+          key: 'value'
+        }, [
+          cM(({ props }) => props.value as string + 'm', {
+            key: 'value'
+          })
+        ])
+      ]).render({
+        value: 'propValue'
+      }),
+    `
+    .c-propValueblock {
+      key: value;
+    }
+
+    .c-propValueblock .c-propValueblock__propValueel {
+      key: value;
+    }
+
+    .c-propValueblock .c-propValueblock__propValueel.c-propValueblock__propValueel--propValuem {
+      key: value;
+    }
+
+    `)
+  })
+})

@@ -3,7 +3,8 @@
 import {
   CNodeOptions,
   CSSRenderPlugin,
-  createCNode
+  createCNode,
+  CSelector
 } from 'css-render'
 
 interface BEMPluginOptions {
@@ -13,10 +14,10 @@ interface BEMPluginOptions {
 }
 
 interface CSSRenderBEMPlugin extends CSSRenderPlugin {
-  cB: createCNode<string>
-  cE: createCNode<string>
-  cM: createCNode<string>
-  cNotM: createCNode<string>
+  cB: createCNode<string | CSelector>
+  cE: createCNode<string | CSelector>
+  cM: createCNode<string | CSelector>
+  cNotM: createCNode<string | CSelector>
 }
 
 function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
@@ -49,27 +50,28 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     }
   }
 
-  function b (arg: string): CNodeOptions {
+  function b (arg: string | CSelector): CNodeOptions {
     let memorizedB: string | null
     let memorizedE: string | null
     return {
       before (ctx) {
         memorizedB = ctx.bem.block
         memorizedE = ctx.bem.elements
-        ctx.bem.block = arg
         ctx.bem.elements = null
       },
       after (ctx) {
         ctx.bem.block = memorizedB
         ctx.bem.elements = memorizedE
       },
-      $ ({ context }) {
+      $ ({ context, props }) {
+        arg = typeof arg === 'string' ? arg : arg({ context, props })
+        context.bem.block = arg
         return `${_bPrefix}${context.bem.block as string}`
       }
     }
   }
 
-  function e (arg: string): CNodeOptions {
+  function e (arg: string | CSelector): CNodeOptions {
     let memorizedE: string | null
     return {
       before (ctx) {
@@ -77,21 +79,23 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
           throw Error('[css-render/_plugin-bem/e]: nested element is not allowed')
         }
         memorizedE = ctx.bem.elements
-        ctx.bem.elements = arg.split(',').map(v => v.trim())
       },
       after (ctx) {
         ctx.bem.elements = memorizedE
       },
-      $ ({ context }) {
+      $ ({ context, props }) {
+        arg = typeof arg === 'string' ? arg : arg({ context, props })
+        context.bem.elements = arg.split(',').map(v => v.trim())
         return (context.bem.elements as string[])
           .map(el => `${_bPrefix}${context.bem.block as string}__${el}`).join(', ')
       }
     }
   }
 
-  function m (arg: string): CNodeOptions {
+  function m (arg: string | CSelector): CNodeOptions {
     return {
-      $ ({ context }) {
+      $ ({ context, props }) {
+        arg = typeof arg === 'string' ? arg : arg({ context, props })
         const modifiers = arg.split(',').map(v => v.trim())
         function elementToSelector (el?: string): string {
           return modifiers.map(modifier => `&${_bPrefix}${context.bem.block as string}${
@@ -113,9 +117,10 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     }
   }
 
-  function notM (arg: string): CNodeOptions {
+  function notM (arg: string | CSelector): CNodeOptions {
     return {
-      $ ({ context }) {
+      $ ({ context, props }) {
+        arg = typeof arg === 'string' ? arg : arg({ context, props })
         const els = context.bem.elements as null | string[]
         if (process.env.NODE_ENV !== 'production' && els !== null && els.length >= 2) {
           throw Error(
