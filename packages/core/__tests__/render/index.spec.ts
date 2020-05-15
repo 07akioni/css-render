@@ -205,4 +205,23 @@ describe('#render', () => {
       width: 100%;
     }`)
   })
+  it('should work with CSelector', () => {
+    assertEqual(
+      c(() => 'body', [
+        c(() => '&.dark', {
+          backgroundColor: 'black'
+        }),
+        c(() => '.container', {
+          width: '100%'
+        })
+      ]).render()
+      ,
+    `body.dark {
+      background-color: black;
+    }
+    
+    body .container {
+      width: 100%;
+    }`)
+  })
 })

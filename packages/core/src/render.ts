@@ -84,6 +84,11 @@ function t <T extends CRenderProps> (
 ): void {
   if (typeof node.$ === 'string') {
     selectorPaths.push(node.$)
+  } else if (typeof node.$ === 'function') {
+    selectorPaths.push(node.$({
+      context: instance.context,
+      props: params
+    }))
   } else {
     if (node.$.before !== undefined) node.$.before(instance.context)
     if (typeof node.$.$ === 'string') {
@@ -104,7 +109,7 @@ function t <T extends CRenderProps> (
     })
   }
   selectorPaths.pop()
-  if (!(typeof node.$ === 'string') && node.$.after !== undefined) node.$.after(instance.context)
+  if (typeof node.$ === 'object' && node.$.after !== undefined) node.$.after(instance.context)
 }
 
 export function render <T extends CRenderProps> (node: CNode, instance: CSSRenderInstance, props?: T): string {
