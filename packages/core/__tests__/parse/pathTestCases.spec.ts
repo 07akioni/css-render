@@ -52,6 +52,10 @@ const testCases: CSelectorTestCase[] = [
   {
     input: ['a, b', '.whatever:is(div, span, p), .freestyle', 'c, d'],
     output: 'a .whatever:is(div, span, p) c, a .whatever:is(div, span, p) d, a .freestyle c, a .freestyle d, b .whatever:is(div, span, p) c, b .whatever:is(div, span, p) d, b .freestyle c, b .freestyle d'
+  },
+  {
+    input: ['body', 'pfx &.dark'],
+    output: 'pfx body.dark'
   }
 ]
 

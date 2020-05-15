@@ -8,12 +8,12 @@ export interface CContext {
 
 export type CRenderProps = any
 
-export interface CSelectorOption {
+export interface CRenderOption {
   context: CContext
   props: CRenderProps
 }
 
-export type CSelector = (options: CSelectorOption) => string
+export type CSelector = (options: CRenderOption) => string
 
 export interface CNodeOptions {
   $: CSelector | string
@@ -29,7 +29,7 @@ export type CLazyProperties = ((options: {
 export interface CNode {
   $: string | CSelector |CNodeOptions
   props: CProperties | CLazyProperties | null
-  children: CNode[] | null
+  children: CNodeChildren
   instance: CSSRenderInstance
   els: HTMLStyleElement[]
   render: <T extends CRenderProps> (props?: T) => string
@@ -37,13 +37,15 @@ export interface CNode {
   unmount: (options?: { target?: HTMLStyleElement | string | number | null | undefined }) => void
 }
 
+type CLazyChildren = (option: CRenderOption) => CNodeChildren | CNode
+
 export type CProperty = CProperties | string | number | undefined
 
 export interface CProperties extends Properties<string | number> {
   [nonPropertyLiteral: string]: CProperty
 }
 
-export type CNodeChildren = Array<CNode | CNodeChildren>
+export type CNodeChildren = Array<CNode | CNodeChildren | CLazyChildren>
 
 export interface createCNode <T> {
   (selector: T, props: CProperties | CLazyProperties, children: CNodeChildren): CNode

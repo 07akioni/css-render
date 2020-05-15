@@ -4,7 +4,9 @@ import {
   CSSRenderInstance,
   CProperty,
   CRenderProps,
-  CLazyProperties
+  CLazyProperties,
+  CNodeChildren,
+  CRenderOption
 } from './types'
 import { p$p } from './parse'
 
@@ -74,6 +76,24 @@ function _cs <T extends CRenderProps> (
   return statements.join('\n')
 }
 
+/** traverse with callback */
+function tc (children: CNodeChildren, options: CRenderOption, callback: (node: CNode) => any): void {
+  children.forEach(child => {
+    if (Array.isArray(child)) {
+      tc(child, options, callback)
+    } else if (typeof child === 'function') {
+      const grandChildren = child(options)
+      if (Array.isArray(grandChildren)) {
+        tc(grandChildren, options, callback)
+      } else {
+        callback(grandChildren)
+      }
+    } else {
+      callback(child)
+    }
+  })
+}
+
 /** traverse */
 function t <T extends CRenderProps> (
   node: CNode,
@@ -104,7 +124,10 @@ function t <T extends CRenderProps> (
   const style = _cs(selector, node.props, instance, params)
   if (style !== null) styles.push(style)
   if (node.children !== null) {
-    node.children.forEach(childNode => {
+    tc(node.children, {
+      context: instance.context,
+      props: params
+    }, childNode => {
       t(childNode, selectorPaths, styles, instance, params)
     })
   }

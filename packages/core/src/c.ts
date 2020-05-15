@@ -5,7 +5,6 @@ import {
   CContext,
   CSSRenderInstance,
   createCNodeForCSSRenderInstance,
-  CNodeChildren,
   CRenderProps
 } from './types'
 import { render } from './render'
@@ -47,32 +46,13 @@ function _wu (this: CNode, options?: { target?: HTMLStyleElement | string | numb
   _u(this.instance, this, target)
 }
 
-/** traverse */
-function _t (children: CNodeChildren, flattenedNodes: CNode[]): void {
-  children.forEach(child => {
-    if (Array.isArray(child)) {
-      _t(child, flattenedNodes)
-    } else {
-      flattenedNodes.push(child)
-    }
-  })
-}
-
-/** flatten */
-function _f (children: CNodeChildren | null): CNode[] | null {
-  if (children === null) return null
-  const flattenedNodes: CNode[] = []
-  _t(children, flattenedNodes)
-  return flattenedNodes
-}
-
 /** create CNode */
 function _cc (instance: CSSRenderInstance, $: any, props: any, children: any): CNode {
   return {
     instance,
     $,
     props,
-    children: _f(children),
+    children,
     els: [],
     render: _r,
     mount: _wm,

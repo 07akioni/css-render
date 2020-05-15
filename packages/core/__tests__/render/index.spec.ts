@@ -224,4 +224,44 @@ describe('#render', () => {
       width: 100%;
     }`)
   })
+  it('should work with function typed children', () => {
+    assertEqual(
+      c(() => 'body', [({ props }) => [
+        c(props.prefix as string + '&.dark', {
+          backgroundColor: 'black'
+        }),
+        c(props.prefix as string + '.container', {
+          width: '100%'
+        })
+      ]]).render({
+        prefix: 'pfx'
+      })
+      ,
+    `pfx body.dark {
+      background-color: black;
+    }
+    
+    body pfx.container {
+      width: 100%;
+    }`)
+    assertEqual(
+      c(() => 'body', [
+        ({ props }) => c(props.prefix as string + '&.dark', {
+          backgroundColor: 'black'
+        }),
+        ({ props }) => c(props.prefix as string + '.container', {
+          width: '100%'
+        })
+      ]).render({
+        prefix: 'pfx'
+      })
+      ,
+    `pfx body.dark {
+      background-color: black;
+    }
+    
+    body pfx.container {
+      width: 100%;
+    }`)
+  })
 })
