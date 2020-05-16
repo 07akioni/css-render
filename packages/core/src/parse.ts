@@ -29,19 +29,25 @@ const _tr = /\s+/g
 
 /** parse selector path */
 export function p$p (
-  selectorPaths: string[],
+  selectorPaths: Array<string | null | undefined>,
   instance: CSSRenderInstance
 ): string {
   let amp = ''
   selectorPaths.forEach(selector => {
-    const adpatedSelector = selector
+    if (
+      selector === null ||
+      selector === undefined ||
+      (typeof selector === 'string' && selector.trim().length === 0)
+    ) {
+      return
+    }
     if (/,/g.test(amp)) {
       amp = amp
         .split(_sr)
-        .map(ampPart => r$(ampPart, adpatedSelector))
+        .map(ampPart => r$(ampPart, selector))
         .join(', ')
     } else {
-      amp = r$(amp, adpatedSelector)
+      amp = r$(amp, selector)
     }
   })
   return amp.trim().replace(_tr, ' ')

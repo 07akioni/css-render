@@ -16,7 +16,7 @@ export interface CRenderOption {
 export type CSelector = (options: CRenderOption) => string
 
 export interface CNodeOptions {
-  $: CSelector | string
+  $: CSelector | string | null | undefined
   before?: (context: CContext) => any
   after?: (context: CContext) => any
 }
@@ -27,7 +27,7 @@ export type CLazyProperties = ((options: {
 }) => CProperties)
 
 export interface CNode {
-  $: string | CSelector |CNodeOptions
+  $: string | CSelector | CNodeOptions
   props: CProperties | CLazyProperties | null
   children: CNodeChildren
   instance: CSSRenderInstance

@@ -46,6 +46,7 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
       const ctx = instance.context
       ctx.bem = {}
       ctx.bem.block = null
+      ctx.bem.bDepth = 0
       ctx.bem.elements = null
     }
   }
@@ -55,11 +56,13 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     let memorizedE: string | null
     return {
       before (ctx) {
+        ctx.bem.bDepth++
         memorizedB = ctx.bem.block
         memorizedE = ctx.bem.elements
         ctx.bem.elements = null
       },
       after (ctx) {
+        ctx.bem.bDepth--
         ctx.bem.block = memorizedB
         ctx.bem.elements = memorizedE
       },

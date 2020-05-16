@@ -1,4 +1,4 @@
-interface CSelectorTestCase { input: string[], output: string }
+interface CSelectorTestCase { input: Array<string | null | undefined>, output: string }
 
 const testCases: CSelectorTestCase[] = [
   {
@@ -56,6 +56,22 @@ const testCases: CSelectorTestCase[] = [
   {
     input: ['body', 'pfx &.dark'],
     output: 'pfx body.dark'
+  },
+  {
+    input: ['body', '', 'body'],
+    output: 'body body'
+  },
+  {
+    input: ['body', '', 'pfx &.dark'],
+    output: 'pfx body.dark'
+  },
+  {
+    input: ['a, b', '', '& + c, d', '', 'e, & + f'],
+    output: 'a + c e, a + c + f, a d e, a d + f, b + c e, b + c + f, b d e, b d + f'
+  },
+  {
+    input: ['a, b', undefined, '& + c, d', null, 'e, & + f'],
+    output: 'a + c e, a + c + f, a d e, a d + f, b + c e, b + c + f, b d e, b d + f'
   }
 ]
 

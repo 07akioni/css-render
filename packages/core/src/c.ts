@@ -71,7 +71,7 @@ export const c: createCNodeForCSSRenderInstance = function (
   children: any
 ): CNode {
   if (Array.isArray($)) {
-    return _cc(instance, '', null, $)
+    return _cc(instance, { $: null }, null, $)
   } if (Array.isArray(props)) {
     return _cc(instance, $, null, props)
   } else if (Array.isArray(children)) {

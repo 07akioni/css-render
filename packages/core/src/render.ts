@@ -113,7 +113,7 @@ function t <T extends CRenderProps> (
     if (node.$.before !== undefined) node.$.before(instance.context)
     if (typeof node.$.$ === 'string') {
       selectorPaths.push(node.$.$)
-    } else {
+    } else if (!(node.$.$ === null || node.$.$ === undefined)) {
       selectorPaths.push(node.$.$({
         context: instance.context,
         props: params
