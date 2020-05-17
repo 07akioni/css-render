@@ -77,7 +77,7 @@ export type baseCreateCNodeForCSSRenderInstance = (
   children: CNodeChildren
 ) => CNode
 
-export interface createCNodeForCSSRenderInstance extends basicCreateCNodeForCSSRenderInstance {
+export interface createCNodeForCSSRenderInstance extends baseCreateCNodeForCSSRenderInstance {
   (instance: CSSRenderInstance, selector: CSelector, props: CProperties): CNode
   (instance: CSSRenderInstance, selector: CSelector, children: CNodeChildren): CNode
   (instance: CSSRenderInstance, children: CNodeChildren): CNode

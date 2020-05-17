@@ -65,7 +65,7 @@ function _wu (
 }
 
 /** create CNode */
-const _cc: basicCreateCNodeForCSSRenderInstance = function (
+const _cc: baseCreateCNodeForCSSRenderInstance = function (
   instance: CSSRenderInstance,
   $: CSelector,
   props: CProperties,
