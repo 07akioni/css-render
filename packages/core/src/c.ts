@@ -4,7 +4,7 @@ import {
   CContext,
   CSSRenderInstance,
   createCNodeForCSSRenderInstance,
-  basicCreateCNodeForCSSRenderInstance,
+  baseCreateCNodeForCSSRenderInstance,
   CRenderProps,
   CSelector,
   CNodeChildren,
@@ -21,9 +21,9 @@ function _r <T extends CRenderProps> (this: CNode, props?: T): string {
 }
 
 /** wrapped mount */
-function _wm <T extends MountTarget, V extends CRenderProps> (
+function _wm <T extends MountTarget = MountTarget> (
   this: CNode,
-  options?: MountOption<T, V>
+  options?: MountOption<T>
 ): (T extends null ? null : HTMLStyleElement) {
   // eslint-disable-next-line
   const target = options && options.target

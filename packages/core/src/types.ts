@@ -20,9 +20,9 @@ export interface UnmountOption {
   count?: boolean
 }
 
-export interface MountOption <T extends MountTarget, V extends CRenderProps> {
+export interface MountOption <T extends MountTarget> {
   target?: T
-  props?: V
+  props?: CRenderProps
   count?: boolean
 }
 
@@ -33,7 +33,7 @@ export interface CNode {
   instance: CSSRenderInstance
   els: HTMLStyleElement[]
   render: <T extends CRenderProps> (props?: T) => string
-  mount: <T extends MountTarget, V extends CRenderProps> (options?: MountOption<T, V>) => (T extends null ? null : HTMLStyleElement)
+  mount: <T extends MountTarget> (options?: MountOption<T>) => (T extends null ? null : HTMLStyleElement)
   unmount: (options?: UnmountOption) => void
 }
 
@@ -70,10 +70,13 @@ export interface createCNode <T = CSelector> {
   (children: CNodeChildren): CNode
 }
 
-export interface basicCreateCNodeForCSSRenderInstance {
-  // eslint-disable-next-line @typescript-eslint/prefer-function-type
-  (instance: CSSRenderInstance, selector: CSelector, props: CProperties, children: CNodeChildren): CNode
-}
+export type baseCreateCNodeForCSSRenderInstance = (
+  instance: CSSRenderInstance,
+  selector: CSelector,
+  props: CProperties,
+  children: CNodeChildren
+) => CNode
+
 export interface createCNodeForCSSRenderInstance extends basicCreateCNodeForCSSRenderInstance {
   (instance: CSSRenderInstance, selector: CSelector, props: CProperties): CNode
   (instance: CSSRenderInstance, selector: CSelector, children: CNodeChildren): CNode
