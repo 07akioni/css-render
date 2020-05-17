@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import {
-  CNodeOptions,
+  COptionSelector,
+  CLazySelector,
+  CStringSelector,
   CSSRenderPlugin,
   createCNode,
   CSelector
@@ -13,18 +15,20 @@ interface BEMPluginOptions {
   modifierPrefix?: string
 }
 
+type AvailableSelector = CStringSelector | CLazySelector
+
 interface CSSRenderBEMPlugin extends CSSRenderPlugin {
-  cB: createCNode<string | CSelector>
-  cE: createCNode<string | CSelector>
-  cM: createCNode<string | CSelector>
-  cNotM: createCNode<string | CSelector>
+  cB: createCNode<AvailableSelector>
+  cE: createCNode<AvailableSelector>
+  cM: createCNode<AvailableSelector>
+  cNotM: createCNode<AvailableSelector>
 }
 
 function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
   let _bPrefix: string = '.'
   let _ePrefix: string = '__'
   let _mPrefix: string = '--'
-  let c: createCNode<string | CNodeOptions>
+  let c: createCNode<CSelector>
   if (options) {
     let t = options.blockPrefix
     if (t) {
@@ -51,7 +55,7 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     }
   }
 
-  function b (arg: string | CSelector): CNodeOptions {
+  function b (arg: AvailableSelector): COptionSelector {
     let memorizedB: string | null
     let memorizedE: string | null
     return {
@@ -74,7 +78,7 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     }
   }
 
-  function e (arg: string | CSelector): CNodeOptions {
+  function e (arg: AvailableSelector): COptionSelector {
     let memorizedE: string | null
     return {
       before (ctx) {
@@ -95,7 +99,7 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     }
   }
 
-  function m (arg: string | CSelector): CNodeOptions {
+  function m (arg: AvailableSelector): COptionSelector {
     return {
       $ ({ context, props }) {
         arg = typeof arg === 'string' ? arg : arg({ context, props })
@@ -120,7 +124,7 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     }
   }
 
-  function notM (arg: string | CSelector): CNodeOptions {
+  function notM (arg: AvailableSelector): COptionSelector {
     return {
       $ ({ context, props }) {
         arg = typeof arg === 'string' ? arg : arg({ context, props })

@@ -3,7 +3,6 @@ import {
   CSSRenderInstance,
   createCNode,
   CSSRenderPlugin,
-  CNodeOptions,
   CSelector
 } from './types'
 import {
@@ -14,7 +13,9 @@ export function CSSRender (config: CSSRenderConfig = {
   preserveEmptyBlock: false
 }): CSSRenderInstance {
   const cssr: CSSRenderInstance = {
-    c: ((...args: any[]) => c(cssr, ...args as [any, any, any])) as createCNode<string | CNodeOptions | CSelector>,
+    c: (
+      (...args: any[]) => c(cssr, ...args as [any, any, any])
+    ) as createCNode<CSelector>,
     use: (plugin: CSSRenderPlugin, ...args: any[]) => plugin.install(cssr, ...args),
     context: {},
     config

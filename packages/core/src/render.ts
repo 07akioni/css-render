@@ -3,8 +3,8 @@ import {
   CProperties,
   CSSRenderInstance,
   CProperty,
+  CPlainProperties,
   CRenderProps,
-  CLazyProperties,
   CNodeChildren,
   CRenderOption
 } from './types'
@@ -35,10 +35,10 @@ function _up (prop: CProperty, indent: string = '  '): string {
 
 /** unwrap properties */
 function _ups <T extends CRenderProps> (
-  props: CProperties | CLazyProperties,
+  props: CProperties,
   instance: CSSRenderInstance,
   params: T
-): CProperties {
+): CPlainProperties {
   if (typeof props === 'function') {
     return props({
       context: instance.context,
@@ -51,7 +51,7 @@ function _ups <T extends CRenderProps> (
 /** create style */
 function _cs <T extends CRenderProps> (
   selector: string,
-  props: CProperties | CLazyProperties | null,
+  props: CProperties | null,
   instance: CSSRenderInstance,
   params: T
 ): string | null {

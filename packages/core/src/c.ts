@@ -1,5 +1,4 @@
 import {
-  CNodeOptions,
   CNode,
   CProperties,
   CContext,
@@ -82,7 +81,6 @@ export const c: createCNodeForCSSRenderInstance = function (
 } as createCNodeForCSSRenderInstance
 
 export {
-  CNodeOptions,
   CNode,
   CProperties,
   CContext
