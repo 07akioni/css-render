@@ -6,6 +6,7 @@ export interface CContext {
   [key: string]: any
 }
 
+/** render related */
 export type CRenderProps = any
 
 export interface CRenderOption {
@@ -13,6 +14,7 @@ export interface CRenderOption {
   props: CRenderProps
 }
 
+/** mount related */
 export type MountTarget = HTMLStyleElement | string | number | null | undefined
 export interface UnmountOption {
   target?: MountTarget
@@ -26,6 +28,7 @@ export interface MountOption <T extends MountTarget> {
   count?: boolean
 }
 
+/** CNode */
 export interface CNode {
   $: CSelector
   props: CProperties
@@ -62,7 +65,9 @@ export interface COptionSelector {
   after?: (context: CContext) => any
 }
 export type CSelector = CStringSelector | CLazySelector | COptionSelector | null | undefined
+export type CSelectorPath = Array<string | null | undefined>
 
+/** CNode */
 export interface createCNode <T = CSelector> {
   (selector: T, props: CProperties, children: CNodeChildren): CNode
   (selector: T, props: CProperties): CNode
@@ -99,5 +104,3 @@ export interface CSSRenderPlugin {
 export interface CSSRenderConfig {
   preserveEmptyBlock: boolean
 }
-
-export type SelectorPath = Array<string | null | undefined>

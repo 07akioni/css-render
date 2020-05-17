@@ -1,4 +1,4 @@
-import { SelectorPath } from './types'
+import { CSelectorPath } from './types'
 
 /** &amp; regex */
 const _ar = /&/g
@@ -27,7 +27,7 @@ const _tr = /\s+/g
 
 /** parse selector path */
 export function p$p (
-  selectorPaths: SelectorPath
+  selectorPaths: CSelectorPath
 ): string {
   let amp = ''
   selectorPaths.forEach(selector => {

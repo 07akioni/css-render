@@ -7,7 +7,7 @@ import {
   CRenderProps,
   CNodeChildren,
   CRenderOption,
-  SelectorPath
+  CSelectorPath
 } from './types'
 import { p$p } from './parse'
 
@@ -105,7 +105,7 @@ function tc (children: CNodeChildren, options: CRenderOption, callback: (node: C
 /** traverse */
 function t <T extends CRenderProps> (
   node: CNode,
-  selectorPaths: SelectorPath,
+  selectorPaths: CSelectorPath,
   styles: string[],
   instance: CSSRenderInstance,
   params: T
