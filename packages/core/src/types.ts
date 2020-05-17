@@ -13,6 +13,19 @@ export interface CRenderOption {
   props: CRenderProps
 }
 
+export type MountTarget = HTMLStyleElement | string | number | null | undefined
+export interface UnmountOption {
+  target?: MountTarget
+  delay?: number
+  count?: boolean
+}
+
+export interface MountOption <T extends MountTarget, V extends CRenderProps> {
+  target?: T
+  props?: V
+  count?: boolean
+}
+
 export interface CNode {
   $: CSelector
   props: CProperties
@@ -20,8 +33,8 @@ export interface CNode {
   instance: CSSRenderInstance
   els: HTMLStyleElement[]
   render: <T extends CRenderProps> (props?: T) => string
-  mount: <T extends HTMLStyleElement | string | number | null |undefined, V extends CRenderProps> (options?: { target?: T, props?: V }) => (T extends null ? null : HTMLStyleElement)
-  unmount: (options?: { target?: HTMLStyleElement | string | number | null | undefined, delay?: number }) => void
+  mount: <T extends MountTarget, V extends CRenderProps> (options?: MountOption<T, V>) => (T extends null ? null : HTMLStyleElement)
+  unmount: (options?: UnmountOption) => void
 }
 
 /** Node Children */

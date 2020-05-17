@@ -21,7 +21,10 @@ function _kc (pattern: string): string {
 
 /** upwrap property */
 /** TODO: refine it */
-function _up (prop: CProperty, indent: string = '  '): string {
+function _up (
+  prop: CProperty,
+  indent: string = '  '
+): string {
   if (typeof prop === 'object' && prop !== null) {
     return (
       ' {\n' +
@@ -149,7 +152,11 @@ function t <T extends CRenderProps> (
   if (typeof $ === 'object' && $ && $.after) $.after(instance.context)
 }
 
-export function render <T extends CRenderProps> (node: CNode, instance: CSSRenderInstance, props?: T): string {
+export function render <T extends CRenderProps> (
+  node: CNode,
+  instance: CSSRenderInstance,
+  props?: T
+): string {
   const styles: string[] = []
   t(node, [], styles, instance, props)
   return styles.join('\n\n')

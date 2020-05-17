@@ -47,8 +47,7 @@ describe('# mount with no target', () => {
   })
 })
 
-describe('# mount & unmount with id', () => {
-  let sandbox: HTMLElement
+describe('# mount & unmount with id (count)', () => {
   const style = c('.red-block', {
     backgroundColor: 'red'
   })
@@ -65,16 +64,11 @@ describe('# mount & unmount with id', () => {
     style.mount({
       target: 14139
     })
-    sandbox = document.createElement('div')
-    document.body.appendChild(sandbox)
   })
-  afterEach(() => {
-    sandbox.innerHTML = ''
-  })
-  it('should mounted desired style element on head', () => {
-    expect(document.head.querySelector('[css-render-id="test-id-1"]'))
+  it('should mount desired style element on head', () => {
+    expect(document.head.querySelector('[cssr-id="test-id-1"]'))
       .not.to.equal(null)
-    expect(document.head.querySelector('[css-render-id="14138"]'))
+    expect(document.head.querySelector('[cssr-id="14138"]'))
       .not.to.equal(null)
   })
   it('should use unmount the desired style element', () => {
@@ -84,13 +78,13 @@ describe('# mount & unmount with id', () => {
     style.unmount({
       target: 14138
     })
-    expect(document.head.querySelector('[css-render-id="test-id-1"]'))
+    expect(document.head.querySelector('[cssr-id="test-id-1"]'))
       .to.equal(null)
-    expect(document.head.querySelector('[css-render-id="test-id-2"]'))
+    expect(document.head.querySelector('[cssr-id="test-id-2"]'))
       .not.to.equal(null)
-    expect(document.head.querySelector('[css-render-id="14138"]'))
+    expect(document.head.querySelector('[cssr-id="14138"]'))
       .to.equal(null)
-    expect(document.head.querySelector('[css-render-id="14139"]'))
+    expect(document.head.querySelector('[cssr-id="14139"]'))
       .not.to.equal(null)
     expect(style.els.length).to.equal(2)
   })
@@ -152,6 +146,63 @@ describe('# mount & unmount with id', () => {
       target: null
     })
   })
+  it('should unmount style when mount-count is 1', function () {
+    style.mount({ target: 14140 })
+    expect(document.head.querySelector('[cssr-id="14140"]'))
+      .not.to.equal(null)
+    style.unmount({ target: 14140 })
+    expect(document.head.querySelector('[cssr-id="14140"]'))
+      .to.equal(null)
+  })
+  after(() => {
+    style.unmount()
+  })
+})
+
+describe('# mount & unmount with id (not count)', function () {
+  const style = c('.red-block', {
+    backgroundColor: 'red'
+  })
+  afterEach(() => {
+    style.unmount()
+  })
+  it('should mount a element without [mount-count] if option.count is false', function () {
+    const el = style.mount({
+      target: 14138,
+      count: false
+    })
+    expect(el.getAttribute('mount-count')).to.equal(null)
+  })
+  it('should not modify mount count if options.count is false', function () {
+    const el = style.mount({
+      target: 14138,
+      count: false
+    })
+    style.mount({
+      target: 14138
+    })
+    expect(el.getAttribute('mount-count')).to.equal('1')
+  })
+  it('should unmount all id related if options.count is false', function () {
+    style.mount({
+      target: 14138
+    })
+    style.mount({
+      target: 14138
+    })
+    style.unmount({
+      target: 14138,
+      count: false
+    })
+    expect(document.head.querySelector('[cssr-id="14138"]'))
+      .to.equal(null)
+  })
+})
+
+describe('# unmount with delay', () => {
+  const style = c('.red-block', {
+    backgroundColor: 'red'
+  })
   it('should delay unmount when delay is set', function (done) {
     style.mount({
       target: 14138
@@ -160,16 +211,31 @@ describe('# mount & unmount with id', () => {
       target: 14138,
       delay: 100
     })
-    expect(document.head.querySelector('[css-render-id="14138"]'))
+    expect(document.head.querySelector('[cssr-id="14138"]'))
       .not.to.equal(null)
     setTimeout(() => {
-      expect(document.head.querySelector('[css-render-id="14138"]'))
+      expect(document.head.querySelector('[cssr-id="14138"]'))
         .to.equal(null)
       done()
     }, 200)
   })
-  after(() => {
-    document.body.removeChild(sandbox)
-    style.unmount()
+  it('should keep element if mount before unmount fired', function (done) {
+    style.mount({
+      target: 14138
+    })
+    style.unmount({
+      target: 14138,
+      delay: 133
+    })
+    setTimeout(() => {
+      style.mount({
+        target: 14138
+      })
+    }, 67)
+    setTimeout(() => {
+      expect(document.head.querySelector('[cssr-id="14138"]'))
+        .not.to.equal(null)
+      done()
+    }, 200)
   })
 })

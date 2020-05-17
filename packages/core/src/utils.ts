@@ -9,12 +9,12 @@ export function _re (el: HTMLStyleElement | null): void {
 
 /** query element */
 export function _qe (id: string | number): HTMLStyleElement | null {
-  return document.querySelector(`style[css-render-id="${String(id)}"]`)
+  return document.querySelector(`style[cssr-id="${String(id)}"]`)
 }
 
 /** create element */
 export function _ce (id: string | number): HTMLStyleElement {
   const el = document.createElement('style')
-  el.setAttribute('css-render-id', String(id))
+  el.setAttribute('cssr-id', String(id))
   return el
 }

@@ -7,7 +7,10 @@ import {
   basicCreateCNodeForCSSRenderInstance,
   CRenderProps,
   CSelector,
-  CNodeChildren
+  CNodeChildren,
+  UnmountOption,
+  MountOption,
+  MountTarget
 } from './types'
 import { render } from './render'
 import { _m, _u } from './mount'
@@ -18,20 +21,23 @@ function _r <T extends CRenderProps> (this: CNode, props?: T): string {
 }
 
 /** wrapped mount */
-function _wm <T extends null | undefined | HTMLStyleElement | string | number, V extends CRenderProps> (
+function _wm <T extends MountTarget, V extends CRenderProps> (
   this: CNode,
-  options?: {
-    target?: T
-    props?: V
-  }
+  options?: MountOption<T, V>
 ): (T extends null ? null : HTMLStyleElement) {
-  const target = options === undefined ? undefined : options.target
+  // eslint-disable-next-line
+  const target = options && options.target
   if (target === null) return null as (T extends null ? null : HTMLStyleElement)
+  // eslint-disable-next-line
+  const props = options && options.props
+  // eslint-disable-next-line
+  const count = !((options && options.count) === false)
   const targetElement = _m(
     this.instance,
     this,
     target as (HTMLStyleElement | string | number | undefined),
-    options?.props
+    props,
+    count
   )
   const els = this.els
   if (!els.includes(targetElement)) {
@@ -40,20 +46,31 @@ function _wm <T extends null | undefined | HTMLStyleElement | string | number, V
   return targetElement as (T extends null ? null : HTMLStyleElement)
 }
 
-/** wrapped _u */
-function _wu (this: CNode, options?: { target?: HTMLStyleElement | string | number | null | undefined, delay?: number }): void {
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  const target = !options ? undefined : options.target
-  const delay = options === undefined ? 0 : options.delay === undefined ? 0 : options.delay
+/** wrapped unmount */
+function _wu (
+  this: CNode,
+  options?: UnmountOption
+): void {
+  // eslint-disable-next-line
+  const target = options && options.target
+  // eslint-disable-next-line
+  const delay = (options && options.delay) || 0
+  // eslint-disable-next-line
+  const count = !((options && options.count) === false)
   if (target === null) return
-  if (delay === 0) _u(this.instance, this, target)
+  if (delay === 0) _u(this.instance, this, target, count)
   else {
-    setTimeout(() => _u(this.instance, this, target), delay)
+    setTimeout(() => _u(this.instance, this, target, count), delay)
   }
 }
 
 /** create CNode */
-const _cc: basicCreateCNodeForCSSRenderInstance = function (instance: CSSRenderInstance, $: CSelector, props: CProperties, children: CNodeChildren): CNode {
+const _cc: basicCreateCNodeForCSSRenderInstance = function (
+  instance: CSSRenderInstance,
+  $: CSelector,
+  props: CProperties,
+  children: CNodeChildren
+): CNode {
   return {
     instance,
     $,

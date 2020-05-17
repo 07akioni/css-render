@@ -1,6 +1,7 @@
 import {
   CNode,
-  CSSRenderInstance
+  CSSRenderInstance,
+  CRenderProps
 } from './types'
 
 import {
@@ -26,7 +27,8 @@ export {
 export function _u (
   intance: CSSRenderInstance,
   node: CNode,
-  target: HTMLStyleElement | string | number | undefined
+  target: HTMLStyleElement | string | number | undefined,
+  count: boolean
 ): void {
   const els = node.els
   if (target === undefined) {
@@ -34,10 +36,11 @@ export function _u (
     node.els = []
   } else if (typeof target === 'string' || typeof target === 'number') {
     const targetElement = _qe(target)
+
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (targetElement && els.includes(targetElement)) {
       const mountCount = _gc(targetElement)
-      if (mountCount === 1) {
+      if (!count || mountCount === 1) {
         _re(targetElement)
         node.els = els.filter(el => el !== targetElement)
       } else {
@@ -46,7 +49,7 @@ export function _u (
     }
   } else if (els.includes(target)) {
     const mountCount = _gc(target)
-    if (mountCount === 1) {
+    if (!count || mountCount === 1) {
       _re(target)
       node.els = els.filter(el => el !== target)
     } else {
@@ -56,11 +59,12 @@ export function _u (
 }
 
 /** mount */
-export function _m (
+export function _m<T extends CRenderProps> (
   instance: CSSRenderInstance,
   node: CNode,
   target: HTMLStyleElement | string | number | undefined,
-  props: any
+  props: T,
+  count: boolean
 ): HTMLStyleElement {
   let targetElement: HTMLStyleElement | null = null
   if (target === undefined) {
@@ -71,16 +75,22 @@ export function _m (
     if (targetElement === null) {
       targetElement = _ce(target)
       document.head.appendChild(targetElement)
-      _sc(targetElement, 1)
+      if (count) {
+        _sc(targetElement, 1)
+      }
     } else {
-      _sc(targetElement, _gc(targetElement) + 1)
+      if (count) {
+        _sc(targetElement, _gc(targetElement) + 1)
+      }
       return targetElement
     }
   } else {
     targetElement = target
     const mountCount = _gc(targetElement)
     if (mountCount > 0) {
-      _sc(targetElement, mountCount + 1)
+      if (count) {
+        _sc(targetElement, mountCount + 1)
+      }
       return target
     }
   }
