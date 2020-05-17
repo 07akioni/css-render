@@ -2,8 +2,7 @@ import {
   CSSRenderConfig,
   CSSRenderInstance,
   createCNode,
-  CSSRenderPlugin,
-  CSelector
+  CSSRenderPlugin
 } from './types'
 import {
   c
@@ -15,7 +14,7 @@ export function CSSRender (config: CSSRenderConfig = {
   const cssr: CSSRenderInstance = {
     c: (
       (...args: any[]) => c(cssr, ...args as [any, any, any])
-    ) as createCNode<CSelector>,
+    ) as createCNode,
     use: (plugin: CSSRenderPlugin, ...args: any[]) => plugin.install(cssr, ...args),
     context: {},
     config

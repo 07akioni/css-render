@@ -6,7 +6,8 @@ import {
   CPlainProperties,
   CRenderProps,
   CNodeChildren,
-  CRenderOption
+  CRenderOption,
+  SelectorPath
 } from './types'
 import { p$p } from './parse'
 
@@ -38,7 +39,7 @@ function _ups <T extends CRenderProps> (
   props: CProperties,
   instance: CSSRenderInstance,
   params: T
-): CPlainProperties {
+): CPlainProperties | undefined | null {
   if (typeof props === 'function') {
     return props({
       context: instance.context,
@@ -51,12 +52,13 @@ function _ups <T extends CRenderProps> (
 /** create style */
 function _cs <T extends CRenderProps> (
   selector: string,
-  props: CProperties | null,
+  props: CProperties,
   instance: CSSRenderInstance,
   params: T
 ): string | null {
   if (props === null) return null
-  const unwrappedProps = _ups(props, instance, params)
+  // eslint-disable-next-line
+  const unwrappedProps = _ups(props, instance, params) || {}
   const propertyNames = Object.keys(unwrappedProps)
   if (propertyNames.length === 0) {
     if (instance.config.preserveEmptyBlock) return selector + ' {}'
@@ -68,7 +70,8 @@ function _cs <T extends CRenderProps> (
   propertyNames.forEach(propertyName => {
     const property = unwrappedProps[propertyName]
     propertyName = _kc(propertyName)
-    if (property !== undefined && property !== null) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (property !== null && property !== undefined) {
       statements.push(`  ${propertyName}${_up(property)}`)
     }
   })
@@ -78,6 +81,8 @@ function _cs <T extends CRenderProps> (
 
 /** traverse with callback */
 function tc (children: CNodeChildren, options: CRenderOption, callback: (node: CNode) => any): void {
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (!children) return
   children.forEach(child => {
     if (Array.isArray(child)) {
       tc(child, options, callback)
@@ -97,33 +102,41 @@ function tc (children: CNodeChildren, options: CRenderOption, callback: (node: C
 /** traverse */
 function t <T extends CRenderProps> (
   node: CNode,
-  selectorPaths: string[],
+  selectorPaths: SelectorPath,
   styles: string[],
   instance: CSSRenderInstance,
   params: T
 ): void {
-  if (typeof node.$ === 'string') {
-    selectorPaths.push(node.$)
-  } else if (typeof node.$ === 'function') {
-    selectorPaths.push(node.$({
+  const $ = node.$
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (!$ || typeof $ === 'string') {
+    // as a string selector
+    selectorPaths.push($)
+  } else if (typeof $ === 'function') {
+    // as a lazy selector
+    selectorPaths.push($({
       context: instance.context,
       props: params
     }))
-  } else {
-    if (node.$.before !== undefined) node.$.before(instance.context)
-    if (typeof node.$.$ === 'string') {
-      selectorPaths.push(node.$.$)
-    } else if (!(node.$.$ === null || node.$.$ === undefined)) {
-      selectorPaths.push(node.$.$({
+  } else { // as a option selector
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if ($.before) $.before(instance.context)
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!$.$ || typeof $.$ === 'string') {
+      selectorPaths.push($.$)
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    } else if ($.$) {
+      selectorPaths.push($.$({
         context: instance.context,
         props: params
       }))
     }
   }
-  const selector = p$p(selectorPaths, instance)
+  const selector = p$p(selectorPaths)
   const style = _cs(selector, node.props, instance, params)
   if (style !== null) styles.push(style)
-  if (node.children !== null) {
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (node.children) {
     tc(node.children, {
       context: instance.context,
       props: params
@@ -132,7 +145,8 @@ function t <T extends CRenderProps> (
     })
   }
   selectorPaths.pop()
-  if (typeof node.$ === 'object' && node.$.after !== undefined) node.$.after(instance.context)
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (typeof $ === 'object' && $ && $.after) $.after(instance.context)
 }
 
 export function render <T extends CRenderProps> (node: CNode, instance: CSSRenderInstance, props?: T): string {

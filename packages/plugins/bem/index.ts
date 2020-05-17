@@ -15,7 +15,7 @@ interface BEMPluginOptions {
   modifierPrefix?: string
 }
 
-type AvailableSelector = CStringSelector | CLazySelector
+type AvailableSelector = CStringSelector | CLazySelector<string>
 
 interface CSSRenderBEMPlugin extends CSSRenderPlugin {
   cB: createCNode<AvailableSelector>

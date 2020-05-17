@@ -66,7 +66,23 @@ const testCases: CSelectorTestCase[] = [
     output: 'pfx body.dark'
   },
   {
-    input: ['a, b', '', '& + c, d', '', 'e, & + f'],
+    input: ['body', null, 'pfx &.dark'],
+    output: 'pfx body.dark'
+  },
+  {
+    input: ['body', '   ', 'pfx &.dark'],
+    output: 'pfx body.dark'
+  },
+  {
+    input: ['  body ', '   ', '  pfx &.dark '],
+    output: 'pfx body.dark'
+  },
+  {
+    input: [' a, b ', '', ' &   + c, d', ' ', 'e, &  + f '],
+    output: 'a + c e, a + c + f, a d e, a d + f, b + c e, b + c + f, b d e, b d + f'
+  },
+  {
+    input: [' a, b ', '', '', null, ' &   + c, d', ' ', 'e, &  + f '],
     output: 'a + c e, a + c + f, a d e, a d + f, b + c e, b + c + f, b d e, b d + f'
   },
   {

@@ -1,6 +1,4 @@
-import {
-  CSSRenderInstance
-} from './types'
+import { SelectorPath } from './types'
 
 /** &amp; regex */
 const _ar = /&/g
@@ -29,22 +27,22 @@ const _tr = /\s+/g
 
 /** parse selector path */
 export function p$p (
-  selectorPaths: Array<string | null | undefined>,
-  instance: CSSRenderInstance
+  selectorPaths: SelectorPath
 ): string {
   let amp = ''
   selectorPaths.forEach(selector => {
+    // eslint-disable-next-line
+    selector = selector && selector.trim()
     if (
-      selector === null ||
-      selector === undefined ||
-      (typeof selector === 'string' && selector.trim().length === 0)
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      !selector
     ) {
       return
     }
     if (/,/g.test(amp)) {
       amp = amp
         .split(_sr)
-        .map(ampPart => r$(ampPart, selector))
+        .map(ampPart => r$(ampPart, selector as string))
         .join(', ')
     } else {
       amp = r$(amp, selector)

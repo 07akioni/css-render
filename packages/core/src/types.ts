@@ -15,7 +15,7 @@ export interface CRenderOption {
 
 export interface CNode {
   $: CSelector
-  props: CProperties | CLazyProperties | null
+  props: CProperties
   children: CNodeChildren
   instance: CSSRenderInstance
   els: HTMLStyleElement[]
@@ -27,7 +27,7 @@ export interface CNode {
 /** Node Children */
 type CNodeLazyChild = (option: CRenderOption) => (CNodePlainChild | CNode)
 type CNodePlainChild = CNode | Array<CNode | CNodePlainChild>
-export type CNodeChildren = Array<CNodePlainChild | CNodeLazyChild>
+export type CNodeChildren = Array<CNodePlainChild | CNodeLazyChild> | null
 
 /** Properties */
 export type CProperty = CPlainProperties | string | number | undefined | null
@@ -37,28 +37,31 @@ export interface CPlainProperties extends Properties<string | number> {
 export type CLazyProperties = ((options: {
   context?: CContext
   props?: CRenderProps
-}) => CPlainProperties)
-export type CProperties = CPlainProperties | CLazyProperties
+}) => CPlainProperties | null | undefined)
+export type CProperties = CPlainProperties | CLazyProperties | null | undefined
 
 /** Selector */
 export type CStringSelector = string
-export type CLazySelector = (options: CRenderOption) => string
+export type CLazySelector<T = string | null | undefined> = (options: CRenderOption) => T
 export interface COptionSelector {
   $?: CLazySelector | CStringSelector | null
   before?: (context: CContext) => any
   after?: (context: CContext) => any
 }
-export type CSelector = CStringSelector | CLazySelector | COptionSelector
+export type CSelector = CStringSelector | CLazySelector | COptionSelector | null | undefined
 
-export interface createCNode <T> {
+export interface createCNode <T = CSelector> {
   (selector: T, props: CProperties, children: CNodeChildren): CNode
   (selector: T, props: CProperties): CNode
   (selector: T, children: CNodeChildren): CNode
   (children: CNodeChildren): CNode
 }
 
-export interface createCNodeForCSSRenderInstance {
+export interface basicCreateCNodeForCSSRenderInstance {
+  // eslint-disable-next-line @typescript-eslint/prefer-function-type
   (instance: CSSRenderInstance, selector: CSelector, props: CProperties, children: CNodeChildren): CNode
+}
+export interface createCNodeForCSSRenderInstance extends basicCreateCNodeForCSSRenderInstance {
   (instance: CSSRenderInstance, selector: CSelector, props: CProperties): CNode
   (instance: CSSRenderInstance, selector: CSelector, children: CNodeChildren): CNode
   (instance: CSSRenderInstance, children: CNodeChildren): CNode
@@ -80,3 +83,5 @@ export interface CSSRenderPlugin {
 export interface CSSRenderConfig {
   preserveEmptyBlock: boolean
 }
+
+export type SelectorPath = Array<string | null | undefined>

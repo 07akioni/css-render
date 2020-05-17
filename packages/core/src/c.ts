@@ -4,7 +4,10 @@ import {
   CContext,
   CSSRenderInstance,
   createCNodeForCSSRenderInstance,
-  CRenderProps
+  basicCreateCNodeForCSSRenderInstance,
+  CRenderProps,
+  CSelector,
+  CNodeChildren
 } from './types'
 import { render } from './render'
 import { _m, _u } from './mount'
@@ -50,7 +53,7 @@ function _wu (this: CNode, options?: { target?: HTMLStyleElement | string | numb
 }
 
 /** create CNode */
-function _cc (instance: CSSRenderInstance, $: any, props: any, children: any): CNode {
+const _cc: basicCreateCNodeForCSSRenderInstance = function (instance: CSSRenderInstance, $: CSelector, props: CProperties, children: CNodeChildren): CNode {
   return {
     instance,
     $,
