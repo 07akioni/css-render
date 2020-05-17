@@ -157,7 +157,6 @@ describe('# function typed selector', function () {
     .c-propValueblock .c-propValueblock__propValueel.c-propValueblock__propValueel--propValuem {
       key: value;
     }
-
     `)
   })
 })

@@ -88,6 +88,10 @@ const testCases: CSelectorTestCase[] = [
   {
     input: ['a, b', undefined, '& + c, d', null, 'e, & + f'],
     output: 'a + c e, a + c + f, a d e, a d + f, b + c e, b + c + f, b d e, b d + f'
+  },
+  {
+    input: ['', '&.a'],
+    output: '.a'
   }
 ]
 

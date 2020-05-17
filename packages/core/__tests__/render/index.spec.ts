@@ -182,7 +182,7 @@ describe('#render', () => {
       `
     )
   })
-  it('should work with CNodeOptions', () => {
+  it('should work with COptionSelector', () => {
     assertEqual(
       c({
         $: 'body'
@@ -205,22 +205,24 @@ describe('#render', () => {
       width: 100%;
     }`)
   })
-  it('should work with CSelector', () => {
+  it('should work with CLazySelector', () => {
     assertEqual(
-      c(() => 'body', [
-        c(() => '&.dark', {
+      c(({ props }) => props.pfx as string + 'body', [
+        c(({ props }) => `&.${props.pfx as string}dark`, {
           backgroundColor: 'black'
         }),
         c(() => '.container', {
           width: '100%'
         })
-      ]).render()
+      ]).render({
+        pfx: 'pfx'
+      })
       ,
-    `body.dark {
+    `pfxbody.pfxdark {
       background-color: black;
     }
     
-    body .container {
+    pfxbody .container {
       width: 100%;
     }`)
   })
@@ -263,5 +265,39 @@ describe('#render', () => {
     body pfx.container {
       width: 100%;
     }`)
+  })
+  it('should work with empty selector', () => {
+    assertEqual(
+      c('', [c('&.a', {
+        background: 'red'
+      })]).render(),
+      `.a {
+        background: red;
+      }`
+    )
+    assertEqual(
+      c(() => '', [c('&.a', {
+        background: 'red'
+      })]).render(),
+      `.a {
+        background: red;
+      }`
+    )
+    assertEqual(
+      c(() => null, [c('&.a', {
+        background: 'red'
+      })]).render(),
+      `.a {
+        background: red;
+      }`
+    )
+    assertEqual(
+      c({}, [c('&.a', {
+        background: 'red'
+      })]).render(),
+      `.a {
+        background: red;
+      }`
+    )
   })
 })
