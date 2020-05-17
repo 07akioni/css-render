@@ -17,4 +17,4 @@
 17. 使用 serviceworker 缓存渲染结果
 18. 为函数类型的 selector 和 children 增加文档
 19. 为静态的选择器进行提前解析，稍微提升一丢丢性能
-20. 经过我的仔细观察，测试覆盖率的问题应该是 source map 出了问题...
+20. 经过我的仔细观察，测试覆盖率的问题应该是 source map 出了问题... See https://github.com/istanbuljs/nyc/issues/618#issuecomment-396818724

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "inlineSourceMap": true,
     "baseUrl": "./packages",
     "sourceMap": false,
     "moduleResolution": "node",
