@@ -1,8 +1,10 @@
 /* remove el */
 export function _re (el: HTMLStyleElement | null): void {
+  /* istanbul ignore if */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (!el) return
   const parentElement = el.parentElement
+  /* istanbul ignore else */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (parentElement) parentElement.removeChild(el)
 }

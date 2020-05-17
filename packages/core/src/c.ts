@@ -39,10 +39,6 @@ function _wm <T extends MountTarget = MountTarget> (
     props,
     count
   )
-  const els = this.els
-  if (!els.includes(targetElement)) {
-    els.push(targetElement)
-  }
   return targetElement as (T extends null ? null : HTMLStyleElement)
 }
 

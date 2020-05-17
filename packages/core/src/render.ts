@@ -59,12 +59,15 @@ function _cs <T extends CRenderProps> (
   instance: CSSRenderInstance,
   params: T
 ): string | null {
-  if (props === null) return null
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (!props) return null
   // eslint-disable-next-line
-  const unwrappedProps = _ups(props, instance, params) || {}
+  const unwrappedProps = _ups(props, instance, params)
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (!unwrappedProps) return null
   const propertyNames = Object.keys(unwrappedProps)
   if (propertyNames.length === 0) {
-    if (instance.config.preserveEmptyBlock) return selector + ' {}'
+    if (instance.config.preserveEmptyBlock) return selector + ' {\n}'
     return null
   }
   const statements = [
@@ -82,17 +85,18 @@ function _cs <T extends CRenderProps> (
   return statements.join('\n')
 }
 
-/** traverse with callback */
-function tc (children: CNodeChildren, options: CRenderOption, callback: (node: CNode) => any): void {
+/** loop with callback */
+function lc (children: CNodeChildren, options: CRenderOption, callback: (node: CNode) => any): void {
+  /* istanbul ignore if */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (!children) return
   children.forEach(child => {
     if (Array.isArray(child)) {
-      tc(child, options, callback)
+      lc(child, options, callback)
     } else if (typeof child === 'function') {
       const grandChildren = child(options)
       if (Array.isArray(grandChildren)) {
-        tc(grandChildren, options, callback)
+        lc(grandChildren, options, callback)
       } else {
         callback(grandChildren)
       }
@@ -128,7 +132,7 @@ function t <T extends CRenderProps> (
     if (!$.$ || typeof $.$ === 'string') {
       selectorPaths.push($.$)
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    } else if ($.$) {
+    } else /* istanbul ignore else */ if ($.$) {
       selectorPaths.push($.$({
         context: instance.context,
         props: params
@@ -140,7 +144,7 @@ function t <T extends CRenderProps> (
   if (style !== null) styles.push(style)
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (node.children) {
-    tc(node.children, {
+    lc(node.children, {
       context: instance.context,
       props: params
     }, childNode => {

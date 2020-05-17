@@ -1,5 +1,6 @@
 import * as chai from 'chai'
 import CSSRender from 'css-render'
+import { assertEqual } from '@css-render/shared/utils'
 
 const expect = chai.expect
 const cssr = CSSRender()
@@ -70,6 +71,12 @@ describe('# mount & unmount with id (count)', () => {
       .not.to.equal(null)
     expect(document.head.querySelector('[cssr-id="14138"]'))
       .not.to.equal(null)
+  })
+  it('should do nothing when unmount with an not exist id', () => {
+    style.unmount({
+      target: 'letitbe'
+    })
+    expect(style.els.length).to.equal(4)
   })
   it('should use unmount the desired style element', () => {
     style.unmount({
@@ -172,6 +179,12 @@ describe('# mount & unmount with id (not count)', function () {
       count: false
     })
     expect(el.getAttribute('mount-count')).to.equal(null)
+    const el2 = style.mount({
+      target: 14138,
+      count: false
+    })
+    expect(el).to.equal(el2)
+    expect(el2.getAttribute('mount-count')).to.equal(null)
   })
   it('should not modify mount count if options.count is false', function () {
     const el = style.mount({
@@ -196,6 +209,62 @@ describe('# mount & unmount with id (not count)', function () {
     })
     expect(document.head.querySelector('[cssr-id="14138"]'))
       .to.equal(null)
+  })
+})
+
+describe('# mount & unmount with element target', function () {
+  describe('# basic case', () => {
+    const style = c('.red-block', {
+      backgroundColor: 'red'
+    })
+    const style2 = c('.red-block', {
+      backgroundColor: 'red'
+    })
+    const styleEl = document.createElement('style')
+    it('should be mounted to the specified element', () => {
+      style.mount({ target: styleEl })
+      assertEqual(styleEl.innerHTML, `.red-block {
+        background-color: red;
+      }`)
+      expect(styleEl.getAttribute('mount-count')).to.equal('1')
+      style.mount({ target: styleEl })
+      expect(styleEl.getAttribute('mount-count')).to.equal('2')
+    })
+    it('should minus count after being unmounted', () => {
+      style.unmount({ target: styleEl })
+      expect(styleEl.getAttribute('mount-count')).to.equal('1')
+    })
+    it('should remove mount count attribute after call unmount when mount-count is 1', () => {
+      style.unmount({ target: styleEl })
+      expect(styleEl.getAttribute('mount-count')).to.equal(null)
+    })
+    describe('shouldn\'t add mount-count on target when mount option.count false', () => {
+      it('#case1', () => {
+        const styleEl2 = document.createElement('style')
+        style.mount({ target: styleEl2, count: false })
+        expect(styleEl2.getAttribute('mount-count')).to.equal(null)
+      })
+      it('#case2', () => {
+        style.mount({ target: styleEl })
+        style.mount({ target: styleEl, count: false })
+        expect(styleEl.getAttribute('mount-count')).to.equal('1')
+      })
+    })
+    it('should clear style when unmount option.count = false', () => {
+      style.mount({ target: styleEl })
+      style.mount({ target: styleEl })
+      assertEqual(styleEl.innerHTML, `.red-block {
+        background-color: red;
+      }`)
+      style.unmount({ target: styleEl, count: false })
+      assertEqual(styleEl.innerHTML, '')
+    })
+    it('should not reset innerHTML when style is same', () => {
+      const styleEl2 = document.createElement('style')
+      style.mount({ target: styleEl2, count: false })
+      style2.mount({ target: styleEl2, count: false })
+      // for coverage, no assert
+    })
   })
 })
 

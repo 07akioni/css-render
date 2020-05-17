@@ -3,9 +3,9 @@ const expect = chai.expect
 
 export function assertEqual (pattern: string, targetPattern: string): Chai.Assertion {
   return expect(
-    pattern.replace(/\s+/g, ' ').trim()
+    pattern.replace(/\s+/g, ' ').replace(/\{\s+\}/g, '{}').trim()
   )
     .to.equal(
-      targetPattern.replace(/\s+/g, ' ').trim()
+      targetPattern.replace(/\s+/g, ' ').replace(/\{\s+\}/g, '{}').trim()
     )
 }

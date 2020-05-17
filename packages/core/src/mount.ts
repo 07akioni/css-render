@@ -15,8 +15,12 @@ function _gc (el: HTMLStyleElement): number {
   return Number(count)
 }
 /** set count of element */
-function _sc (el: HTMLStyleElement, count: number): void {
-  el.setAttribute('mount-count', String(count))
+function _sc (el: HTMLStyleElement, count: number | null): void {
+  if (count === null) {
+    el.removeAttribute('mount-count')
+  } else {
+    el.setAttribute('mount-count', String(count))
+  }
 }
 
 export {
@@ -36,7 +40,6 @@ export function _u (
     node.els = []
   } else if (typeof target === 'string' || typeof target === 'number') {
     const targetElement = _qe(target)
-
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (targetElement && els.includes(targetElement)) {
       const mountCount = _gc(targetElement)
@@ -47,14 +50,21 @@ export function _u (
         _sc(targetElement, mountCount - 1)
       }
     }
-  } else if (els.includes(target)) {
+  } else {
     const mountCount = _gc(target)
     if (!count || mountCount === 1) {
-      _re(target)
-      node.els = els.filter(el => el !== target)
+      _sc(target, null)
+      target.innerHTML = ''
     } else {
       _sc(target, mountCount - 1)
     }
+  }
+}
+
+/** add element */
+function _ae (els: HTMLStyleElement[], target: HTMLStyleElement): void {
+  if (!els.includes(target)) {
+    els.push(target)
   }
 }
 
@@ -67,9 +77,11 @@ export function _m<T extends CRenderProps> (
   count: boolean
 ): HTMLStyleElement {
   let targetElement: HTMLStyleElement | null = null
+  const els = node.els
   if (target === undefined) {
     targetElement = document.createElement('style')
     document.head.appendChild(targetElement)
+    _ae(els, targetElement)
   } else if (typeof target === 'string' || typeof target === 'number') {
     targetElement = _qe(target)
     if (targetElement === null) {
@@ -78,10 +90,12 @@ export function _m<T extends CRenderProps> (
       if (count) {
         _sc(targetElement, 1)
       }
+      _ae(els, targetElement)
     } else {
       if (count) {
         _sc(targetElement, _gc(targetElement) + 1)
       }
+      _ae(els, targetElement)
       return targetElement
     }
   } else {
@@ -92,6 +106,8 @@ export function _m<T extends CRenderProps> (
         _sc(targetElement, mountCount + 1)
       }
       return target
+    } else if (count) {
+      _sc(targetElement, 1)
     }
   }
   const style = node.render(props)

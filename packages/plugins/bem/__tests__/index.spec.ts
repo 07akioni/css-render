@@ -19,6 +19,61 @@ const {
   cNotM
 } = plugin
 
+describe('default prefixes', function () {
+  it('should use default prefixes', function () {
+    const plugin = CSSRenderBEMPlugin({})
+    cssr.use(plugin)
+    const {
+      cB,
+      cE,
+      cM,
+      cNotM
+    } = plugin
+    assertEqual(
+      cB('b', [
+        cM('m', {}),
+        cNotM('nm', {}),
+        cE('e', [
+          cM('m', {}),
+          cNotM('nm', {})
+        ])
+      ]).render(),
+      `
+      .b.b--m {}
+      .b:not(.b--nm) {}
+      .b .b__e.b__e--m {}
+      .b .b__e:not(.b__e--nm) {}
+      `
+    )
+  })
+  it('should use default prefixes', function () {
+    const plugin = CSSRenderBEMPlugin()
+    cssr.use(plugin)
+    const {
+      cB,
+      cE,
+      cM,
+      cNotM
+    } = plugin
+    assertEqual(
+      cB('b', [
+        cM('m', {}),
+        cNotM('nm', {}),
+        cE('e', [
+          cM('m', {}),
+          cNotM('nm', {})
+        ])
+      ]).render(),
+      `
+      .b.b--m {}
+      .b:not(.b--nm) {}
+      .b .b__e.b__e--m {}
+      .b .b__e:not(.b__e--nm) {}
+      `
+    )
+  })
+})
+
 describe('# bem.b', function () {
   it('should use blockPrefix', function () {
     assertEqual(
@@ -140,6 +195,9 @@ describe('# function typed selector', function () {
         }, [
           cM(({ props }) => props.value as string + 'm', {
             key: 'value'
+          }),
+          cNotM(({ props }) => props.value as string + 'nm', {
+            key: 'value'
           })
         ])
       ]).render({
@@ -157,6 +215,36 @@ describe('# function typed selector', function () {
     .c-propValueblock .c-propValueblock__propValueel.c-propValueblock__propValueel--propValuem {
       key: value;
     }
+
+    .c-propValueblock .c-propValueblock__propValueel:not(.c-propValueblock__propValueel--propValuenm) {
+      key: value;
+    }
     `)
+  })
+})
+
+describe('error info', () => {
+  it('shouldn\'t allow nested element', (done) => {
+    try {
+      cB('b', [cE('e', [cE('e', {})])]).render()
+    } catch (e) {
+      done()
+    }
+  })
+  describe('shouldn\'t allow using modifier inside multiple elements', () => {
+    it('#case m', (done) => {
+      try {
+        cB('b', [cE('e, e', [cM('m', {})])]).render()
+      } catch (e) {
+        done()
+      }
+    })
+    it('#case not m', (done) => {
+      try {
+        cB('b', [cE('e, e', [cNotM('m', {})])]).render()
+      } catch (e) {
+        done()
+      }
+    })
   })
 })

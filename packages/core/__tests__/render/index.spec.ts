@@ -2,7 +2,8 @@ import CSSRender from 'css-render'
 import { assertEqual } from '@css-render/shared/utils'
 
 const {
-  c
+  c,
+  config
 } = CSSRender()
 
 describe('#render', () => {
@@ -298,6 +299,68 @@ describe('#render', () => {
       `.a {
         background: red;
       }`
+    )
+  })
+  it('should preserve empty block when preserveEmptyBlock is false', () => {
+    config.preserveEmptyBlock = true
+    assertEqual(
+      c('body', {}).render(),
+      'body {}'
+    )
+    config.preserveEmptyBlock = false
+    assertEqual(
+      c('body', {}).render(),
+      ''
+    )
+    config.preserveEmptyBlock = true
+  })
+  it('shouldn\'t render empty property', () => {
+    assertEqual(
+      c('body', {
+        background: undefined,
+        myColor: null
+      }).render(),
+      'body {}'
+    )
+  })
+  it('should work with empty selector', () => {
+    assertEqual(
+      c('body', [
+        c({}, {
+          background: 'red'
+        })
+      ]).render(),
+      `body {
+        background: red;
+      }`
+    )
+  })
+  it('should work with functional typed option selector.$', () => {
+    assertEqual(
+      c({
+        $: ({ props }) => props.x
+      }, {
+        background: 'red'
+      }).render({
+        x: 'body'
+      }),
+      `body {
+        background: red;
+      }`
+    )
+  })
+  it('should work with null & void returned props function', () => {
+    assertEqual(
+      c('body', () => null, [
+        c('body2', {})
+      ]).render(),
+      'body body2 {}'
+    )
+    assertEqual(
+      c('body', () => undefined, [
+        c('body2', {})
+      ]).render(),
+      'body body2 {}'
     )
   })
 })
