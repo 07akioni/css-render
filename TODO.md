@@ -12,3 +12,9 @@
 12. 然后我还感觉发布的包类型提醒不老对的，是不是重启 vscode 就能好了？
 13. <del>处理 `:is(a, b, c)` 这种 selector</del>✅
 14. <del>mount 的返回值类型不能改改吗，某些情况下不可能返回 null 的</del>通过泛型解决✅
+15. <del>为 unmount 增加 delay 选项，因为框架的生命周期不能精确的体现 dom 何时被真正的卸载</del>✅
+16. 使用 webworker 帮助渲染
+17. 使用 serviceworker 缓存渲染结果
+18. 为函数类型的 selector 和 children 增加文档
+19. 为静态的选择器进行提前解析，稍微提升一丢丢性能
+20. 经过我的仔细观察，测试覆盖率的问题应该是 source map 出了问题...
