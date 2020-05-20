@@ -25,6 +25,9 @@ function _wm <T extends MountTarget = MountTarget> (
   this: CNode,
   options?: MountOption<T>
 ): (T extends null ? null : HTMLStyleElement) {
+  /* istanbul ignore next */
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (!window) return null as (T extends null ? null : HTMLStyleElement)
   // eslint-disable-next-line
   const target = options && options.target
   if (target === null) return null as (T extends null ? null : HTMLStyleElement)
@@ -47,6 +50,9 @@ function _wu (
   this: CNode,
   options?: UnmountOption
 ): void {
+  /* istanbul ignore next */
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (!window) return
   // eslint-disable-next-line
   const target = options && options.target
   // eslint-disable-next-line

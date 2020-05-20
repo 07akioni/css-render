@@ -49,8 +49,7 @@ const style = c('body', ({ props }) => ({
 /** use it as string */
 console.log(style.render({ backgroundColor: 'white' }))
 /**
- * or mount on document.head
- * the following lines only works in browser, don't call them in node.js
+ * or mount on document.head. (the following lines only work in the browser.)
  */
 style.mount()
 // ...

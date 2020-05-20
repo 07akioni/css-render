@@ -15,7 +15,7 @@ type mount = (
     props?: any,
     count?: boolean
   }
-) => void
+) => HTMLStyleElement | null
 ```
 
 ### `target`
@@ -28,6 +28,9 @@ The `props` will be used as the render function's `props` during this mount.
 ### `count`
 - If `count` is not set, it will be treated as `true`.
 - If it is set to `false`, the mount won't have any effects on `mount-count` of the target.
+### Return Value
+The target element for the style to mount on.
+
 
 ## Unmount
 Unmount the style of the CNode.
@@ -38,7 +41,7 @@ type unmount = (
     target?: string | number | HTMLStyleElement | null,
     count?: boolean
   }
-)
+) : void
 ```
 
 ### `target`

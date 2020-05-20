@@ -34,10 +34,10 @@ const {
   c
 } = CSSRender()
 
-const style = c('body', {
+const style = c('body', ({ props }) => ({
   margin: 0,
-  backgroundColor: 'white'
-}, [
+  backgroundColor: props.backgroundColor
+}), [
   c('&.dark', {
     backgroundColor: 'black'
   }),
@@ -47,16 +47,14 @@ const style = c('body', {
 ])
 
 /** use it as string */
-console.log(style.render())
+console.log(style.render({ backgroundColor: 'white' }))
 /**
- * or mount on document.head
- * the following lines only works in browser, don't call them in node.js
+ * or mount on document.head. (the following lines only work in the browser.)
  */
 style.mount()
 // ...
 style.unmount()
 ```
-It outputs
 ```css
 body {
   margin: 0;
@@ -130,7 +128,6 @@ style.mount()
 // ...
 style.unmount()
 ```
-It outputs
 ```css
 .c-container .c-container__left, .c-container .c-container__right {
   width: 50%;
