@@ -334,6 +334,24 @@ describe('#render', () => {
         background: red;
       }`
     )
+    assertEqual(
+      c('body', {
+        color: 'black'
+      }, [
+        c({}, {
+          background: 'red'
+        })
+      ]).render(),
+      `
+      body {
+        color: black;
+      }
+
+      body {
+        background: red;
+      }
+      `
+    )
   })
   it('should work with functional typed option selector.$', () => {
     assertEqual(
@@ -362,5 +380,100 @@ describe('#render', () => {
       ]).render(),
       'body body2 {}'
     )
+  })
+  describe('doc cases', () => {
+    it('#case1', () => {
+      assertEqual(
+        c('.button', {
+          color: 'black'
+        }, [
+          c('.button__icon', {
+            fill: 'black'
+          }),
+          c('&.button--error', {
+            color: 'red'
+          })
+        ]).render(),
+        `
+        .button {
+          color: black;
+        }
+        
+        .button .button__icon {
+          fill: black;
+        }
+        
+        .button.button--error {
+          color: red;
+        }
+        `
+      )
+    })
+    it('#case2', () => {
+      assertEqual(c(({
+        context,
+        props
+      }) => props.selector, {
+        color: 'black'
+      }).render({
+        selector: '.selector'
+      }),
+      `
+      .selector {
+        color: black;
+      }
+      `)
+    })
+    it('#case3', () => {
+      assertEqual(c('div', [
+        c(null, [
+          c('button', {
+            color: 'black'
+          })
+        ])
+      ]).render(),
+      `
+      div button {
+        color: black;
+      }
+      `)
+    })
+    it('#case3', () => {
+      assertEqual(c('div', [
+        ({ context, props }) => c('button', {
+          color: props.color
+        }),
+        c('ul', {
+          backgroundColor: 'red'
+        }),
+        [
+          [c('dl', {
+            backgroundColor: 'red'
+          })]
+        ],
+        () => [
+          c('ol', {
+            backgroundColor: 'red'
+          })
+        ]
+      ]).render({
+        color: 'black'
+      }),
+      `div button {
+        color: black;
+      }
+      
+      div ul {
+        background-color: red;
+      }
+
+      div dl {
+        background-color: red;
+      }
+      
+      div ol {
+        background-color: red;
+      }`)
+    })
   })
 })
