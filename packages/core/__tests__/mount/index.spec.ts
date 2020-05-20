@@ -210,6 +210,14 @@ describe('# mount & unmount with id (not count)', function () {
     expect(document.head.querySelector('[cssr-id="14138"]'))
       .to.equal(null)
   })
+  describe('should unmount style when mount option.count = false and unmount options.count is true', () => {
+    it('#case1', () => {
+      style.mount({ target: 14138, count: false })
+      style.unmount({ target: 14138 })
+      expect(document.head.querySelector('[cssr-id="14138"]'))
+        .to.equal(null)
+    })
+  })
 })
 
 describe('# mount & unmount with element target', function () {
@@ -250,7 +258,18 @@ describe('# mount & unmount with element target', function () {
         expect(styleEl.getAttribute('mount-count')).to.equal('1')
       })
     })
-    it('should clear style when unmount option.count = false', () => {
+    describe('should clear style when mount option.count = false and unmount options.count is true', () => {
+      it('#case1', () => {
+        const styleEl2 = document.createElement('style')
+        style.mount({ target: styleEl2, count: false })
+        assertEqual(styleEl2.innerHTML, `.red-block {
+          background-color: red;
+        }`)
+        style.unmount({ target: styleEl2 })
+        assertEqual(styleEl2.innerHTML, '')
+      })
+    })
+    it('should clear style when unmount option.count = false #1', () => {
       style.mount({ target: styleEl })
       style.mount({ target: styleEl })
       assertEqual(styleEl.innerHTML, `.red-block {

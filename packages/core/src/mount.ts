@@ -43,7 +43,7 @@ export function _u (
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (targetElement && els.includes(targetElement)) {
       const mountCount = _gc(targetElement)
-      if (!count || mountCount === 1) {
+      if (!count || mountCount <= 1) {
         _re(targetElement)
         node.els = els.filter(el => el !== targetElement)
       } else {
@@ -52,7 +52,7 @@ export function _u (
     }
   } else {
     const mountCount = _gc(target)
-    if (!count || mountCount === 1) {
+    if (!count || mountCount <= 1) {
       _sc(target, null)
       target.innerHTML = ''
     } else {
