@@ -18,6 +18,6 @@ interface Config {
 ```
 ## Properties on the Instance
 the instance(`cssr`) has some public properties:
-- `c(...)`: the method to create a `CNode`, see [Create a CNode & Render a CNode Tree](https://github.com/07akioni/css-render/blob/master/docs/cnode-and-render.md).
-- `context`: the context of the instance, default is `{}`. It may be used by a plugin or in rendering progress of a `CNode` tree.
+- `c(...)`: the method to create a `CNode`, see [Create a CNode & Render a CNode Tree](cnode-and-render.md).
+- `context`: the context of the instance, default is `{}`. It may be used by a plugin or in the rendering phase of a `CNode` tree.
 - `use(plugin)`: bind the instance with a plugin.
