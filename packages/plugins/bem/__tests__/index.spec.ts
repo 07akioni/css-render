@@ -12,6 +12,8 @@ const plugin = CSSRenderBEMPlugin({
 })
 cssr.use(plugin)
 
+const { c } = cssr
+
 const {
   cB,
   cE,
@@ -103,6 +105,38 @@ describe('# bem.e', function () {
     assertEqual(
       cB('b', [cE('e1, e2', {})]).render(),
       '.c-b .c-b__e1, .c-b .c-b__e2 {}'
+    )
+  })
+  it('should work with nested e', function () {
+    assertEqual(
+      cB('b', [
+        cE('e1', {}, [
+          cM('m1', {}),
+          cE('e2', {}, [
+            cM('m2', {})
+          ])
+        ])
+      ]).render(),
+      `
+      .c-b .c-b__e1 {}
+      .c-b .c-b__e1.c-b__e1--m1 {}
+      .c-b .c-b__e1 .c-b__e2 {}
+      .c-b .c-b__e1 .c-b__e2.c-b__e2--m2 {}
+      `
+    )
+    assertEqual(
+      cB('b', [
+        cE('e1', [
+          c('& +', [
+            cE('e2', [
+              cM('m2', {})
+            ])
+          ])
+        ])
+      ]).render(),
+      `
+      .c-b .c-b__e1 + .c-b__e2.c-b__e2--m2 {}
+      `
     )
   })
 })
@@ -224,13 +258,6 @@ describe('# function typed selector', function () {
 })
 
 describe('error info', () => {
-  it('shouldn\'t allow nested element', (done) => {
-    try {
-      cB('b', [cE('e', [cE('e', {})])]).render()
-    } catch (e) {
-      done()
-    }
-  })
   describe('shouldn\'t allow using modifier inside multiple elements', () => {
     it('#case m', (done) => {
       try {

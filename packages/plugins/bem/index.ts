@@ -82,9 +82,6 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     let memorizedE: string | null
     return {
       before (ctx) {
-        if (process.env.NODE_ENV !== 'production' && ctx.bem.elements !== null) {
-          throw Error('[css-render/_plugin-bem/e]: nested element is not allowed')
-        }
         memorizedE = ctx.bem.elements
       },
       after (ctx) {
