@@ -97,10 +97,12 @@ function lc (children: CNodeChildren, options: CRenderOption, callback: (node: C
       const grandChildren = child(options)
       if (Array.isArray(grandChildren)) {
         lc(grandChildren, options, callback)
-      } else {
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      } else if (grandChildren) {
         callback(grandChildren)
       }
-    } else {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    } else if (child) {
       callback(child)
     }
   })

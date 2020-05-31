@@ -6,7 +6,7 @@ const {
   config
 } = CSSRender()
 
-describe('#render', () => {
+describe('#render - common cases', () => {
   it('should work with nested nodes array', () => {
     assertEqual(
       c('body', {
@@ -381,99 +381,134 @@ describe('#render', () => {
       'body body2 {}'
     )
   })
-  describe('doc cases', () => {
-    it('#case1', () => {
-      assertEqual(
-        c('.button', {
-          color: 'black'
-        }, [
-          c('.button__icon', {
-            fill: 'black'
-          }),
-          c('&.button--error', {
-            color: 'red'
-          })
-        ]).render(),
-        `
-        .button {
-          color: black;
-        }
-        
-        .button .button__icon {
-          fill: black;
-        }
-        
-        .button.button--error {
-          color: red;
-        }
-        `
-      )
-    })
-    it('#case2', () => {
-      assertEqual(c(({
-        context,
-        props
-      }) => props.selector, {
+})
+
+describe('#render - doc cases', () => {
+  it('#case1', () => {
+    assertEqual(
+      c('.button', {
         color: 'black'
-      }).render({
-        selector: '.selector'
-      }),
-      `
-      .selector {
-        color: black;
-      }
-      `)
-    })
-    it('#case3', () => {
-      assertEqual(c('div', [
-        c(null, [
-          c('button', {
-            color: 'black'
-          })
-        ])
+      }, [
+        c('.button__icon', {
+          fill: 'black'
+        }),
+        c('&.button--error', {
+          color: 'red'
+        })
       ]).render(),
       `
-      div button {
+      .button {
         color: black;
       }
-      `)
-    })
-    it('#case3', () => {
-      assertEqual(c('div', [
-        ({ context, props }) => c('button', {
-          color: props.color
-        }),
-        c('ul', {
-          backgroundColor: 'red'
-        }),
-        [
-          [c('dl', {
-            backgroundColor: 'red'
-          })]
-        ],
-        () => [
-          c('ol', {
-            backgroundColor: 'red'
-          })
-        ]
-      ]).render({
-        color: 'black'
+      
+      .button .button__icon {
+        fill: black;
+      }
+      
+      .button.button--error {
+        color: red;
+      }
+      `
+    )
+  })
+  it('#case2', () => {
+    assertEqual(c(({
+      context,
+      props
+    }) => props.selector, {
+      color: 'black'
+    }).render({
+      selector: '.selector'
+    }),
+    `
+    .selector {
+      color: black;
+    }
+    `)
+  })
+  it('#case3', () => {
+    assertEqual(c('div', [
+      c(null, [
+        c('button', {
+          color: 'black'
+        })
+      ])
+    ]).render(),
+    `
+    div button {
+      color: black;
+    }
+    `)
+  })
+  it('#case3', () => {
+    assertEqual(c('div', [
+      ({ context, props }) => c('button', {
+        color: props.color
       }),
-      `div button {
+      c('ul', {
+        backgroundColor: 'red'
+      }),
+      [
+        [c('dl', {
+          backgroundColor: 'red'
+        })]
+      ],
+      () => [
+        c('ol', {
+          backgroundColor: 'red'
+        })
+      ]
+    ]).render({
+      color: 'black'
+    }),
+    `div button {
+      color: black;
+    }
+    
+    div ul {
+      background-color: red;
+    }
+
+    div dl {
+      background-color: red;
+    }
+    
+    div ol {
+      background-color: red;
+    }`)
+  })
+})
+
+describe('#render - falsy node', () => {
+  it('#case1', () => {
+    assertEqual(
+      c('.button', {
+        color: 'black'
+      }, [
+        null,
+        undefined,
+        () => null,
+        () => undefined,
+        c('.button__icon', {
+          fill: 'black'
+        }),
+        c('&.button--error', {
+          color: 'red'
+        })
+      ]).render(),
+      `
+      .button {
         color: black;
       }
       
-      div ul {
-        background-color: red;
-      }
-
-      div dl {
-        background-color: red;
+      .button .button__icon {
+        fill: black;
       }
       
-      div ol {
-        background-color: red;
-      }`)
-    })
+      .button.button--error {
+        color: red;
+      }
+      `
+    )
   })
 })

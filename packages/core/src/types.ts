@@ -41,9 +41,9 @@ export interface CNode {
 }
 
 /** Node Children */
-type CNodeLazyChild = (option: CRenderOption) => (CNodePlainChild | CNode)
-type CNodePlainChild = CNode | Array<CNode | CNodePlainChild>
-export type CNodeChildren = Array<CNodePlainChild | CNodeLazyChild> | null
+type CNodeLazyChild = (option: CRenderOption) => (CNodePlainChild | CNode | null | undefined)
+type CNodePlainChild = CNode | Array<CNode | CNodePlainChild | null | undefined>
+export type CNodeChildren = Array<CNodePlainChild | CNodeLazyChild | null | undefined> | null
 
 /** Properties */
 export type CProperty = CPlainProperties | string | number | undefined | null
