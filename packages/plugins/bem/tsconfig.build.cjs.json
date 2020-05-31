@@ -3,7 +3,9 @@
   "compilerOptions": {
     "outDir": "./lib",
     "rootDir": ".",
-    "module": "commonjs"
+    "module": "commonjs",
+    "sourceMap": false,
+    "inlineSourceMap": false
   },
   "include": [
     "./index.ts"

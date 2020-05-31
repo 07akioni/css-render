@@ -3,7 +3,9 @@
   "compilerOptions": {
     "outDir": "./esm",
     "rootDir": ".",
-    "module": "ESNext"
+    "module": "ESNext",
+    "sourceMap": false,
+    "inlineSourceMap": false
   },
   "include": [
     "./index.ts"

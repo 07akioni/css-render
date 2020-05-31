@@ -4,7 +4,9 @@
     "outDir": "./lib",
     "rootDir": ".",
     "composite": true,
-    "module": "commonjs"
+    "module": "commonjs",
+    "sourceMap": false,
+    "inlineSourceMap": false
   },
   "include": [
     "./index.ts",

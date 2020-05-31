@@ -4,7 +4,9 @@
     "outDir": "./esm",
     "rootDir": ".",
     "composite": true,
-    "module": "ESNext"
+    "module": "ESNext",
+    "sourceMap": false,
+    "inlineSourceMap": false
   },
   "include": [
     "./index.ts",
