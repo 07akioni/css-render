@@ -3,21 +3,45 @@ import { CSelectorPath } from './types'
 /** &amp; regex */
 const _ar = /&/g
 
-/** resolve selector */
-function r$ (amp: string, selector: string): string {
-  if (selector.includes(',')) {
-    return selector.split(_sr).map(part => {
-      if (_ar.test(part)) {
-        return part.replace(_ar, amp)
-      } else {
-        return amp + ' ' + part
-      }
-    }).join(', ')
-  } else if (_ar.test(selector)) {
-    return selector.replace(_ar, amp)
-  } else {
-    return amp + ' ' + selector
+/**
+ * amp count
+ */
+function _ac (selector: string): number {
+  const len = selector.length
+  let cnt = 0
+  for (let i = 0; i < len; ++i) {
+    if (selector[i] === '&') ++cnt
   }
+  return cnt
+}
+
+/** resolve selector */
+function r$ (amps: string[], selector: string): string {
+  const selectorParts = selector.split(_sr)
+  return selectorParts.map(selectorPart => {
+    let round = _ac(selectorPart)
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!round) {
+      return amps.map(amp => amp + ' ' + selectorPart)
+    }
+    let result: string[] = [
+      selectorPart
+    ]
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    while (round--) {
+      const nextResult: string[] = []
+      result.forEach(selectorItr => {
+        amps.forEach(
+          amp => {
+            nextResult.push(selectorItr.replace('&', amp))
+          }
+        )
+      })
+      result = nextResult
+    }
+    console.log('result', result)
+    return result.join(', ')
+  }).join(', ')
 }
 
 /** seperator regex */
@@ -39,13 +63,84 @@ export function p$p (
     ) {
       return
     }
-    if (/,/g.test(amp)) {
-      amp = amp
-        .split(_sr)
-        .map(ampPart => r$(ampPart, selector as string))
-        .join(', ')
+    if (!selector.includes('&')) {
+      if (_sr.test(amp)) {
+        if (_sr.test(selector)) {
+          const selectorParts = selector.split(_sr)
+          /**
+           * selector: no & and has comma
+           * amp: has comma
+           */
+          amp = amp
+            .split(_sr)
+            .map(ampPart => {
+              return selectorParts
+                .map(selectorPart => ampPart + ' ' + selectorPart)
+                .join(', ')
+            })
+            .join(', ')
+            .trim()
+        } else {
+          /**
+           * selector: no & and has no comma
+           * amp: has comma
+           */
+          amp = amp
+            .split(_sr)
+            .map(part => part + ' ' + (selector as string))
+            .join(', ')
+            .trim()
+        }
+      } else {
+        if (_sr.test(selector)) {
+          /**
+           * selector: no & and has comma
+           * amp: no comma
+           */
+          amp = selector
+            .split(_sr)
+            .map(part => amp + ' ' + part)
+            .join(', ')
+            .trim()
+        } else {
+          /**
+           * selector: no & and no comma
+           * amp: no comma
+           */
+          amp = (amp + ' ' + selector).trim()
+        }
+      }
+    } else if (!_sr.test(amp)) {
+      if (!_sr.test(selector)) {
+        /**
+         * selector: has & and no comma
+         * amp: no comma
+         */
+        amp = selector.replace(_ar, amp).trim()
+      } else {
+        /**
+         * selector: has & and has comma
+         * amp: no comma
+         */
+        amp = selector
+          .split(_sr)
+          .map(
+            part => part.includes('&')
+              ? part.replace(_ar, amp)
+              : amp + ' ' + part
+          )
+          .join(', ')
+          .trim()
+      }
     } else {
-      amp = r$(amp, selector)
+      /**
+       * selector: has &
+       * amp: has comma
+       */
+      amp = r$(
+        amp.split(_sr),
+        selector
+      ).trim()
     }
   })
   return amp.trim().replace(_tr, ' ')
