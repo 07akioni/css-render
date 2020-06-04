@@ -29,11 +29,11 @@ describe('#render - common cases', () => {
       margin: 0;
       background-color: white;
     }
-    
+
     body.dark {
       background-color: black;
     }
-    
+
     body .container {
       width: 100%;
     }`)
@@ -56,11 +56,11 @@ describe('#render - common cases', () => {
       margin: 0;
       background-color: white;
     }
-    
+
     body.dark {
       background-color: black;
     }
-    
+
     body .container {
       width: 100%;
     }`)
@@ -79,7 +79,7 @@ describe('#render - common cases', () => {
     `body.dark {
       background-color: black;
     }
-    
+
     body .container {
       width: 100%;
     }`)
@@ -201,7 +201,7 @@ describe('#render - common cases', () => {
     `body.dark {
       background-color: black;
     }
-    
+
     body .container {
       width: 100%;
     }`)
@@ -222,7 +222,7 @@ describe('#render - common cases', () => {
     `pfxbody.pfxdark {
       background-color: black;
     }
-    
+
     pfxbody .container {
       width: 100%;
     }`)
@@ -240,10 +240,10 @@ describe('#render - common cases', () => {
         prefix: 'pfx'
       })
       ,
-    `pfx body.dark {
+    `pfxbody.dark {
       background-color: black;
     }
-    
+
     body pfx.container {
       width: 100%;
     }`)
@@ -259,10 +259,10 @@ describe('#render - common cases', () => {
         prefix: 'pfx'
       })
       ,
-    `pfx body.dark {
+    `pfxbody.dark {
       background-color: black;
     }
-    
+
     body pfx.container {
       width: 100%;
     }`)
@@ -400,11 +400,11 @@ describe('#render - doc cases', () => {
       .button {
         color: black;
       }
-      
+
       .button .button__icon {
         fill: black;
       }
-      
+
       .button.button--error {
         color: red;
       }
@@ -464,7 +464,7 @@ describe('#render - doc cases', () => {
     `div button {
       color: black;
     }
-    
+
     div ul {
       background-color: red;
     }
@@ -472,7 +472,7 @@ describe('#render - doc cases', () => {
     div dl {
       background-color: red;
     }
-    
+
     div ol {
       background-color: red;
     }`)
@@ -500,11 +500,11 @@ describe('#render - falsy node', () => {
       .button {
         color: black;
       }
-      
+
       .button .button__icon {
         fill: black;
       }
-      
+
       .button.button--error {
         color: red;
       }

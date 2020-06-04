@@ -28,7 +28,7 @@ describe('#render (some compatible cases from sass-spec)', () => {
       }
       div:nth(-3) {
         color: blue;
-      } 
+      }
       `
     )
   })
@@ -82,7 +82,7 @@ describe('#render (some compatible cases from sass-spec)', () => {
       }
       a c e, a c f, a d e, a d f, b c e, b c f, b d e, b d f {
         width: 12px;
-      }   
+      }
       `
     )
   })
