@@ -39,7 +39,6 @@ function r$ (amps: string[], selector: string): string {
       })
       result = nextResult
     }
-    console.log('result', result)
     return result.join(', ')
   }).join(', ')
 }
@@ -61,6 +60,9 @@ export function p$p (
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       !selector
     ) {
+      /**
+       * if it's a empty selector, do nothing
+       */
       return
     }
     if (!selector.includes('&')) {
