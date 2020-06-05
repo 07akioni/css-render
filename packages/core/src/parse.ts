@@ -10,6 +10,14 @@ function ampCount (selector: string): number {
 }
 
 /**
+ * Don't just use ',' to separate css selector. For example:
+ * x:(a, b) {} will be split into 'x:(a' and 'b)', which is not expected.
+ * Make sure comma doesn't exist inside parentheses.
+ */
+const seperatorRegex = /,(?![^(]*\))/
+const extraSpaceRegex = /\s+/g
+
+/**
  * selector must includes '&'
  */
 function resolveSelectorWithAmp (amp: string[], selector: string): string[] {
@@ -57,9 +65,6 @@ function resolveSelector (amp: string[], selector: string): string[] {
   })
   return result
 }
-
-const seperatorRegex = /,(?![^(]*\))/
-const extraSpaceRegex = /\s+/g
 
 export function parseSelectorPath (
   selectorPaths: CSelectorPath
