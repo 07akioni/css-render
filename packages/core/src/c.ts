@@ -20,6 +20,8 @@ function _r <T extends CRenderProps> (this: CNode, props?: T): string {
   return render(this, this.instance, props)
 }
 
+const inNode = typeof window === 'undefined'
+
 /** wrapped mount */
 function _wm <T extends MountTarget = MountTarget> (
   this: CNode,
@@ -27,7 +29,7 @@ function _wm <T extends MountTarget = MountTarget> (
 ): (T extends null ? null : HTMLStyleElement) {
   /* istanbul ignore next */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (typeof window === 'undefined') return null as (T extends null ? null : HTMLStyleElement)
+  if (inNode) return null as (T extends null ? null : HTMLStyleElement)
   // eslint-disable-next-line
   const target = options && options.target
   if (target === null) return null as (T extends null ? null : HTMLStyleElement)
@@ -52,7 +54,7 @@ function _wu (
 ): void {
   /* istanbul ignore next */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (typeof window === 'undefined') return
+  if (inNode) return
   // eslint-disable-next-line
   const target = options && options.target
   // eslint-disable-next-line

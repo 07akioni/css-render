@@ -1,8 +1,5 @@
 import { CSelectorPath } from './types'
 
-/** &amp; regex */
-const _ar = /&/g
-
 /**
  * amp count
  */
@@ -15,32 +12,51 @@ function _ac (selector: string): number {
   return cnt
 }
 
-/** resolve selector */
-function r$ (amps: string[], selector: string): string {
-  const selectorParts = selector.split(_sr)
-  return selectorParts.map(selectorPart => {
+/**
+ * resolve selector
+ * selector must includes '&'
+ */
+function r$1 (amp: string[], selector: string): string[] {
+  const nextAmp: string[] = []
+  selector.split(_sr).forEach(selectorPart => {
     let round = _ac(selectorPart)
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!round) {
-      return amps.map(amp => amp + ' ' + selectorPart)
+      amp.forEach(ampPart => {
+        nextAmp.push(
+          (ampPart + ' ' + selectorPart).trim()
+        )
+      })
+      return
     }
-    let result: string[] = [
+    let partialNextAmp: string[] = [
       selectorPart
     ]
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     while (round--) {
-      const nextResult: string[] = []
-      result.forEach(selectorItr => {
-        amps.forEach(
-          amp => {
-            nextResult.push(selectorItr.replace('&', amp))
+      const nextPartialNextAmp: string[] = []
+      partialNextAmp.forEach(selectorItr => {
+        amp.forEach(
+          ampPart => {
+            nextPartialNextAmp.push(selectorItr.replace('&', ampPart))
           }
         )
       })
-      result = nextResult
+      partialNextAmp = nextPartialNextAmp
     }
-    return result.join(', ')
-  }).join(', ')
+    partialNextAmp.forEach(part => nextAmp.push(part))
+  })
+  return nextAmp
+}
+
+function r$2 (amp: string[], selector: string): string[] {
+  const result: string[] = []
+  selector.split(_sr).forEach(selectorPart => {
+    amp.forEach(ampPart => {
+      result.push((ampPart + ' ' + selectorPart).trim())
+    })
+  })
+  return result
 }
 
 /** seperator regex */
@@ -52,7 +68,7 @@ const _tr = /\s+/g
 export function p$p (
   selectorPaths: CSelectorPath
 ): string {
-  let amp = ''
+  let amp: string[] = ['']
   selectorPaths.forEach(selector => {
     // eslint-disable-next-line
     selector = selector && selector.trim()
@@ -65,85 +81,12 @@ export function p$p (
        */
       return
     }
-    if (!selector.includes('&')) {
-      if (_sr.test(amp)) {
-        if (_sr.test(selector)) {
-          const selectorParts = selector.split(_sr)
-          /**
-           * selector: no & and has comma
-           * amp: has comma
-           */
-          amp = amp
-            .split(_sr)
-            .map(ampPart => {
-              return selectorParts
-                .map(selectorPart => ampPart + ' ' + selectorPart)
-                .join(', ')
-            })
-            .join(', ')
-            .trim()
-        } else {
-          /**
-           * selector: no & and has no comma
-           * amp: has comma
-           */
-          amp = amp
-            .split(_sr)
-            .map(part => part + ' ' + (selector as string))
-            .join(', ')
-            .trim()
-        }
-      } else {
-        if (_sr.test(selector)) {
-          /**
-           * selector: no & and has comma
-           * amp: no comma
-           */
-          amp = selector
-            .split(_sr)
-            .map(part => amp + ' ' + part)
-            .join(', ')
-            .trim()
-        } else {
-          /**
-           * selector: no & and no comma
-           * amp: no comma
-           */
-          amp = (amp + ' ' + selector).trim()
-        }
-      }
-    } else if (!_sr.test(amp)) {
-      if (!_sr.test(selector)) {
-        /**
-         * selector: has & and no comma
-         * amp: no comma
-         */
-        amp = selector.replace(_ar, amp).trim()
-      } else {
-        /**
-         * selector: has & and has comma
-         * amp: no comma
-         */
-        amp = selector
-          .split(_sr)
-          .map(
-            part => part.includes('&')
-              ? part.replace(_ar, amp)
-              : amp + ' ' + part
-          )
-          .join(', ')
-          .trim()
-      }
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (selector.includes('&')) {
+      amp = r$1(amp, selector)
     } else {
-      /**
-       * selector: has &
-       * amp: has comma
-       */
-      amp = r$(
-        amp.split(_sr),
-        selector
-      ).trim()
+      amp = r$2(amp, selector)
     }
   })
-  return amp.trim().replace(_tr, ' ')
+  return amp.join(', ').trim().replace(_tr, ' ')
 }

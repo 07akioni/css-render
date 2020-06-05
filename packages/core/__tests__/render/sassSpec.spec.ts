@@ -77,10 +77,10 @@ describe('#render (some compatible cases from sass-spec)', () => {
       a, b {
         color: red;
       }
-      a c, a d, b c, b d {
+      a c, b c, a d, b d {
         height: 10px;
       }
-      a c e, a c f, a d e, a d f, b c e, b c f, b d e, b d f {
+      a c e, b c e, a d e, b d e, a c f, b c f, a d f, b d f {
         width: 12px;
       }
       `
