@@ -1,9 +1,6 @@
 import { CSelectorPath } from './types'
 
-/**
- * amp count
- */
-function _ac (selector: string): number {
+function ampCount (selector: string): number {
   const len = selector.length
   let cnt = 0
   for (let i = 0; i < len; ++i) {
@@ -13,13 +10,12 @@ function _ac (selector: string): number {
 }
 
 /**
- * resolve selector
  * selector must includes '&'
  */
-function r$1 (amp: string[], selector: string): string[] {
+function resolveSelectorWithAmp (amp: string[], selector: string): string[] {
   const nextAmp: string[] = []
-  selector.split(_sr).forEach(selectorPart => {
-    let round = _ac(selectorPart)
+  selector.split(seperatorRegex).forEach(selectorPart => {
+    let round = ampCount(selectorPart)
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!round) {
       amp.forEach(ampPart => {
@@ -49,9 +45,12 @@ function r$1 (amp: string[], selector: string): string[] {
   return nextAmp
 }
 
-function r$2 (amp: string[], selector: string): string[] {
+/**
+ * selector mustn't includes '&'
+ */
+function resolveSelector (amp: string[], selector: string): string[] {
   const result: string[] = []
-  selector.split(_sr).forEach(selectorPart => {
+  selector.split(seperatorRegex).forEach(selectorPart => {
     amp.forEach(ampPart => {
       result.push((ampPart + ' ' + selectorPart).trim())
     })
@@ -59,13 +58,10 @@ function r$2 (amp: string[], selector: string): string[] {
   return result
 }
 
-/** seperator regex */
-const _sr = /,(?![^(]*\))/
-/** trim regex */
-const _tr = /\s+/g
+const seperatorRegex = /,(?![^(]*\))/
+const extraSpaceRegex = /\s+/g
 
-/** parse selector path */
-export function p$p (
+export function parseSelectorPath (
   selectorPaths: CSelectorPath
 ): string {
   let amp: string[] = ['']
@@ -83,10 +79,10 @@ export function p$p (
     }
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (selector.includes('&')) {
-      amp = r$1(amp, selector)
+      amp = resolveSelectorWithAmp(amp, selector)
     } else {
-      amp = r$2(amp, selector)
+      amp = resolveSelector(amp, selector)
     }
   })
-  return amp.join(', ').trim().replace(_tr, ' ')
+  return amp.join(', ').trim().replace(extraSpaceRegex, ' ')
 }

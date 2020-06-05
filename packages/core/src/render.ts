@@ -9,19 +9,16 @@ import {
   CRenderOption,
   CSelectorPath
 } from './types'
-import { p$p } from './parse'
+import { parseSelectorPath } from './parse'
 
-/** kebab regex */
-const _kr = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
+const kebabRegex = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
 
-/** kebab case */
-function _kc (pattern: string): string {
-  return pattern.replace(_kr, match => '-' + match.toLowerCase())
+function kebabCase (pattern: string): string {
+  return pattern.replace(kebabRegex, match => '-' + match.toLowerCase())
 }
 
-/** upwrap property */
-/** TODO: refine it */
-function _up (
+/** TODO: refine it to solve nested object */
+function upwrapProperty (
   prop: CProperty,
   indent: string = '  '
 ): string {
@@ -29,7 +26,7 @@ function _up (
     return (
       ' {\n' +
       Object.entries(prop).map(v => {
-        return indent + `  ${_kc(v[0])}: ${v[1] as string};`
+        return indent + `  ${kebabCase(v[0])}: ${v[1] as string};`
       }).join('\n') +
       '\n' + indent + '}'
     )
@@ -38,7 +35,7 @@ function _up (
 }
 
 /** unwrap properties */
-function _ups <T extends CRenderProps> (
+function upwrapProperties <T extends CRenderProps> (
   props: CProperties,
   instance: CSSRenderInstance,
   params: T
@@ -52,51 +49,49 @@ function _ups <T extends CRenderProps> (
   return props
 }
 
-/** create style */
-function _cs <T extends CRenderProps> (
+function createStyle <T extends CRenderProps> (
   selector: string,
   props: CProperties,
   instance: CSSRenderInstance,
   params: T
-): string | null {
+): string {
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (!props) return null
+  if (!props) return ''
   // eslint-disable-next-line
-  const unwrappedProps = _ups(props, instance, params)
+  const unwrappedProps = upwrapProperties(props, instance, params)
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (!unwrappedProps) return null
+  if (!unwrappedProps) return ''
   const propertyNames = Object.keys(unwrappedProps)
   if (propertyNames.length === 0) {
     if (instance.config.preserveEmptyBlock) return selector + ' {\n}'
-    return null
+    return ''
   }
   const statements = [
     selector + ' {'
   ]
   propertyNames.forEach(propertyName => {
     const property = unwrappedProps[propertyName]
-    propertyName = _kc(propertyName)
+    propertyName = kebabCase(propertyName)
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (property !== null && property !== undefined) {
-      statements.push(`  ${propertyName}${_up(property)}`)
+      statements.push(`  ${propertyName}${upwrapProperty(property)}`)
     }
   })
   statements.push('}')
   return statements.join('\n')
 }
 
-/** loop with callback */
-function lc (children: CNodeChildren, options: CRenderOption, callback: (node: CNode) => any): void {
+function loopCNodeListWithCallback (children: CNodeChildren, options: CRenderOption, callback: (node: CNode) => any): void {
   /* istanbul ignore if */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (!children) return
   children.forEach(child => {
     if (Array.isArray(child)) {
-      lc(child, options, callback)
+      loopCNodeListWithCallback(child, options, callback)
     } else if (typeof child === 'function') {
       const grandChildren = child(options)
       if (Array.isArray(grandChildren)) {
-        lc(grandChildren, options, callback)
+        loopCNodeListWithCallback(grandChildren, options, callback)
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       } else if (grandChildren) {
         callback(grandChildren)
@@ -108,8 +103,7 @@ function lc (children: CNodeChildren, options: CRenderOption, callback: (node: C
   })
 }
 
-/** traverse */
-function t <T extends CRenderProps> (
+function traverseCNode <T extends CRenderProps> (
   node: CNode,
   selectorPaths: CSelectorPath,
   styles: string[],
@@ -141,16 +135,17 @@ function t <T extends CRenderProps> (
       }))
     }
   }
-  const selector = p$p(selectorPaths)
-  const style = _cs(selector, node.props, instance, params)
-  if (style !== null) styles.push(style)
+  const selector = parseSelectorPath(selectorPaths)
+  const style = createStyle(selector, node.props, instance, params)
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (style.length) styles.push(style)
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (node.children) {
-    lc(node.children, {
+    loopCNodeListWithCallback(node.children, {
       context: instance.context,
       props: params
     }, childNode => {
-      t(childNode, selectorPaths, styles, instance, params)
+      traverseCNode(childNode, selectorPaths, styles, instance, params)
     })
   }
   selectorPaths.pop()
@@ -164,6 +159,6 @@ export function render <T extends CRenderProps> (
   props?: T
 ): string {
   const styles: string[] = []
-  t(node, [], styles, instance, props)
+  traverseCNode(node, [], styles, instance, props)
   return styles.join('\n\n')
 }

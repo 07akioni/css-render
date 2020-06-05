@@ -1,5 +1,4 @@
-/* remove el */
-export function _re (el: HTMLStyleElement | null): void {
+export function removeElement (el: HTMLStyleElement | null): void {
   /* istanbul ignore if */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (!el) return
@@ -9,13 +8,11 @@ export function _re (el: HTMLStyleElement | null): void {
   if (parentElement) parentElement.removeChild(el)
 }
 
-/** query element */
-export function _qe (id: string | number): HTMLStyleElement | null {
+export function queryElement (id: string | number): HTMLStyleElement | null {
   return document.querySelector(`style[cssr-id="${String(id)}"]`)
 }
 
-/** create element */
-export function _ce (id: string | number): HTMLStyleElement {
+export function createElement (id: string | number): HTMLStyleElement {
   const el = document.createElement('style')
   el.setAttribute('cssr-id', String(id))
   return el

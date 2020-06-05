@@ -5,17 +5,16 @@ import {
 } from './types'
 
 import {
-  _ce, _qe, _re
+  createElement, queryElement, removeElement
 } from './utils'
 
-/** get count of element */
-function _gc (el: HTMLStyleElement): number {
+function getCountOfElement (el: HTMLStyleElement): number {
   const count = el.getAttribute('mount-count')
   if (count === null) return 0
   return Number(count)
 }
-/** set count of element */
-function _sc (el: HTMLStyleElement, count: number | null): void {
+
+function setCountOfElement (el: HTMLStyleElement, count: number | null): void {
   if (count === null) {
     el.removeAttribute('mount-count')
   } else {
@@ -24,11 +23,10 @@ function _sc (el: HTMLStyleElement, count: number | null): void {
 }
 
 export {
-  _gc, _sc
+  getCountOfElement, setCountOfElement
 }
 
-/** unmount */
-export function _u (
+export function unmount (
   intance: CSSRenderInstance,
   node: CNode,
   target: HTMLStyleElement | string | number | undefined,
@@ -36,40 +34,38 @@ export function _u (
 ): void {
   const els = node.els
   if (target === undefined) {
-    els.forEach(_re)
+    els.forEach(removeElement)
     node.els = []
   } else if (typeof target === 'string' || typeof target === 'number') {
-    const targetElement = _qe(target)
+    const targetElement = queryElement(target)
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (targetElement && els.includes(targetElement)) {
-      const mountCount = _gc(targetElement)
+      const mountCount = getCountOfElement(targetElement)
       if (!count || mountCount <= 1) {
-        _re(targetElement)
+        removeElement(targetElement)
         node.els = els.filter(el => el !== targetElement)
       } else {
-        _sc(targetElement, mountCount - 1)
+        setCountOfElement(targetElement, mountCount - 1)
       }
     }
   } else {
-    const mountCount = _gc(target)
+    const mountCount = getCountOfElement(target)
     if (!count || mountCount <= 1) {
-      _sc(target, null)
+      setCountOfElement(target, null)
       target.innerHTML = ''
     } else {
-      _sc(target, mountCount - 1)
+      setCountOfElement(target, mountCount - 1)
     }
   }
 }
 
-/** add element */
-function _ae (els: HTMLStyleElement[], target: HTMLStyleElement): void {
+function addElementToList (els: HTMLStyleElement[], target: HTMLStyleElement): void {
   if (!els.includes(target)) {
     els.push(target)
   }
 }
 
-/** mount */
-export function _m<T extends CRenderProps> (
+export function mount<T extends CRenderProps> (
   instance: CSSRenderInstance,
   node: CNode,
   target: HTMLStyleElement | string | number | undefined,
@@ -81,33 +77,33 @@ export function _m<T extends CRenderProps> (
   if (target === undefined) {
     targetElement = document.createElement('style')
     document.head.appendChild(targetElement)
-    _ae(els, targetElement)
+    addElementToList(els, targetElement)
   } else if (typeof target === 'string' || typeof target === 'number') {
-    targetElement = _qe(target)
+    targetElement = queryElement(target)
     if (targetElement === null) {
-      targetElement = _ce(target)
+      targetElement = createElement(target)
       document.head.appendChild(targetElement)
       if (count) {
-        _sc(targetElement, 1)
+        setCountOfElement(targetElement, 1)
       }
-      _ae(els, targetElement)
+      addElementToList(els, targetElement)
     } else {
       if (count) {
-        _sc(targetElement, _gc(targetElement) + 1)
+        setCountOfElement(targetElement, getCountOfElement(targetElement) + 1)
       }
-      _ae(els, targetElement)
+      addElementToList(els, targetElement)
       return targetElement
     }
   } else {
     targetElement = target
-    const mountCount = _gc(targetElement)
+    const mountCount = getCountOfElement(targetElement)
     if (mountCount > 0) {
       if (count) {
-        _sc(targetElement, mountCount + 1)
+        setCountOfElement(targetElement, mountCount + 1)
       }
       return target
     } else if (count) {
-      _sc(targetElement, 1)
+      setCountOfElement(targetElement, 1)
     }
   }
   const style = node.render(props)

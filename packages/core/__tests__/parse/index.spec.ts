@@ -1,5 +1,5 @@
 import * as chai from 'chai'
-import { p$p } from '@css-render/core/src/parse'
+import { parseSelectorPath } from '@css-render/core/src/parse'
 import pathTestCases from './pathTestCases.spec'
 
 const expect = chai.expect
@@ -18,7 +18,7 @@ function normalizeSelector (selector: string): string {
 describe('# parse selector path', () => {
   pathTestCases.forEach(testCase => {
     it(`parse result of ${testCase.input.toString()} should be ${testCase.output}`, () => {
-      expect(normalizeSelector(p$p(testCase.input))).to.equal(normalizeSelector(testCase.output))
+      expect(normalizeSelector(parseSelectorPath(testCase.input))).to.equal(normalizeSelector(testCase.output))
     })
   })
 })

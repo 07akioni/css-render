@@ -13,7 +13,7 @@ import {
   MountTarget
 } from './types'
 import { render } from './render'
-import { _m, _u } from './mount'
+import { mount, unmount } from './mount'
 
 /** render wrapper */
 function _r <T extends CRenderProps> (this: CNode, props?: T): string {
@@ -37,7 +37,7 @@ function _wm <T extends MountTarget = MountTarget> (
   const props = options && options.props
   // eslint-disable-next-line
   const count = !((options && options.count) === false)
-  const targetElement = _m(
+  const targetElement = mount(
     this.instance,
     this,
     target as (HTMLStyleElement | string | number | undefined),
@@ -62,9 +62,9 @@ function _wu (
   // eslint-disable-next-line
   const count = !((options && options.count) === false)
   if (target === null) return
-  if (delay === 0) _u(this.instance, this, target, count)
+  if (delay === 0) unmount(this.instance, this, target, count)
   else {
-    setTimeout(() => _u(this.instance, this, target, count), delay)
+    setTimeout(() => unmount(this.instance, this, target, count), delay)
   }
 }
 
