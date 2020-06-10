@@ -513,17 +513,17 @@ describe('#render - falsy node', () => {
   })
 })
 
-describe('#render -  property', () => {
+describe('#render - raw property', () => {
   it('#case1', () => {
     assertEqual(c('x', {
-      : '666'
+      raw: '666'
     }).render(), `
     x {
     666
     }
     `)
     assertEqual(c('x', {
-      : '666',
+      raw: '666',
       color: 'white'
     }).render(), `
     x {
