@@ -512,3 +512,24 @@ describe('#render - falsy node', () => {
     )
   })
 })
+
+describe('#render -  property', () => {
+  it('#case1', () => {
+    assertEqual(c('x', {
+      : '666'
+    }).render(), `
+    x {
+    666
+    }
+    `)
+    assertEqual(c('x', {
+      : '666',
+      color: 'white'
+    }).render(), `
+    x {
+    666
+    color: white;
+    }
+    `)
+  })
+})

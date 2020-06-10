@@ -260,7 +260,7 @@ const rippleStyle = Object.keys(buttonType).map(type => {
 
 /** button */
 const buttonStyle = cB('button', {
-  static: `
+  raw: `
     box-sizing: border-box;
     outline: none;
     position: relative;
@@ -279,7 +279,7 @@ const buttonStyle = cB('button', {
   `
 }, [
   c('&::after', {
-    static: `
+    raw: `
       pointer-events: none;
       content: "",
       border-radius: inherit;
@@ -291,7 +291,7 @@ const buttonStyle = cB('button', {
     `
   }),
   cE('border-mask', {
-    static: `
+    raw: `
       position: absolute;
       left: -1px;
       top: -1px;

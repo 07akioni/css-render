@@ -71,7 +71,7 @@ function createStyle <T extends CRenderProps> (
   ]
   propertyNames.forEach(propertyName => {
     const property = unwrappedProps[propertyName]
-    if (propertyName === 'static') {
+    if (propertyName === 'raw') {
       statements.push('\n' + (property as string) + '\n')
       return
     }
