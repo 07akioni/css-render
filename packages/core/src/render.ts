@@ -11,7 +11,7 @@ import {
 } from './types'
 import { parseSelectorPath } from './parse'
 
-const kebabRegex = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
+const kebabRegex = /[A-Z]/g
 
 function kebabCase (pattern: string): string {
   return pattern.replace(kebabRegex, match => '-' + match.toLowerCase())
@@ -31,7 +31,7 @@ function upwrapProperty (
       '\n' + indent + '}'
     )
   }
-  return `: ${String(prop)};`
+  return `: ${prop as string};`
 }
 
 /** unwrap properties */
@@ -71,6 +71,10 @@ function createStyle <T extends CRenderProps> (
   ]
   propertyNames.forEach(propertyName => {
     const property = unwrappedProps[propertyName]
+    if (propertyName === 'static') {
+      statements.push('\n' + (property as string) + '\n')
+      return
+    }
     propertyName = kebabCase(propertyName)
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (property !== null && property !== undefined) {

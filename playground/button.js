@@ -26,6 +26,12 @@ const buttonSize = {
   large: 'large-size'
 }
 
+const {
+  performance
+} = require('perf_hooks')
+
+const start = performance.now()
+
 function buttonSizeMixin (size) {
   const bs = buttonSize[size]
   return (
@@ -247,12 +253,6 @@ function buttonRippleMixin (type) {
   ]
 }
 
-const {
-  performance
-} = require('perf_hooks')
-
-const start = performance.now()
-
 /** ripple */
 const rippleStyle = Object.keys(buttonType).map(type => {
   return buttonRippleMixin(type)
@@ -260,44 +260,49 @@ const rippleStyle = Object.keys(buttonType).map(type => {
 
 /** button */
 const buttonStyle = cB('button', {
-  boxSizing: 'border-box',
-  outline: 'none',
-  position: 'relative',
-  zIndex: 'auto',
-  fontFamily: 'inherit',
-  display: 'inline-block',
-  alignItems: 'center',
-  justifyContent: 'center',
-  userSelect: 'none',
-  textAlign: 'center',
-  transition: `
-    background-color .3s ease-in-out,
-    opacity .3s ease-in-out,
-    border-color .3s ease-in-out
-  `,
-  cursor: 'pointer'
+  static: `
+    box-sizing: border-box;
+    outline: none;
+    position: relative;
+    z-index: auto;
+    font-family: inherit;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    text-align: center;
+    transition: 
+      background-color .3s ease-in-out,
+      opacity .3s ease-in-out,
+      border-color .3s ease-in-out;
+    cursor: pointer;
+  `
 }, [
   c('&::after', {
-    pointerEvents: 'none',
-    content: '\'\'',
-    borderRadius: 'inherit',
-    position: 'absolute',
-    left: '-1px',
-    top: '-1px',
-    right: '-1px',
-    bottom: '-1px'
+    static: `
+      pointer-events: none;
+      content: "",
+      border-radius: inherit;
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      right: -1px';
+      bottom: -1px;
+    `
   }),
   cE('border-mask', {
-    position: 'absolute',
-    left: '-1px',
-    top: '-1px',
-    right: '-1px',
-    bottom: '-1px',
-    borderRadius: 'inherit',
-    boxShadow: 'inset 0 0 0 1px transparent',
-    transition: 'box-shadow .3s $--n-ease-in-out-cubic-bezier',
-    pointerEvents: 'none',
-    zIndex: 1
+    static: `
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      right: -1px;
+      bottom: -1px;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px transparent;
+      transition: box-shadow .3s $--n-ease-in-out-cubic-bezier;
+      pointerEvents: none;
+      zIndex: 1;
+    `
   }),
   cE('icon', {
     transition: 'color .3s $--n-ease-in-out-cubic-bezier'

@@ -48,6 +48,7 @@ export type CNodeChildren = Array<CNodePlainChild | CNodeLazyChild | null | unde
 /** Properties */
 export type CProperty = CPlainProperties | string | number | undefined | null
 export interface CPlainProperties extends Properties<string | number> {
+  static?: string
   [nonPropertyLiteral: string]: CProperty
 }
 export type CLazyProperties = ((options: {
