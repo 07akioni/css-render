@@ -1,9 +1,8 @@
 import { CSelectorPath } from './types'
 
 function ampCount (selector: string): number {
-  const len = selector.length
   let cnt = 0
-  for (let i = 0; i < len; ++i) {
+  for (let i = 0; i < selector.length; ++i) {
     if (selector[i] === '&') ++cnt
   }
   return cnt
@@ -19,6 +18,7 @@ const extraSpaceRegex = /\s+/g
 
 /**
  * selector must includes '&'
+ * selector is trimmed
  */
 function resolveSelectorWithAmp (amp: string[], selector: string): string[] {
   const nextAmp: string[] = []
@@ -32,9 +32,14 @@ function resolveSelectorWithAmp (amp: string[], selector: string): string[] {
         )
       })
       return
+    } else if (round === 1) {
+      amp.forEach(ampPart => {
+        nextAmp.push(selectorPart.replace('&', ampPart).trim())
+      })
+      return
     }
     let partialNextAmp: string[] = [
-      selectorPart
+      selectorPart.trim()
     ]
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     while (round--) {
@@ -55,15 +60,16 @@ function resolveSelectorWithAmp (amp: string[], selector: string): string[] {
 
 /**
  * selector mustn't includes '&'
+ * selector is trimmed
  */
 function resolveSelector (amp: string[], selector: string): string[] {
-  const result: string[] = []
+  const nextAmp: string[] = []
   selector.split(seperatorRegex).forEach(selectorPart => {
     amp.forEach(ampPart => {
-      result.push((ampPart + ' ' + selectorPart).trim())
+      nextAmp.push((ampPart + ' ' + selectorPart).trim())
     })
   })
-  return result
+  return nextAmp
 }
 
 export function parseSelectorPath (

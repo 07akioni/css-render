@@ -140,6 +140,14 @@ const testCases: CSelectorTestCase[] = [
   {
     input: ['a, b, c', 'x + y'],
     output: 'a x + y, b x + y, c x + y'
+  },
+  {
+    input: [' a ', ' & ', ' &b '],
+    output: 'ab'
+  },
+  {
+    input: [' a', 'b&', ''],
+    output: 'ba'
   }
 ]
 
