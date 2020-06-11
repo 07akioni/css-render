@@ -22,32 +22,32 @@ const extraSpaceRegex = /\s+/g
  */
 function resolveSelectorWithAmp (amp: string[], selector: string): string[] {
   const nextAmp: string[] = []
-  selector.split(seperatorRegex).forEach(selectorPart => {
-    let round = ampCount(selectorPart)
+  selector.split(seperatorRegex).forEach(partialSelector => {
+    let round = ampCount(partialSelector)
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!round) {
-      amp.forEach(ampPart => {
+      amp.forEach(partialAmp => {
         nextAmp.push(
-          (ampPart + ' ' + selectorPart).trim()
+          (partialAmp + ' ' + partialSelector).trim()
         )
       })
       return
     } else if (round === 1) {
-      amp.forEach(ampPart => {
-        nextAmp.push(selectorPart.replace('&', ampPart).trim())
+      amp.forEach(partialAmp => {
+        nextAmp.push(partialSelector.replace('&', partialAmp).trim())
       })
       return
     }
     let partialNextAmp: string[] = [
-      selectorPart.trim()
+      partialSelector.trim()
     ]
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     while (round--) {
       const nextPartialNextAmp: string[] = []
       partialNextAmp.forEach(selectorItr => {
         amp.forEach(
-          ampPart => {
-            nextPartialNextAmp.push(selectorItr.replace('&', ampPart))
+          partialAmp => {
+            nextPartialNextAmp.push(selectorItr.replace('&', partialAmp))
           }
         )
       })
@@ -64,9 +64,9 @@ function resolveSelectorWithAmp (amp: string[], selector: string): string[] {
  */
 function resolveSelector (amp: string[], selector: string): string[] {
   const nextAmp: string[] = []
-  selector.split(seperatorRegex).forEach(selectorPart => {
-    amp.forEach(ampPart => {
-      nextAmp.push((ampPart + ' ' + selectorPart).trim())
+  selector.split(seperatorRegex).forEach(partialSelector => {
+    amp.forEach(partialAmp => {
+      nextAmp.push((partialAmp + ' ' + partialSelector).trim())
     })
   })
   return nextAmp
