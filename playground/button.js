@@ -82,25 +82,31 @@ function buttonSizeMixin (size) {
         cB('base-loading', {
           height: bs,
           width: bs,
-          position: 'absolute',
-          left: 0,
-          top: '50%',
-          transform: 'translateY(-50%)',
-          display: 'block'
+          raw: `
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          display: block;
+          `
         }),
         cM('slot', {
           width: bs,
           fontSize: bs,
-          display: 'inline-block',
-          alignItems: 'center',
-          verticalAlign: 'bottom'
+          raw: `
+          display: inline-block;
+          align-items: center;
+          vertical-align: bottom;
+          `
         }, [
           cB('icon-slot', {
-            position: 'absolute',
-            left: 0,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            display: 'block',
+            raw: `
+              position: absolute;
+              left: 0;
+              top: 50%;
+              transform: translateY(-50%);
+              display: block;
+            `,
             lineHeight: bs,
             height: bs,
             width: bs,
@@ -404,18 +410,22 @@ const buttonGroupStyle = cB('button-group', {
   }, [
     cB('button', [
       c('&:first-child:not(:last-child)', {
-        marginBottom: '0 !important',
-        marginLeft: '0 !important',
-        marginRight: '0 !important',
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0
+        raw: `
+          margin-bottom: 0 !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+          border-bottom-reft-radius: 0;
+          border-bottom-right-radius: 0;
+        `
       }),
       c('&:last-child:not(:first-child)', {
-        marginTop: '0 !important',
-        marginLeft: '0 !important',
-        marginRight: '0 !important',
-        borderTopLeftRadius: 0,
-        borderBottomLeftRadius: 0
+        raw: `
+          margin-top: 0 !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+          border-bottom-left-radius: 0;
+          border-bottom-left-radius: 0;
+        `
       }),
       c('&:not(first-child):not(:last-child)', {
         margin: '0 !important',
