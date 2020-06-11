@@ -7,7 +7,8 @@
     "test:cov": "npm run clean:links && rimraf ./coverage && npm run test && http-server ./coverage/html",
     "lint": "eslint \"packages/**/*.{ts|js}\" \"scripts/**/*.js\" --no-error-on-unmatched-pattern",
     "build": "npm run clean:links && node scripts/build.js",
-    "release": "npm run test && npm run build && node scripts/release.js"
+    "release": "npm run test && npm run build && node scripts/release.js",
+    "perf": "npm run build && npm run create:links && node playground/perf-log.js >> playground/perf.log"
   },
   "author": "07akioni",
   "devDependencies": {
