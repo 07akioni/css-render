@@ -66,9 +66,10 @@ function createStyle <T extends CRenderProps> (
     if (instance.config.preserveEmptyBlock) return selector + ' {\n}'
     return ''
   }
-  const statements = [
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  const statements = selector ? [
     selector + ' {'
-  ]
+  ] : []
   propertyNames.forEach(propertyName => {
     const property = unwrappedProps[propertyName]
     if (propertyName === 'raw') {
@@ -81,11 +82,14 @@ function createStyle <T extends CRenderProps> (
       statements.push(`  ${propertyName}${upwrapProperty(property)}`)
     }
   })
-  statements.push('}')
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (selector) {
+    statements.push('}')
+  }
   return statements.join('\n')
 }
 
-function loopCNodeListWithCallback (children: CNodeChildren, options: CRenderOption, callback: (node: CNode) => any): void {
+function loopCNodeListWithCallback (children: CNodeChildren, options: CRenderOption, callback: (node: CNode | string) => any): void {
   /* istanbul ignore if */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (!children) return
@@ -149,7 +153,13 @@ function traverseCNode <T extends CRenderProps> (
       context: instance.context,
       props: params
     }, childNode => {
-      traverseCNode(childNode, selectorPaths, styles, instance, params)
+      if (typeof childNode === 'string') {
+        styles.push(
+          createStyle(selector, { raw: childNode }, instance, params)
+        )
+      } else {
+        traverseCNode(childNode, selectorPaths, styles, instance, params)
+      }
     })
   }
   selectorPaths.pop()

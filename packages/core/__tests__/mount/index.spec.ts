@@ -78,7 +78,7 @@ describe('# mount & unmount with id (count)', () => {
     })
     expect(style.els.length).to.equal(4)
   })
-  it('should use unmount the desired style element', () => {
+  it('should unmount the desired style element', () => {
     style.unmount({
       target: 'test-id-1'
     })

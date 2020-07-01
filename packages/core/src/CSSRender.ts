@@ -7,6 +7,9 @@ import {
 import {
   c
 } from './c'
+import {
+  queryElement
+} from './utils'
 
 export function CSSRender (config: CSSRenderConfig = {
   preserveEmptyBlock: false
@@ -16,6 +19,7 @@ export function CSSRender (config: CSSRenderConfig = {
       (...args: any[]) => c(cssr, ...args as [any, any, any])
     ) as createCNode,
     use: (plugin: CSSRenderPlugin, ...args: any[]) => plugin.install(cssr, ...args),
+    find: queryElement,
     context: {},
     config
   }

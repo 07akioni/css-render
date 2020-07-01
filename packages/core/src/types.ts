@@ -28,6 +28,9 @@ export interface MountOption <T extends MountTarget> {
   count?: boolean
 }
 
+/** find related */
+export type CFindTarget = (target: string | number) => HTMLStyleElement | null
+
 /** CNode */
 export interface CNode {
   $: CSelector
@@ -42,7 +45,7 @@ export interface CNode {
 
 /** Node Children */
 type CNodeLazyChild = (option: CRenderOption) => (CNodePlainChild | CNode | null | undefined)
-type CNodePlainChild = CNode | Array<CNode | CNodePlainChild | null | undefined>
+type CNodePlainChild = CNode | string | Array<CNode | CNodePlainChild | null | undefined>
 export type CNodeChildren = Array<CNodePlainChild | CNodeLazyChild | null | undefined> | null
 
 /** Properties */
@@ -95,6 +98,7 @@ export interface CSSRenderInstance {
   }
   c: createCNode<CSelector>
   use: (plugin: CSSRenderPlugin, ...args: any[]) => void
+  find: CFindTarget
   config: CSSRenderConfig
 }
 

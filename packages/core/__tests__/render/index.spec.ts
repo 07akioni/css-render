@@ -533,3 +533,24 @@ describe('#render - raw property', () => {
     `)
   })
 })
+
+describe('#render - string child', () => {
+  it('#case 1', () => {
+    assertEqual(c([
+      'good { key: value }'
+    ]).render(),
+    'good { key: value }'
+    )
+  })
+  it('#case 2', () => {
+    assertEqual(c('parent', [
+      c('gogogo', { key: 'value' }),
+      'key: value;'
+    ]).render(),
+    `
+      parent gogogo { key: value; }
+      parent { key: value; }
+    `
+    )
+  })
+})

@@ -15,15 +15,13 @@ import {
 import { render } from './render'
 import { mount, unmount } from './mount'
 
-/** render wrapper */
-function _r <T extends CRenderProps> (this: CNode, props?: T): string {
+function wrappedRender <T extends CRenderProps> (this: CNode, props?: T): string {
   return render(this, this.instance, props)
 }
 
 const inNode = typeof window === 'undefined'
 
-/** wrapped mount */
-function _wm <T extends MountTarget = MountTarget> (
+function wrappedMount <T extends MountTarget = MountTarget> (
   this: CNode,
   options?: MountOption<T>
 ): (T extends null ? null : HTMLStyleElement) {
@@ -47,8 +45,7 @@ function _wm <T extends MountTarget = MountTarget> (
   return targetElement as (T extends null ? null : HTMLStyleElement)
 }
 
-/** wrapped unmount */
-function _wu (
+function wrappedUnmount (
   this: CNode,
   options?: UnmountOption
 ): void {
@@ -68,8 +65,7 @@ function _wu (
   }
 }
 
-/** create CNode */
-const _cc: baseCreateCNodeForCSSRenderInstance = function (
+const createCNode: baseCreateCNodeForCSSRenderInstance = function (
   instance: CSSRenderInstance,
   $: CSelector,
   props: CProperties,
@@ -81,9 +77,9 @@ const _cc: baseCreateCNodeForCSSRenderInstance = function (
     props,
     children,
     els: [],
-    render: _r,
-    mount: _wm,
-    unmount: _wu
+    render: wrappedRender,
+    mount: wrappedMount,
+    unmount: wrappedUnmount
   }
 }
 
@@ -94,13 +90,13 @@ export const c: createCNodeForCSSRenderInstance = function (
   children: any
 ): CNode {
   if (Array.isArray($)) {
-    return _cc(instance, { $: null }, null, $)
+    return createCNode(instance, { $: null }, null, $)
   } if (Array.isArray(props)) {
-    return _cc(instance, $, null, props)
+    return createCNode(instance, $, null, props)
   } else if (Array.isArray(children)) {
-    return _cc(instance, $, props, children)
+    return createCNode(instance, $, props, children)
   } else {
-    return _cc(instance, $, props, null)
+    return createCNode(instance, $, props, null)
   }
 } as createCNodeForCSSRenderInstance
 
