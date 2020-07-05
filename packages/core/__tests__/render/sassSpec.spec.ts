@@ -1,9 +1,9 @@
-import CSSRender from 'css-render'
+import CssRender from 'css-render'
 import { assertEqual } from '@css-render/shared/utils'
 
 const {
   c
-} = CSSRender()
+} = CssRender()
 
 describe('#render (some compatible cases from sass-spec)', () => {
   it('should render as expected(1)', () => {

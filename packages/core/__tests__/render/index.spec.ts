@@ -1,10 +1,10 @@
-import CSSRender from 'css-render'
+import CssRender from 'css-render'
 import { assertEqual } from '@css-render/shared/utils'
 
 const {
   c,
   config
-} = CSSRender()
+} = CssRender()
 
 describe('#render - common cases', () => {
   it('should work with nested nodes array', () => {

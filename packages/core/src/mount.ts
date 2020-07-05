@@ -1,6 +1,6 @@
 import {
   CNode,
-  CSSRenderInstance,
+  CssRenderInstance,
   CRenderProps
 } from './types'
 
@@ -27,7 +27,7 @@ export {
 }
 
 export function unmount (
-  intance: CSSRenderInstance,
+  intance: CssRenderInstance,
   node: CNode,
   target: HTMLStyleElement | string | number | undefined,
   count: boolean
@@ -66,7 +66,7 @@ function addElementToList (els: HTMLStyleElement[], target: HTMLStyleElement): v
 }
 
 export function mount<T extends CRenderProps> (
-  instance: CSSRenderInstance,
+  instance: CssRenderInstance,
   node: CNode,
   target: HTMLStyleElement | string | number | undefined,
   props: T,

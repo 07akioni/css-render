@@ -1,8 +1,8 @@
 import {
-  CSSRenderConfig,
-  CSSRenderInstance,
+  CssRenderConfig,
+  CssRenderInstance,
   createCNode,
-  CSSRenderPlugin
+  CssRenderPlugin
 } from './types'
 import {
   c
@@ -11,12 +11,12 @@ import {
   queryElement
 } from './utils'
 
-export function CSSRender (config: CSSRenderConfig = {}): CSSRenderInstance {
-  const cssr: CSSRenderInstance = {
+export function CssRender (config: CssRenderConfig = {}): CssRenderInstance {
+  const cssr: CssRenderInstance = {
     c: (
       (...args: any[]) => c(cssr, ...args as [any, any, any])
     ) as createCNode,
-    use: (plugin: CSSRenderPlugin, ...args: any[]) => plugin.install(cssr, ...args),
+    use: (plugin: CssRenderPlugin, ...args: any[]) => plugin.install(cssr, ...args),
     find: queryElement,
     context: {},
     config

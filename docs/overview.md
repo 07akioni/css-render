@@ -7,15 +7,15 @@ Basically, a `CNode` is an object with `selector`, `properties` and `chilren`(ch
 
 ## Create a `css-render` object (`CNode`)
 ```js
-import CSSRender from 'css-render'
+import CssRender from 'css-render'
 /**
  * common js:
- * const { CSSRender } = require('css-render')
+ * const { CssRender } = require('css-render')
  */
 
 const {
   c
-} = CSSRender()
+} = CssRender()
 
 // style is a CNode
 const style = c('body', ({ props }) => ({
@@ -69,6 +69,6 @@ It will remove all the mounted style elemented of the `style` object.
 
 - If you want to create `CNode` and render `CNode` tree with more options, see [Create a CNode & Render a CNode Tree](cnode-and-render.md).
 
-- If you want to know what does the `CSSRender` function returns, see [CSSRender Instance](css-render-instance.md).
+- If you want to know what does the `CssRender` function returns, see [CssRender Instance](css-render-instance.md).
 
 - If you are interested in developing a plugin, see [Plugin Development](plugin-development.md).

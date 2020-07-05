@@ -2,18 +2,18 @@
 A `css-render` plugin should be a function that return a plugin object.
 
 The plugin need to follow the following rules:
-1. If you want to access the properties of a [CSSRender](css-render-instance.md) instance, the object should has a `install` method.
+1. If you want to access the properties of a [CssRender](css-render-instance.md) instance, the object should has a `install` method.
 2. If you want your plugin has options, you should accept the options from the plugin function's params.
 ```js
-import CSSRender from 'css-render'
+import CssRender from 'css-render'
 
-const cssr = CSSRender()
+const cssr = CssRender()
 
 const plugin = function (options) {
   return {
-    install (CSSRenderInstance) {
-      // do something on CSSRenderInstance.context as initialization
-      // or get the c method of the CSSRenderInstance
+    install (CssRenderInstance) {
+      // do something on CssRenderInstance.context as initialization
+      // or get the c method of the CssRenderInstance
     }
   }
 }
@@ -25,9 +25,9 @@ There is no limitation on what other properties should the plugin object have. B
 
 Here is an example accumulator plugin (which is literally nonsense).
 ```js
-import CSSRender from 'css-render'
+import CssRender from 'css-render'
 
-const cssr = CSSRender()
+const cssr = CssRender()
 
 const Plugin = function ({
   startsFrom
@@ -37,9 +37,9 @@ const Plugin = function ({
   let context
   let c
   return {
-    install (CSSRenderInstance) {
-      c = CSSRenderInstance.c
-      context = CSSRenderInstance.context
+    install (CssRenderInstance) {
+      c = CssRenderInstance.c
+      context = CssRenderInstance.context
       context.number = startsFrom
     },
     cAcc () {

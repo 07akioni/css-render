@@ -1,7 +1,7 @@
 import {
   CNode,
   CProperties,
-  CSSRenderInstance,
+  CssRenderInstance,
   CProperty,
   CPlainProperties,
   CRenderProps,
@@ -37,7 +37,7 @@ function upwrapProperty (
 /** unwrap properties */
 function upwrapProperties <T extends CRenderProps> (
   props: CProperties,
-  instance: CSSRenderInstance,
+  instance: CssRenderInstance,
   params: T
 ): CPlainProperties | undefined | null {
   if (typeof props === 'function') {
@@ -52,7 +52,7 @@ function upwrapProperties <T extends CRenderProps> (
 function createStyle <T extends CRenderProps> (
   selector: string,
   props: CProperties,
-  instance: CSSRenderInstance,
+  instance: CssRenderInstance,
   params: T
 ): string {
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -116,7 +116,7 @@ function traverseCNode <T extends CRenderProps> (
   node: CNode,
   selectorPaths: CSelectorPath,
   styles: string[],
-  instance: CSSRenderInstance,
+  instance: CssRenderInstance,
   params: T
 ): void {
   const $ = node.$
@@ -170,7 +170,7 @@ function traverseCNode <T extends CRenderProps> (
 
 export function render <T extends CRenderProps> (
   node: CNode,
-  instance: CSSRenderInstance,
+  instance: CssRenderInstance,
   props?: T
 ): string {
   const styles: string[] = []

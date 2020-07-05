@@ -1,11 +1,11 @@
-import CSSRender from 'css-render'
+import CssRender from 'css-render'
 import { assertEqual } from '@css-render/shared/utils'
-import CSSRenderBEMPlugin from '@css-render/plugins/bem/index'
+import CssRenderBEMPlugin from '@css-render/plugins/bem/index'
 
-const cssr = CSSRender({
+const cssr = CssRender({
   keepEmptyBlock: true
 })
-const plugin = CSSRenderBEMPlugin({
+const plugin = CssRenderBEMPlugin({
   blockPrefix: '.c-',
   elementPrefix: '__',
   modifierPrefix: '--'
@@ -23,7 +23,7 @@ const {
 
 describe('default prefixes', function () {
   it('should use default prefixes', function () {
-    const plugin = CSSRenderBEMPlugin({})
+    const plugin = CssRenderBEMPlugin({})
     cssr.use(plugin)
     const {
       cB,
@@ -49,7 +49,7 @@ describe('default prefixes', function () {
     )
   })
   it('should use default prefixes', function () {
-    const plugin = CSSRenderBEMPlugin()
+    const plugin = CssRenderBEMPlugin()
     cssr.use(plugin)
     const {
       cB,

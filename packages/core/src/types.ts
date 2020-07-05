@@ -36,7 +36,7 @@ export interface CNode {
   $: CSelector
   props: CProperties
   children: CNodeChildren
-  instance: CSSRenderInstance
+  instance: CssRenderInstance
   els: HTMLStyleElement[]
   render: <T extends CRenderProps> (props?: T) => string
   mount: <T extends MountTarget> (options?: MountOption<T>) => (T extends null ? null : HTMLStyleElement)
@@ -79,33 +79,33 @@ export interface createCNode <T = CSelector> {
   (children: CNodeChildren): CNode
 }
 
-export type baseCreateCNodeForCSSRenderInstance = (
-  instance: CSSRenderInstance,
+export type baseCreateCNodeForCssRenderInstance = (
+  instance: CssRenderInstance,
   selector: CSelector,
   props: CProperties,
   children: CNodeChildren
 ) => CNode
 
-export interface createCNodeForCSSRenderInstance extends baseCreateCNodeForCSSRenderInstance {
-  (instance: CSSRenderInstance, selector: CSelector, props: CProperties): CNode
-  (instance: CSSRenderInstance, selector: CSelector, children: CNodeChildren): CNode
-  (instance: CSSRenderInstance, children: CNodeChildren): CNode
+export interface createCNodeForCssRenderInstance extends baseCreateCNodeForCssRenderInstance {
+  (instance: CssRenderInstance, selector: CSelector, props: CProperties): CNode
+  (instance: CssRenderInstance, selector: CSelector, children: CNodeChildren): CNode
+  (instance: CssRenderInstance, children: CNodeChildren): CNode
 }
 
-export interface CSSRenderInstance {
+export interface CssRenderInstance {
   context: {
     [key: string]: any
   }
   c: createCNode<CSelector>
-  use: (plugin: CSSRenderPlugin, ...args: any[]) => void
+  use: (plugin: CssRenderPlugin, ...args: any[]) => void
   find: CFindTarget
-  config: CSSRenderConfig
+  config: CssRenderConfig
 }
 
-export interface CSSRenderPlugin {
-  install: (instance: CSSRenderInstance, ...args: any[]) => void
+export interface CssRenderPlugin {
+  install: (instance: CssRenderInstance, ...args: any[]) => void
 }
 
-export interface CSSRenderConfig {
+export interface CssRenderConfig {
   keepEmptyBlock?: boolean
 }

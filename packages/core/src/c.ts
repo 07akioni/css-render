@@ -2,9 +2,9 @@ import {
   CNode,
   CProperties,
   CContext,
-  CSSRenderInstance,
-  createCNodeForCSSRenderInstance,
-  baseCreateCNodeForCSSRenderInstance,
+  CssRenderInstance,
+  createCNodeForCssRenderInstance,
+  baseCreateCNodeForCssRenderInstance,
   CRenderProps,
   CSelector,
   CNodeChildren,
@@ -65,8 +65,8 @@ function wrappedUnmount (
   }
 }
 
-const createCNode: baseCreateCNodeForCSSRenderInstance = function (
-  instance: CSSRenderInstance,
+const createCNode: baseCreateCNodeForCssRenderInstance = function (
+  instance: CssRenderInstance,
   $: CSelector,
   props: CProperties,
   children: CNodeChildren
@@ -83,8 +83,8 @@ const createCNode: baseCreateCNodeForCSSRenderInstance = function (
   }
 }
 
-export const c: createCNodeForCSSRenderInstance = function (
-  instance: CSSRenderInstance,
+export const c: createCNodeForCssRenderInstance = function (
+  instance: CssRenderInstance,
   $: any,
   props: any,
   children: any
@@ -98,7 +98,7 @@ export const c: createCNodeForCSSRenderInstance = function (
   } else {
     return createCNode(instance, $, props, null)
   }
-} as createCNodeForCSSRenderInstance
+} as createCNodeForCssRenderInstance
 
 export {
   CNode,

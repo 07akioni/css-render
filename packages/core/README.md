@@ -14,7 +14,7 @@ If you still have any question, [Q&A](docs/qa.md) may help you.
 ## Documentation
 - [First Step](https://github.com/07akioni/css-render/blob/master/docs/overview.md)
 - [Create a CNode & Render a CNode Tree](https://github.com/07akioni/css-render/blob/master/docs/cnode-and-render.md)
-- [CSSRender Instance](https://github.com/07akioni/css-render/blob/master/docs/css-render-instance.md)
+- [CssRender Instance](https://github.com/07akioni/css-render/blob/master/docs/css-render-instance.md)
 - [Advanced Mount & Unmount Options](https://github.com/07akioni/css-render/blob/master/docs/mount.md)
 - [Plugin Development](https://github.com/07akioni/css-render/blob/master/docs/plugin-development.md)
 
@@ -24,15 +24,15 @@ If you still have any question, [Q&A](docs/qa.md) may help you.
 $ npm install --save-dev css-render
 ```
 ```js
-import CSSRender from 'css-render'
+import CssRender from 'css-render'
 /**
  * common js:
- * const { CSSRender } = require('css-render')
+ * const { CssRender } = require('css-render')
  */
 
 const {
   c
-} = CSSRender()
+} = CssRender()
 
 const style = c('body', ({ props }) => ({
   margin: 0,
@@ -78,16 +78,16 @@ $ npm install --save-dev css-render @css-render/plugin-bem
 You can use bem plugin to generate bem CSS like this:
 
 ```js
-import CSSRender from 'css-render'
-import CSSRenderBEMPlugin from '@css-render/plugin-bem'
+import CssRender from 'css-render'
+import CssRenderBemPlugin from '@css-render/plugin-bem'
 /**
  * common js:
- * const { CSSRender } = require('css-render')
- * const { plugin: CSSRenderBEMPlugin } = require('@css-render/plugin-bem')
+ * const { CssRender } = require('css-render')
+ * const { plugin: CssRenderBemPlugin } = require('@css-render/plugin-bem')
  */
 
-const cssr = CSSRender()
-const plugin = CSSRenderBEMPlugin({
+const cssr = CssRender()
+const plugin = CssRenderBemPlugin({
   blockPrefix: '.c-'
 })
 cssr.use(plugin)

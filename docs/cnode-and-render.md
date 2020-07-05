@@ -1,11 +1,11 @@
 # Create a `CNode` & Render a `CNode` Tree
-To create a `CNode`, you need to create a [CSSRender instance](https://github.com/07akioni/css-render/blob/master/docs/css-render-instance.md) and get the `c` method out of it. For example:
+To create a `CNode`, you need to create a [CssRender instance](https://github.com/07akioni/css-render/blob/master/docs/css-render-instance.md) and get the `c` method out of it. For example:
 ```js
-import CSSRender from 'css-render'
+import CssRender from 'css-render'
 
 const {
   c
-} = CSSRender() // return a CSSRender instance
+} = CssRender() // return a CssRender instance
 ```
 The `c` method is use to create a `CNode`.
 ## `c` method
@@ -62,9 +62,9 @@ c(({
 }
 ```
 - `props` is passed from render function of itself or its ascendant's `CNode`. For example, in `cnode.render({ color: 'black' })`, `{ color: 'black' }` is the `props`.
-- `context` is the `context` of `c` method's corresponding `CSSRender` instance.
+- `context` is the `context` of `c` method's corresponding `CssRender` instance.
 
-If you want to know more about `context`, see [CSSRender](https://github.com/07akioni/css-render/blob/master/docs/css-render-instance.md).
+If you want to know more about `context`, see [CssRender](https://github.com/07akioni/css-render/blob/master/docs/css-render-instance.md).
 
 #### Object `selector`
 

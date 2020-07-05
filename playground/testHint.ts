@@ -1,6 +1,6 @@
-import CSSRender from 'css-render'
+import CssRender from 'css-render'
 
-const cssr = CSSRender()
+const cssr = CssRender()
 const { c } = cssr
 
 const target = c('selector', {

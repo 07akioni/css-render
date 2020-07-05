@@ -1,7 +1,7 @@
-const { CSSRender } = require('css-render')
+const { CssRender } = require('css-render')
 const { plugin } = require('@css-render/plugin-bem')
 
-const cssr = CSSRender()
+const cssr = CssRender()
 const bemPlugin = plugin({
   blockPrefix: '.n-'
 })

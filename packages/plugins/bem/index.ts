@@ -4,7 +4,7 @@ import {
   COptionSelector,
   CLazySelector,
   CStringSelector,
-  CSSRenderPlugin,
+  CssRenderPlugin,
   createCNode,
   CSelector
 } from 'css-render'
@@ -17,14 +17,14 @@ interface BEMPluginOptions {
 
 type AvailableSelector = CStringSelector | CLazySelector<string>
 
-interface CSSRenderBEMPlugin extends CSSRenderPlugin {
+interface CssRenderBemPlugin extends CssRenderPlugin {
   cB: createCNode<AvailableSelector>
   cE: createCNode<AvailableSelector>
   cM: createCNode<AvailableSelector>
   cNotM: createCNode<AvailableSelector>
 }
 
-function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
+function plugin (options?: BEMPluginOptions): CssRenderBemPlugin {
   let _bPrefix: string = '.'
   let _ePrefix: string = '__'
   let _mPrefix: string = '--'
@@ -44,7 +44,7 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     }
   }
 
-  const _plugin: CSSRenderPlugin = {
+  const _plugin: CssRenderPlugin = {
     install (instance) {
       c = instance.c
       const ctx = instance.context
@@ -147,7 +147,7 @@ function plugin (options?: BEMPluginOptions): CSSRenderBEMPlugin {
     cB, cE, cM, cNotM
   })
 
-  return _plugin as CSSRenderBEMPlugin
+  return _plugin as CssRenderBemPlugin
 }
 
 export { plugin }

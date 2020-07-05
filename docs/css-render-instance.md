@@ -1,12 +1,12 @@
-# `CSSRender` Instance
-`CSSRender` instance can be created by the following codes:
+# `CssRender` Instance
+`CssRender` instance can be created by the following codes:
 ```js
-import CSSRender from 'css-render'
+import CssRender from 'css-render'
 
 const config = {
   // ... 
 }
-const cssr = CSSRender(config) // cssr is a CSSRender instance
+const cssr = CssRender(config) // cssr is a CssRender instance
 ```
 ## Config
 ```typescript
