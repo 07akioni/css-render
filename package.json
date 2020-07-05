@@ -8,7 +8,8 @@
     "lint": "eslint \"packages/**/*.{ts|js}\" \"scripts/**/*.js\" --no-error-on-unmatched-pattern",
     "build": "npm run clean:links && node scripts/build.js",
     "release": "npm run test && npm run build && node scripts/release.js",
-    "perf": "npm run build && npm run create:links && node playground/perf-log.js >> playground/perf.log"
+    "perf": "npm run build && npm run create:links && node playground/perf-log.js >> playground/perf.log",
+    "play": "npm run build && npm run create:links"
   },
   "author": "07akioni",
   "devDependencies": {

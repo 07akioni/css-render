@@ -13,12 +13,13 @@ function ampCount (selector: string): number {
  * x:(a, b) {} will be split into 'x:(a' and 'b)', which is not expected.
  * Make sure comma doesn't exist inside parentheses.
  */
-const seperatorRegex = /,(?![^(]*\))/
+const seperatorRegex = /\s*,(?![^(]*\))\s*/g
 const extraSpaceRegex = /\s+/g
 
 /**
  * selector must includes '&'
  * selector is trimmed
+ * every part of amp is trimmed
  */
 function resolveSelectorWithAmp (amp: string[], selector: string): string[] {
   const nextAmp: string[] = []
@@ -28,18 +29,19 @@ function resolveSelectorWithAmp (amp: string[], selector: string): string[] {
     if (!round) {
       amp.forEach(partialAmp => {
         nextAmp.push(
-          (partialAmp + ' ' + partialSelector).trim()
+          // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+          (partialAmp && partialAmp + ' ') + partialSelector
         )
       })
       return
     } else if (round === 1) {
       amp.forEach(partialAmp => {
-        nextAmp.push(partialSelector.replace('&', partialAmp).trim())
+        nextAmp.push(partialSelector.replace('&', partialAmp))
       })
       return
     }
     let partialNextAmp: string[] = [
-      partialSelector.trim()
+      partialSelector
     ]
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     while (round--) {
@@ -66,7 +68,8 @@ function resolveSelector (amp: string[], selector: string): string[] {
   const nextAmp: string[] = []
   selector.split(seperatorRegex).forEach(partialSelector => {
     amp.forEach(partialAmp => {
-      nextAmp.push((partialAmp + ' ' + partialSelector).trim())
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      nextAmp.push(((partialAmp && partialAmp + ' ') + partialSelector))
     })
   })
   return nextAmp
@@ -95,5 +98,5 @@ export function parseSelectorPath (
       amp = resolveSelector(amp, selector)
     }
   })
-  return amp.join(', ').trim().replace(extraSpaceRegex, ' ')
+  return amp.join(', ').replace(extraSpaceRegex, ' ')
 }
