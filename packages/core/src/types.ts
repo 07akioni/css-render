@@ -107,5 +107,5 @@ export interface CSSRenderPlugin {
 }
 
 export interface CSSRenderConfig {
-  preserveEmptyBlock: boolean
+  keepEmptyBlock?: boolean
 }

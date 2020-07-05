@@ -63,7 +63,8 @@ function createStyle <T extends CRenderProps> (
   if (!unwrappedProps) return ''
   const propertyNames = Object.keys(unwrappedProps)
   if (propertyNames.length === 0) {
-    if (instance.config.preserveEmptyBlock) return selector + ' {\n}'
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (instance.config.keepEmptyBlock) return selector + ' {\n}'
     return ''
   }
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

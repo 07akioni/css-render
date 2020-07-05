@@ -301,18 +301,18 @@ describe('#render - common cases', () => {
       }`
     )
   })
-  it('should preserve empty block when preserveEmptyBlock is false', () => {
-    config.preserveEmptyBlock = true
+  it('should preserve empty block when keepEmptyBlock is false', () => {
+    config.keepEmptyBlock = true
     assertEqual(
       c('body', {}).render(),
       'body {}'
     )
-    config.preserveEmptyBlock = false
+    config.keepEmptyBlock = false
     assertEqual(
       c('body', {}).render(),
       ''
     )
-    config.preserveEmptyBlock = true
+    config.keepEmptyBlock = true
   })
   it('shouldn\'t render empty property', () => {
     assertEqual(

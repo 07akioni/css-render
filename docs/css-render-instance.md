@@ -13,7 +13,7 @@ const cssr = CSSRender(config) // cssr is a CSSRender instance
 interface Config {
   // whether to render the CSS of a CNode with empty properties (eg. {})
   // default is false
-  preserveEmptyBlock: boolean
+  keepEmptyBlock: boolean
 }
 ```
 ## Properties on the Instance

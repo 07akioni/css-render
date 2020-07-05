@@ -3,7 +3,7 @@ import { assertEqual } from '@css-render/shared/utils'
 import CSSRenderBEMPlugin from '@css-render/plugins/bem/index'
 
 const cssr = CSSRender({
-  preserveEmptyBlock: true
+  keepEmptyBlock: true
 })
 const plugin = CSSRenderBEMPlugin({
   blockPrefix: '.c-',

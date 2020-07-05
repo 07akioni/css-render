@@ -11,9 +11,7 @@ import {
   queryElement
 } from './utils'
 
-export function CSSRender (config: CSSRenderConfig = {
-  preserveEmptyBlock: false
-}): CSSRenderInstance {
+export function CSSRender (config: CSSRenderConfig = {}): CSSRenderInstance {
   const cssr: CSSRenderInstance = {
     c: (
       (...args: any[]) => c(cssr, ...args as [any, any, any])
