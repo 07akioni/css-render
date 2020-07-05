@@ -13,8 +13,8 @@
 13. <del>处理 `:is(a, b, c)` 这种 selector</del>✅
 14. <del>mount 的返回值类型不能改改吗，某些情况下不可能返回 null 的</del>通过泛型解决✅
 15. <del>为 unmount 增加 delay 选项，因为框架的生命周期不能精确的体现 dom 何时被真正的卸载</del>✅
-16. 使用 webworker 帮助渲染
-17. 使用 serviceworker 缓存渲染结果
+16. 使用 webworker 帮助渲染 // 真的能管用么？
+17. <del>使用 serviceworker 缓存渲染结果</del>这个没有 HTTPS 做不了，要做也应该是拓展
 18. 为函数类型的 selector 和 children 增加文档
-19. 为静态的选择器进行提前解析，稍微提升一丢丢性能
+19. <del>为静态的选择器进行提前解析，稍微提升一丢丢性能</del> 这个目前想来其实没啥用，因为实际使用中经常用动态样式
 20. 经过我的仔细观察，测试覆盖率的问题应该是 source map 出了问题... See https://github.com/istanbuljs/nyc/issues/618#issuecomment-396818724
