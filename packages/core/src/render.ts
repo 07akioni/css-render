@@ -164,7 +164,7 @@ function traverseCNode <T extends CRenderProps> (
   }
   selectorPaths.pop()
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (typeof $ === 'object' && $ && $.after) $.after(instance.context)
+  if ($ && ($ as any).after) ($ as any).after(instance.context)
 }
 
 export function render <T extends CRenderProps> (
