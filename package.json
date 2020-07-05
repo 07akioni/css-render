@@ -1,9 +1,9 @@
 {
-  "version": "0.10.1",
+  "version": "0.11.0",
   "scripts": {
-    "create:links": "node scripts/createModuleSoftLinks",
-    "clean:links": "node scripts/cleanModuleSoftLinks",
-    "test": "npm run clean:links && rimraf ./coverage && node scripts/beforeTest && karma start karma.conf.js",
+    "create:links": "node scripts/create-module-soft-links",
+    "clean:links": "node scripts/clean-module-soft-links",
+    "test": "npm run clean:links && rimraf ./coverage && node scripts/before-test && karma start karma.conf.js",
     "test:cov": "npm run clean:links && rimraf ./coverage && npm run test && http-server ./coverage/html",
     "lint": "eslint \"packages/**/*.{ts|js}\" \"scripts/**/*.js\" --no-error-on-unmatched-pattern",
     "build": "npm run clean:links && node scripts/build.js",
