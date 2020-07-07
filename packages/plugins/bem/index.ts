@@ -49,9 +49,8 @@ function plugin (options?: BEMPluginOptions): CssRenderBemPlugin {
       c = instance.c
       const ctx = instance.context
       ctx.bem = {}
-      ctx.bem.block = null
-      ctx.bem.bDepth = 0
-      ctx.bem.elements = null
+      ctx.bem.b = null
+      ctx.bem.els = null
     }
   }
 
@@ -60,20 +59,18 @@ function plugin (options?: BEMPluginOptions): CssRenderBemPlugin {
     let memorizedE: string | null
     return {
       before (ctx) {
-        ctx.bem.bDepth++
-        memorizedB = ctx.bem.block
-        memorizedE = ctx.bem.elements
-        ctx.bem.elements = null
+        memorizedB = ctx.bem.b
+        memorizedE = ctx.bem.els
+        ctx.bem.els = null
       },
       after (ctx) {
-        ctx.bem.bDepth--
-        ctx.bem.block = memorizedB
-        ctx.bem.elements = memorizedE
+        ctx.bem.b = memorizedB
+        ctx.bem.els = memorizedE
       },
       $ ({ context, props }) {
         arg = typeof arg === 'string' ? arg : arg({ context, props })
-        context.bem.block = arg
-        return `${_bPrefix}${context.bem.block as string}`
+        context.bem.b = arg
+        return `${_bPrefix}${context.bem.b as string}`
       }
     }
   }
@@ -82,16 +79,16 @@ function plugin (options?: BEMPluginOptions): CssRenderBemPlugin {
     let memorizedE: string | null
     return {
       before (ctx) {
-        memorizedE = ctx.bem.elements
+        memorizedE = ctx.bem.els
       },
       after (ctx) {
-        ctx.bem.elements = memorizedE
+        ctx.bem.els = memorizedE
       },
       $ ({ context, props }) {
         arg = typeof arg === 'string' ? arg : arg({ context, props })
-        context.bem.elements = arg.split(',').map(v => v.trim())
-        return (context.bem.elements as string[])
-          .map(el => `${_bPrefix}${context.bem.block as string}__${el}`).join(', ')
+        context.bem.els = arg.split(',').map(v => v.trim())
+        return (context.bem.els as string[])
+          .map(el => `${_bPrefix}${context.bem.b as string}__${el}`).join(', ')
       }
     }
   }
@@ -102,15 +99,15 @@ function plugin (options?: BEMPluginOptions): CssRenderBemPlugin {
         arg = typeof arg === 'string' ? arg : arg({ context, props })
         const modifiers = arg.split(',').map(v => v.trim())
         function elementToSelector (el?: string): string {
-          return modifiers.map(modifier => `&${_bPrefix}${context.bem.block as string}${
+          return modifiers.map(modifier => `&${_bPrefix}${context.bem.b as string}${
             el !== undefined ? `${_ePrefix}${el}` : ''
           }${_mPrefix}${modifier}`).join(', ')
         }
-        const els = context.bem.elements
+        const els = context.bem.els
         if (els !== null) {
           if (process.env.NODE_ENV !== 'production' && els.length >= 2) {
             throw Error(
-              '[css-render/_plugin-bem/m]: using modifier inside multiple elements is not allowed'
+              `[css-render/plugin-bem]: m(${arg}) is invalid, using modifier inside multiple elements is not allowed`
             )
           }
           return elementToSelector(els[0])
@@ -125,13 +122,13 @@ function plugin (options?: BEMPluginOptions): CssRenderBemPlugin {
     return {
       $ ({ context, props }) {
         arg = typeof arg === 'string' ? arg : arg({ context, props })
-        const els = context.bem.elements as null | string[]
+        const els = context.bem.els as null | string[]
         if (process.env.NODE_ENV !== 'production' && els !== null && els.length >= 2) {
           throw Error(
-            '[css-render/_plugin-bem/notM]: using modifier inside multiple elements is not allowed'
+            `[css-render/plugin-bem]: notM(${arg}) is invalid, using modifier inside multiple elements is not allowed`
           )
         }
-        return `&:not(${_bPrefix}${context.bem.block as string}${
+        return `&:not(${_bPrefix}${context.bem.b as string}${
           (els !== null && els.length > 0) ? `${_ePrefix}${els[0]}` : ''
         }${_mPrefix}${arg})`
       }
