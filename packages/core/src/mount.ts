@@ -52,7 +52,7 @@ export function unmount (
     const mountCount = getCountOfElement(target)
     if (!count || mountCount <= 1) {
       setCountOfElement(target, null)
-      target.innerHTML = ''
+      target.textContent = ''
     } else {
       setCountOfElement(target, mountCount - 1)
     }
@@ -107,8 +107,8 @@ export function mount<T extends CRenderProps> (
     }
   }
   const style = node.render(props)
-  if (targetElement.innerHTML !== style) {
-    targetElement.innerHTML = style
+  if (targetElement.textContent !== style) {
+    targetElement.textContent = style
   }
   return targetElement
 }
