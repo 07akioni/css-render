@@ -12,7 +12,6 @@
     "play": "npm run build && npm run create:links"
   },
   "author": "07akioni",
-  "sideEffects": false,
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
