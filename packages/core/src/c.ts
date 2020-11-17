@@ -23,18 +23,14 @@ const inNode = typeof window === 'undefined'
 
 function wrappedMount <T extends MountTarget = MountTarget> (
   this: CNode,
-  options?: MountOption<T>
+  options: MountOption<T> = {}
 ): (T extends null ? null : HTMLStyleElement) {
   /* istanbul ignore next */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (inNode) return null as (T extends null ? null : HTMLStyleElement)
-  // eslint-disable-next-line
-  const target = options && options.target
+  const { target } = options
   if (target === null) return null as (T extends null ? null : HTMLStyleElement)
-  // eslint-disable-next-line
-  const props = options && options.props
-  // eslint-disable-next-line
-  const count = !((options && options.count) === false)
+  const { props, count = true } = options
   const targetElement = mount(
     this.instance,
     this,
@@ -47,17 +43,16 @@ function wrappedMount <T extends MountTarget = MountTarget> (
 
 function wrappedUnmount (
   this: CNode,
-  options?: UnmountOption
+  options: UnmountOption = {}
 ): void {
   /* istanbul ignore next */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (inNode) return
-  // eslint-disable-next-line
-  const target = options && options.target
-  // eslint-disable-next-line
-  const delay = (options && options.delay) || 0
-  // eslint-disable-next-line
-  const count = !((options && options.count) === false)
+  const {
+    target,
+    delay = 0,
+    count = true
+  } = options
   if (target === null) return
   if (delay === 0) unmount(this.instance, this, target, count)
   else {
