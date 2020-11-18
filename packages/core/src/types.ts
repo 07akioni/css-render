@@ -15,7 +15,7 @@ export interface CRenderOption {
 }
 
 /** mount related */
-export type MountTarget = HTMLStyleElement | string | number | null | undefined
+export type MountTarget = string | undefined
 export interface UnmountOption {
   target?: MountTarget
   delay?: number
@@ -29,7 +29,7 @@ export interface MountOption <T extends MountTarget> {
 }
 
 /** find related */
-export type CFindTarget = (target: string | number) => HTMLStyleElement | null
+export type CFindTarget = (target: string) => HTMLStyleElement | null
 
 /** CNode */
 export interface CNode {
@@ -39,7 +39,7 @@ export interface CNode {
   instance: CssRenderInstance
   els: HTMLStyleElement[]
   render: <T extends CRenderProps> (props?: T) => string
-  mount: <T extends MountTarget> (options?: MountOption<T>) => (T extends null ? null : HTMLStyleElement)
+  mount: <T extends MountTarget> (options?: MountOption<T>) => HTMLStyleElement
   unmount: (options?: UnmountOption) => void
 }
 

@@ -20,16 +20,16 @@ describe('# find', () => {
       target: 'test-id-2'
     })
     style.mount({
-      target: 14138
+      target: '14138'
     })
     style.mount({
-      target: 14139
+      target: '14139'
     })
   })
   after(() => style.unmount())
   it('works', () => {
-    expect(find(14138)).not.to.equal(null)
-    expect(find(14139)).not.to.equal(null)
+    expect(find('14138')).not.to.equal(null)
+    expect(find('14139')).not.to.equal(null)
     expect(find('test-id-1')).not.to.equal(null)
     expect(find('test-id-2')).not.to.equal(null)
     expect(find('gogogo')).to.equal(null)

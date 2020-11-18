@@ -24,21 +24,20 @@ const inNode = typeof window === 'undefined'
 function wrappedMount <T extends MountTarget = MountTarget> (
   this: CNode,
   options: MountOption<T> = {}
-): (T extends null ? null : HTMLStyleElement) {
+): HTMLStyleElement {
   /* istanbul ignore next */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (inNode) return null as (T extends null ? null : HTMLStyleElement)
+  if (inNode) return {} as HTMLStyleElement
   const { target } = options
-  if (target === null) return null as (T extends null ? null : HTMLStyleElement)
-  const { props, count = true } = options
+  const { props, count = false } = options
   const targetElement = mount(
     this.instance,
     this,
-    target as (HTMLStyleElement | string | number | undefined),
+    target as (string | undefined),
     props,
     count
   )
-  return targetElement as (T extends null ? null : HTMLStyleElement)
+  return targetElement as HTMLStyleElement
 }
 
 function wrappedUnmount (
@@ -51,9 +50,8 @@ function wrappedUnmount (
   const {
     target,
     delay = 0,
-    count = true
+    count = false
   } = options
-  if (target === null) return
   if (delay === 0) unmount(this.instance, this, target, count)
   else {
     setTimeout(() => unmount(this.instance, this, target, count), delay)

@@ -1,111 +1,109 @@
 import {
   CNode,
   CssRenderInstance,
-  CRenderProps
+  CRenderProps,
+  MountTarget
 } from './types'
 
 import {
   createElement, queryElement, removeElement
 } from './utils'
 
-function getCountOfElement (el: HTMLStyleElement): number {
+function getCount (el: HTMLStyleElement): number | null {
   const count = el.getAttribute('mount-count')
-  if (count === null) return 0
+  if (count === null) return null
   return Number(count)
 }
 
-function setCountOfElement (el: HTMLStyleElement, count: number | null): void {
-  if (count === null) {
-    el.removeAttribute('mount-count')
-  } else {
-    el.setAttribute('mount-count', String(count))
-  }
+function setCount (el: HTMLStyleElement, count: number): void {
+  el.setAttribute('mount-count', String(count))
 }
 
 export {
-  getCountOfElement, setCountOfElement
+  getCount, setCount
 }
 
 export function unmount (
   intance: CssRenderInstance,
   node: CNode,
-  target: HTMLStyleElement | string | number | undefined,
+  target: MountTarget,
   count: boolean
 ): void {
-  const els = node.els
+  const { els } = node
+  // If target is undefined, unmount all styles
   if (target === undefined) {
     els.forEach(removeElement)
     node.els = []
-  } else if (typeof target === 'string' || typeof target === 'number') {
+  } else {
     const targetElement = queryElement(target)
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (targetElement && els.includes(targetElement)) {
-      const mountCount = getCountOfElement(targetElement)
-      if (!count || mountCount <= 1) {
-        removeElement(targetElement)
-        node.els = els.filter(el => el !== targetElement)
+      const mountCount = getCount(targetElement)
+      if (!count) {
+        if (mountCount !== null) {
+          console.error(`[css-render/unmount]: The style with target='${target}' is mounted in no-count mode.`)
+        } else {
+          removeElement(targetElement)
+          node.els = els.filter(el => el !== targetElement)
+        }
       } else {
-        setCountOfElement(targetElement, mountCount - 1)
+        if (mountCount === null) {
+          console.error(`[css-render/unmount]: The style with target='${target}' is mounted in count mode.`)
+        } else {
+          if (mountCount <= 1) {
+            removeElement(targetElement)
+            node.els = els.filter(el => el !== targetElement)
+          }
+          else setCount(targetElement, mountCount - 1)
+        }
       }
-    }
-  } else {
-    const mountCount = getCountOfElement(target)
-    if (!count || mountCount <= 1) {
-      setCountOfElement(target, null)
-      target.textContent = ''
-    } else {
-      setCountOfElement(target, mountCount - 1)
     }
   }
 }
 
 function addElementToList (els: HTMLStyleElement[], target: HTMLStyleElement): void {
-  if (!els.includes(target)) {
-    els.push(target)
-  }
+  els.push(target)
 }
 
 export function mount<T extends CRenderProps> (
   instance: CssRenderInstance,
   node: CNode,
-  target: HTMLStyleElement | string | number | undefined,
+  target: MountTarget,
   props: T,
   count: boolean
 ): HTMLStyleElement {
   let targetElement: HTMLStyleElement | null = null
-  const els = node.els
+  const { els } = node
   if (target === undefined) {
     targetElement = document.createElement('style')
     document.head.appendChild(targetElement)
     addElementToList(els, targetElement)
-  } else if (typeof target === 'string' || typeof target === 'number') {
+  } else {
     targetElement = queryElement(target)
     if (targetElement === null) {
       targetElement = createElement(target)
       document.head.appendChild(targetElement)
       if (count) {
-        setCountOfElement(targetElement, 1)
+        setCount(targetElement, 1)
       }
       addElementToList(els, targetElement)
     } else {
+      const mountCount = getCount(targetElement)
       if (count) {
-        setCountOfElement(targetElement, getCountOfElement(targetElement) + 1)
+        if (mountCount === null) {
+          console.error(`[css-render/mount]: The style with target='${target}' has been mounted in no-count mode.`)
+        } else {
+          setCount(targetElement, mountCount + 1)
+        }
+      } else {
+        if (mountCount !== null) {
+          console.error(`[css-render/mount]: The style with target='${target}' has been mounted in count mode.`)
+        }
       }
-      addElementToList(els, targetElement)
       return targetElement
     }
-  } else {
-    targetElement = target
-    const mountCount = getCountOfElement(targetElement)
-    if (mountCount > 0) {
-      if (count) {
-        setCountOfElement(targetElement, mountCount + 1)
-      }
-      return target
-    } else if (count) {
-      setCountOfElement(targetElement, 1)
-    }
   }
+  // not rendered
   const style = node.render(props)
   if (targetElement.textContent !== style) {
     targetElement.textContent = style

@@ -15,6 +15,4 @@ const target = c('selector', {
       background: 'black'
     }
   })
-]).mount({
-  target: null
-})
+])

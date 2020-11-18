@@ -8,12 +8,12 @@ export function removeElement (el: HTMLStyleElement | null): void {
   if (parentElement) parentElement.removeChild(el)
 }
 
-export function queryElement (id: string | number): HTMLStyleElement | null {
-  return document.querySelector(`style[cssr-id="${String(id)}"]`)
+export function queryElement (id: string): HTMLStyleElement | null {
+  return document.querySelector(`style[cssr-id="${id}"]`)
 }
 
-export function createElement (id: string | number): HTMLStyleElement {
+export function createElement (id: string): HTMLStyleElement {
   const el = document.createElement('style')
-  el.setAttribute('cssr-id', String(id))
+  el.setAttribute('cssr-id', id)
   return el
 }
