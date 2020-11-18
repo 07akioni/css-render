@@ -20,14 +20,14 @@ type mount = (
 
 ### `target`
 - If `target` or `options` is `undefined`, every call of mount method will create a new `style` element with rendered style and mount it `document.head`.
-- If `target` is a `string`. It will mount the style on a `style[cssr-id="${target}"]` element to `document.head` and set `mount-count` attribute of the element to `1`. For example: `<head><style cssr-id="target" mount-count="1">...</style></head>`. If the element already exists, the `mount` method will **not** refresh the content of the element but plus the `mount-count` attribute of the element by `1`.
+- If `target` is a `string`. It will mount the style on a `style[cssr-id="${target}"]` element to `document.head`. For example: `<head><style cssr-id="target">...</style></head>`. If the element already exists, the `mount` method will **not** refresh the content of the element.
 ### `props`
 The `props` will be used as the render function's `props` during this mount.
 ### `count`
-- If `count` is not set, it will be treated as `true`.
-- If it is set to `false`, the mount won't have any effects on `mount-count` of the target.
+- If `count` is not set, it will be treated as `false`.
+- If `count` is `true`, the mounted style element will have a `mount-count` attribute, reflects how many times you have mount the style.
 ### Return Value
-The target element for the style to mount on.
+The target element for the style to be mounted on.
 
 
 ## Unmount
@@ -44,7 +44,8 @@ type unmount = (
 
 ### `target`
 - If `target` or `options` is `undefined`, every mounted elements of the `CNode` will be unmounted.
-- If `target` is a `string`. It will unmount `style[cssr-id="${target}"]` element mounted by the `CNode` if the element's `mount-count` is `1` or `null`. Or it will minus the element's `mount-count` by `1`.
+- If `target` is a `string`. It will unmount `style[cssr-id="${target}"]` element mounted by the `CNode`.
 
 ### `count`
 - If `count` is not set, it will be treated as `false`.
+- If `count` is set to `true`, it will minus the element's `mount-count` by `1`. If `mount-count` is `1` the element will be removed.
