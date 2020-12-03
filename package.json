@@ -28,7 +28,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "execa": "^4.0.2",
+    "execa": "^5.0.0",
     "http-server": "^0.12.3",
     "karma": "^5.2.3",
     "karma-chrome-launcher": "^3.1.0",
