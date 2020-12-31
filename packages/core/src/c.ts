@@ -9,8 +9,7 @@ import {
   CSelector,
   CNodeChildren,
   UnmountOption,
-  MountOption,
-  MountTarget
+  MountOption
 } from './types'
 import { render } from './render'
 import { mount, unmount } from './mount'
@@ -21,19 +20,19 @@ function wrappedRender <T extends CRenderProps> (this: CNode, props?: T): string
 
 const inNode = typeof window === 'undefined'
 
-function wrappedMount <T extends MountTarget = MountTarget> (
+function wrappedMount (
   this: CNode,
-  options: MountOption<T> = {}
+  options: MountOption = {}
 ): HTMLStyleElement {
   /* istanbul ignore next */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (inNode) return {} as HTMLStyleElement
-  const { target } = options
+  const { target, id } = options
   const { props, count = false } = options
   const targetElement = mount(
     this.instance,
     this,
-    target as (string | undefined),
+    id ?? target,
     props,
     count
   )
@@ -48,13 +47,14 @@ function wrappedUnmount (
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (inNode) return
   const {
+    id,
     target,
     delay = 0,
     count = false
   } = options
-  if (delay === 0) unmount(this.instance, this, target, count)
+  if (delay === 0) unmount(this.instance, this, id ?? target, count)
   else {
-    setTimeout(() => unmount(this.instance, this, target, count), delay)
+    setTimeout(() => unmount(this.instance, this, id ?? target, count), delay)
   }
 }
 

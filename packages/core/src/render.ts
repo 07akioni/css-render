@@ -39,7 +39,7 @@ function upwrapProperties <T extends CRenderProps> (
   props: CProperties,
   instance: CssRenderInstance,
   params: T
-): CPlainProperties | undefined | null {
+): CPlainProperties | string | undefined | null {
   if (typeof props === 'function') {
     return props({
       context: instance.context,
@@ -61,6 +61,9 @@ function createStyle <T extends CRenderProps> (
   const unwrappedProps = upwrapProperties(props, instance, params)
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (!unwrappedProps) return ''
+  if (typeof unwrappedProps === 'string') {
+    return `${selector} {\n${unwrappedProps}\n}`
+  }
   const propertyNames = Object.keys(unwrappedProps)
   if (propertyNames.length === 0) {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

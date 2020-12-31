@@ -513,6 +513,21 @@ describe('#render - falsy node', () => {
   })
 })
 
+describe('#render - string property', () => {
+  it('#case1', () => {
+    assertEqual(c('x', '666').render(), `x { 666 }`)
+  })
+  it('#case2', () => {
+    assertEqual(c('x', 'color: red;').render(), `x { color: red; }`)
+  })
+  it('#case3', () => {
+    assertEqual(c('x', () => '666').render(), `x { 666 }`)
+  })
+  it('#case4', () => {
+    assertEqual(c('x', () => 'color: red;').render(), `x { color: red; }`)
+  })
+})
+
 describe('#render - raw property', () => {
   it('#case1', () => {
     assertEqual(c('x', {

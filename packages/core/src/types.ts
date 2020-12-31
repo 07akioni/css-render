@@ -15,15 +15,23 @@ export interface CRenderOption {
 }
 
 /** mount related */
-export type MountTarget = string | undefined
+export type MountId = string | undefined
 export interface UnmountOption {
-  target?: MountTarget
+  /**
+   * @deprecated use id instead
+   */
+  target?: MountId
+  id?: MountId
   delay?: number
   count?: boolean
 }
 
-export interface MountOption <T extends MountTarget> {
-  target?: T
+export interface MountOption {
+  /**
+   * @deprecated use id instead
+   */
+  target?: MountId
+  id?: MountId
   props?: CRenderProps
   count?: boolean
 }
@@ -39,7 +47,7 @@ export interface CNode {
   instance: CssRenderInstance
   els: HTMLStyleElement[]
   render: <T extends CRenderProps> (props?: T) => string
-  mount: <T extends MountTarget> (options?: MountOption<T>) => HTMLStyleElement
+  mount: (options?: MountOption) => HTMLStyleElement
   unmount: (options?: UnmountOption) => void
 }
 
@@ -57,8 +65,8 @@ export interface CPlainProperties extends Properties<string | number> {
 export type CLazyProperties = ((options: {
   context?: CContext
   props?: CRenderProps
-}) => CPlainProperties | null | undefined)
-export type CProperties = CPlainProperties | CLazyProperties | null | undefined
+}) => CPlainProperties | string | null | undefined)
+export type CProperties = CPlainProperties | CLazyProperties | string | null | undefined
 
 /** Selector */
 export type CStringSelector = string

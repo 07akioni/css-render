@@ -11,23 +11,23 @@ Render the `CNode`'s style and mount it to document.
 ```typescript
 type mount = (
   options?: {
-    target?: string, 
+    id?: string, 
     props?: any,
     count?: boolean
   }
 ) => HTMLStyleElement
 ```
 
-### `target`
-- If `target` or `options` is `undefined`, every call of mount method will create a new `style` element with rendered style and mount it `document.head`.
-- If `target` is a `string`. It will mount the style on a `style[cssr-id="${target}"]` element to `document.head`. For example: `<head><style cssr-id="target">...</style></head>`. If the element already exists, the `mount` method will **not** refresh the content of the element.
+### `id`
+- If `id` or `options` is `undefined`, every call of mount method will create a new `style` element with rendered style and mount it `document.head`.
+- If `id` is a `string`. It will mount the style on a `style[cssr-id="${id}"]` element to `document.head`. For example: `<head><style cssr-id="id">...</style></head>`. If the element already exists, the `mount` method will **not** refresh the content of the element.
 ### `props`
 The `props` will be used as the render function's `props` during this mount.
 ### `count`
 - If `count` is not set, it will be treated as `false`.
 - If `count` is `true`, the mounted style element will have a `mount-count` attribute, reflects how many times you have mount the style.
 ### Return Value
-The target element for the style to be mounted on.
+The id element for the style to be mounted on.
 
 
 ## Unmount
@@ -36,15 +36,15 @@ Unmount the style of the CNode.
 ```typescript
 type unmount = (
   options?: {
-    target?: string,
+    id?: string,
     count?: boolean
   }
 ) : void
 ```
 
-### `target`
-- If `target` or `options` is `undefined`, every mounted elements of the `CNode` will be unmounted.
-- If `target` is a `string`. It will unmount `style[cssr-id="${target}"]` element mounted by the `CNode`.
+### `id`
+- If `id` or `options` is `undefined`, every mounted elements of the `CNode` will be unmounted.
+- If `id` is a `string`. It will unmount `style[cssr-id="${id}"]` element mounted by the `CNode`.
 
 ### `count`
 - If `count` is not set, it will be treated as `false`.

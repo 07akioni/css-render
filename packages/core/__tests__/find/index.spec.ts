@@ -14,16 +14,16 @@ describe('# find', () => {
   })
   before(() => {
     style.mount({
-      target: 'test-id-1'
+      id: 'test-id-1'
     })
     style.mount({
-      target: 'test-id-2'
+      id: 'test-id-2'
     })
     style.mount({
-      target: '14138'
+      id: '14138'
     })
     style.mount({
-      target: '14139'
+      id: '14139'
     })
   })
   after(() => style.unmount())
