@@ -9,7 +9,8 @@ import {
   CSelector,
   CNodeChildren,
   UnmountOption,
-  MountOption
+  MountOption,
+  SsrAdapter
 } from './types'
 import { render } from './render'
 import { mount, unmount } from './mount'
@@ -18,16 +19,12 @@ function wrappedRender <T extends CRenderProps> (this: CNode, props?: T): string
   return render(this, this.instance, props)
 }
 
-const inNode = typeof window === 'undefined'
-
-function wrappedMount (
+// do not guard node calling, it should throw an error.
+function wrappedMount<T extends undefined | SsrAdapter> (
   this: CNode,
-  options: MountOption = {}
-): HTMLStyleElement {
-  /* istanbul ignore next */
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (inNode) return {} as HTMLStyleElement
-  const { target, id } = options
+  options: MountOption<T> = {}
+): T extends undefined ? HTMLStyleElement : void {
+  const { target, id, ssr } = options
   const { props, count = false } = options
   const targetElement = mount(
     this.instance,
@@ -36,7 +33,7 @@ function wrappedMount (
     props,
     count
   )
-  return targetElement as HTMLStyleElement
+  return targetElement as any
 }
 
 function wrappedUnmount (
@@ -45,7 +42,6 @@ function wrappedUnmount (
 ): void {
   /* istanbul ignore next */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (inNode) return
   const {
     id,
     target,

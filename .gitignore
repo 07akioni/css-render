@@ -4,9 +4,11 @@ package-lock.json
 coverage
 yarn.lock
 dist
+.yarn
 **/*/dist
 **/*/esm
 **/*/lib
 playground/*.css
 .vscode
 .DS_Store
+.pnp.js

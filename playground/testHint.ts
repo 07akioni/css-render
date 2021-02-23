@@ -1,4 +1,4 @@
-import CssRender from 'css-render'
+import CssRender from '@css-render/core/src'
 
 const cssr = CssRender()
 const { c } = cssr

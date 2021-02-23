@@ -3,7 +3,8 @@ import {
   CNode,
   CssRenderInstance,
   CRenderProps,
-  MountId
+  MountId,
+  SsrAdapter
 } from './types'
 import {
   createElement, queryElement, removeElement
@@ -65,22 +66,28 @@ function addElementToList (els: HTMLStyleElement[], target: HTMLStyleElement): v
   els.push(target)
 }
 
-export function mount<T extends CRenderProps> (
+function mount<T extends CRenderProps, U extends SsrAdapter | undefined> (
   instance: CssRenderInstance,
   node: CNode,
   id: MountId,
   props: T,
-  count: boolean
-): HTMLStyleElement {
-  let target: HTMLStyleElement | null = null
+  count: boolean,
+  ssrAdapter?: U
+): U extends undefined ? HTMLStyleElement : void {
+  let target: HTMLStyleElement
   const { els } = node
   let style: string | undefined
   if (id === undefined) {
     style = node.render(props)
     id = hash(style)
   }
-  target = queryElement(id)
-  if (target === null) {
+  if (ssrAdapter !== undefined) {
+    ssrAdapter(id, style ?? node.render(props))
+    // @ts-ignore
+    return
+  }
+  const queriedTarget = queryElement(id)
+  if (queriedTarget === null) {
     target = createElement(id)
     if (style === undefined) style = node.render(props)
     target.textContent = style
@@ -90,12 +97,12 @@ export function mount<T extends CRenderProps> (
     }
     addElementToList(els, target)
   } else {
-    const mountCount = getCount(target)
+    const mountCount = getCount(queriedTarget)
     if (count) {
       if (mountCount === null) {
         console.error(`[css-render/mount]: The style with id='${id}' has been mounted in no-count mode.`)
       } else {
-        setCount(target, mountCount + 1)
+        setCount(queriedTarget, mountCount + 1)
       }
     } else {
       if (mountCount !== null) {
@@ -103,5 +110,8 @@ export function mount<T extends CRenderProps> (
       }
     }
   }
-  return target
+  // @ts-ignore
+  return queriedTarget ?? target
 }
+
+export { mount }

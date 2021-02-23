@@ -1,5 +1,5 @@
 import * as chai from 'chai'
-import CssRender from 'css-render'
+import CssRender from '@css-render/core/src'
 import { SinonSpy, spy } from 'sinon'
 
 const expect = chai.expect

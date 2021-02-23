@@ -13,7 +13,6 @@
     "bem"
   ],
   "files": [
-    "dist",
     "lib",
     "esm"
   ],
@@ -23,6 +22,15 @@
     "type": "git",
     "url": "https://github.com/07akioni/css-render"
   },
+  "scripts": {
+    "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json"
+  },
   "version": "0.11.3",
-  "sideEffects": false
+  "sideEffects": false,
+  "peerDependencies": {
+    "css-render": "^0.11.3"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.5"
+  }
 }

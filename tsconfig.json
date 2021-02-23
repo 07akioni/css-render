@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "composite": true,
     "inlineSourceMap": true,
     "baseUrl": "./packages",
     "sourceMap": false,
@@ -7,13 +8,13 @@
     "allowJs": false,
     "module": "ESNext",
     "declaration": true,
-    "outDir": "./dist",
+    "declarationMap": true,
     "paths": {
       "@css-render/*": [
-        "./*"
+        "./packages/*"
       ],
       "css-render": [
-        "./core/index"
+        "./packages/core/index"
       ]
     },
     "lib": [
@@ -22,10 +23,5 @@
     ],
     "strict": true,
     "target": "ES6"
-  },
-  "include": [
-    "packages/**/*",
-    "playground/**/*",
-    "test/**/*"
-  ]
+  }
 }

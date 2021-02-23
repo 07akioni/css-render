@@ -2,6 +2,8 @@ import {
   Properties
 } from 'csstype'
 
+export type SsrAdapter = (id: string, style: string) => void
+
 export interface CContext {
   [key: string]: any
 }
@@ -26,14 +28,20 @@ export interface UnmountOption {
   count?: boolean
 }
 
-export interface MountOption {
+export interface MountOption<T extends SsrAdapter | undefined = SsrAdapter | undefined> {
+  id?: MountId
+  props?: CRenderProps
+  ssr?: T
+  /**
+   * whether to count mount times, I found it not that useful, it may be removed
+   * later, pleasee use it with caution
+   * @deprecated
+   */
+  count?: boolean
   /**
    * @deprecated use id instead
    */
   target?: MountId
-  id?: MountId
-  props?: CRenderProps
-  count?: boolean
 }
 
 /** find related */
@@ -47,7 +55,7 @@ export interface CNode {
   instance: CssRenderInstance
   els: HTMLStyleElement[]
   render: <T extends CRenderProps> (props?: T) => string
-  mount: (options?: MountOption) => HTMLStyleElement
+  mount: <T extends undefined | SsrAdapter>(options?: MountOption<T>) => T extends undefined ? HTMLStyleElement : void
   unmount: (options?: UnmountOption) => void
 }
 

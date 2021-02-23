@@ -1,6 +1,6 @@
 import CssRender from 'css-render'
-import { assertEqual } from '@css-render/shared/utils'
-import CssRenderBEMPlugin from '@css-render/plugins/bem/index'
+import { assertEqual } from '@css-render/test-shared'
+import CssRenderBEMPlugin from '@css-render/plugin-bem'
 
 const cssr = CssRender({
   keepEmptyBlock: true

@@ -6,10 +6,12 @@ module.exports = function (config) {
     browsers: ['ChromeHeadless'],
     frameworks: ['mocha', 'karma-typescript'],
     files: [
-      'packages/**/*.ts'
+      'src/**/*.ts',
+      '__tests__/**/*.ts',
     ],
     preprocessors: {
-      'packages/**/*.ts': 'karma-typescript'
+      '__tests__/**/*.ts': 'karma-typescript',
+      '**/*.ts': 'karma-typescript'
     },
     reporters: ['spec', 'karma-typescript'],
     karmaTypescriptConfig: {

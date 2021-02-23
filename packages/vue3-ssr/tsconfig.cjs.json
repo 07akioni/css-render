@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "module": "CommonJS"
+  },
+  "include": [
+    "./index.ts"
+  ],
+  "references": [
+    {
+      "path": "../core/tsconfig.cjs.json"
+    }
+  ]
+}

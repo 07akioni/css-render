@@ -1,5 +1,5 @@
-import CssRender from 'css-render'
-import { assertEqual } from '@css-render/shared/utils'
+import CssRender from '@css-render/core/src'
+import { assertEqual } from '@css-render/test-shared/utils'
 
 const {
   c
