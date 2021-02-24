@@ -1,5 +1,6 @@
 {
   "name": "@css-render/vue3-ssr",
+  "version": "0.12.0",
   "scripts": {
     "test": "jest",
     "build": "rm -rf es lib && npm run test && tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json"
