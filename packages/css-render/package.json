@@ -24,7 +24,7 @@
   "version": "0.11.3",
   "sideEffects": false,
   "scripts": {
-    "build": "rm -rf lib esm && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
+    "build": "npm run test && rm -rf lib esm && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
     "test": "node scripts/pre-test && rm -rf ./coverage && karma start karma.conf.js",
     "test:cov": "npm run test && http-server ./coverage/html"
   },
