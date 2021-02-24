@@ -24,8 +24,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm test
+    - run: node common/scripts/install-run-rush.js install
+    - run: node common/scripts/install-run-rush.js install --no-link
+    - run: node common/scripts/install-run-rush.js link
+    - run: node common/scripts/install-run-rush.js rebuild --verbose
     - name: Coveralls GitHub Action
       uses: coverallsapp/github-action@v1.0.1
       with:
