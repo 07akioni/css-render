@@ -19,7 +19,8 @@
     },
     {
       "packageName": "@css-render/test-shared",
-      "projectFolder": "packages/test-shared"
+      "projectFolder": "packages/test-shared",
+      "shouldPublish": false
     },
     {
       "packageName": "@css-render/vue3-ssr",
