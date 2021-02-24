@@ -23,14 +23,21 @@
     "url": "https://github.com/07akioni/css-render"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json"
+    "test": "jest",
+    "build": "npm run test && rm -rf es lib && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json"
   },
   "version": "0.11.3",
   "sideEffects": false,
-  "peerDependencies": {
-    "css-render": "^0.11.3"
+  "dependencies": {
+    "css-render": "~0.11.3",
+    "@css-render/test-shared": "~0.12.0"
   },
   "devDependencies": {
-    "typescript": "^4.1.5"
+    "typescript": "~4.1.5",
+    "@types/node": "~14.14.31",
+    "@types/jest": "^26.0.20",
+    "babel-jest": "^26.6.3",
+    "@babel/preset-env": "^7.12.17",
+    "@babel/preset-typescript": "^7.12.17"
   }
 }

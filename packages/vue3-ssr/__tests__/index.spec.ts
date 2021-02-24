@@ -1,4 +1,4 @@
-import { CssRender } from '@css-render/core/src'
+import { CssRender } from 'css-render'
 import { h, createSSRApp, defineComponent } from 'vue'
 import { renderToString } from '@vue/server-renderer'
 import { SsrContext, ssrAdapter} from '../src/index'
@@ -27,8 +27,10 @@ describe('ssr', () => {
     }
   })
   const app = createSSRApp(App)
-  it('should work', () => {
-    console.log(renderToString(app))
-    expect(1).toEqual(1)
+  it('should work', (done) => {
+    renderToString(app).then(v => {
+      expect(v).toMatchSnapshot()
+      done()
+    })
   })
 })

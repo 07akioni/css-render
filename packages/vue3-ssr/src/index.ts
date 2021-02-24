@@ -12,7 +12,7 @@ function createStyleString (id: string, style: string) {
 }
 
 export function ssrAdapter (id: string, style: string): void {
-  const styleVNodeProps = inject(ssrContextKey)
+  const styleVNodeProps = inject(ssrContextKey, null)
   if (styleVNodeProps) {
     styleVNodeProps.innerHTML += createStyleString(id, style)
   }

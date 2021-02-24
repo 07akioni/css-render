@@ -1,10 +1,6 @@
 {
   "private": true,
   "scripts": {
-    "create:links": "node scripts/create-module-soft-links",
-    "clean:links": "node scripts/clean-module-soft-links",
-    "test": "npm run clean:links && rimraf ./coverage && node scripts/before-test && karma start karma.conf.js",
-    "test:cov": "npm run clean:links && rimraf ./coverage && npm run test && http-server ./coverage/html",
     "lint": "eslint \"packages/**/*.{ts|js}\" \"scripts/**/*.js\" --no-error-on-unmatched-pattern",
     "build": "npm run clean:links && node scripts/build.js",
     "release": "npm run test && npm run build && node scripts/release.js",
@@ -14,7 +10,6 @@
   },
   "author": "07akioni",
   "devDependencies": {
-    "@types/node": "^14.11.2",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^6.8.0",
@@ -24,15 +19,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "execa": "^4.0.2",
-    "http-server": "^0.12.3",
-    "lerna": "^3.22.1",
-    "rimraf": "^3.0.2",
     "shelljs": "^0.8.4",
     "ts-node": "^9.0.0",
-    "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.0.3",
-    "typescript-transform-paths": "^2.0.1",
     "vitepress": "^0.7.4"
   }
 }

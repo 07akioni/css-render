@@ -1,0 +1,33 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/rush.schema.json",
+  "rushVersion": "5.40.5",
+  "pnpmVersion": "5.17.3",
+  "nodeSupportedVersionRange": ">=12.13.0 <13.0.0 || >=14.15.0 <15.0.0",
+  "ensureConsistentVersions": true,
+  "projectFolderMinDepth": 2,
+  "projectFolderMaxDepth": 2,
+  "gitPolicy": {},
+  "repository": {
+    "url": "https://github.com/07akioni/css-render",
+    "defaultBranch": "master",
+    "defaultRemote": "origin"
+  },
+  "projects": [
+    {
+      "packageName": "css-render",
+      "projectFolder": "packages/css-render"
+    },
+    {
+      "packageName": "@css-render/test-shared",
+      "projectFolder": "packages/test-shared"
+    },
+    {
+      "packageName": "@css-render/vue3-ssr",
+      "projectFolder": "packages/vue3-ssr"
+    },
+    {
+      "packageName": "@css-render/plugin-bem",
+      "projectFolder": "packages/plugin-bem"
+    }
+  ]
+}

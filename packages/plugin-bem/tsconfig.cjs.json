@@ -7,10 +7,5 @@
   },
   "include": [
     "./index.ts"
-  ],
-  "references": [
-    {
-      "path": "../core/tsconfig.cjs.json"
-    }
   ]
 }

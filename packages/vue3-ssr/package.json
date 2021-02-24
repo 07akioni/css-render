@@ -1,7 +1,8 @@
 {
   "name": "@css-render/vue3-ssr",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "rm -rf es lib && npm run test && tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.12.17",
@@ -9,10 +10,12 @@
     "@types/jest": "^26.0.20",
     "@vue/server-renderer": "^3.0.5",
     "babel-jest": "^26.6.3",
+    "css-render": "~0.11.3",
     "jest": "^26.6.3",
-    "typescript": "^4.1.5"
+    "typescript": "~4.1.5"
   },
   "dependencies": {
     "vue": "^3.0.5"
-  }
+  },
+  "sideEffects": false
 }

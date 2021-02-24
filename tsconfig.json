@@ -1,22 +1,9 @@
 {
   "compilerOptions": {
-    "composite": true,
-    "inlineSourceMap": true,
-    "baseUrl": "./packages",
-    "sourceMap": false,
     "moduleResolution": "node",
-    "allowJs": false,
     "module": "ESNext",
     "declaration": true,
     "declarationMap": true,
-    "paths": {
-      "@css-render/*": [
-        "./packages/*"
-      ],
-      "css-render": [
-        "./packages/core/index"
-      ]
-    },
     "lib": [
       "ESNext",
       "DOM"
