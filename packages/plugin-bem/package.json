@@ -26,10 +26,10 @@
     "test": "jest",
     "build": "npm run test && rm -rf es lib && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json"
   },
-  "version": "0.11.3",
+  "version": "0.12.0",
   "sideEffects": false,
   "dependencies": {
-    "css-render": "~0.11.3",
+    "css-render": "~0.12.0",
     "@css-render/test-shared": "~0.12.0"
   },
   "devDependencies": {
