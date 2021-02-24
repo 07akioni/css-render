@@ -1,4 +1,4 @@
-# css-render &middot; [![GitHub Liscense](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/07akioni/css-render/blob/master/LICENSE) [![Coverage Status](https://coveralls.io/repos/github/07akioni/css-render/badge.svg?branch=master)](https://coveralls.io/github/07akioni/css-render?branch=master) [![npm](https://img.shields.io/npm/v/css-render)](https://www.npmjs.com/package/css-render) [![Total alerts](https://img.shields.io/lgtm/alerts/g/07akioni/css-render.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/07akioni/css-render/alerts/)
+# css-render &middot; [![GitHub Liscense](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/07akioni/css-render/blob/master/LICENSE) [![npm](https://img.shields.io/npm/v/css-render)](https://www.npmjs.com/package/css-render) [![Total alerts](https://img.shields.io/lgtm/alerts/g/07akioni/css-render.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/07akioni/css-render/alerts/)
 
 Generating CSS using JS with considerable flexibility and extensibility, at both server side and client side.
 
