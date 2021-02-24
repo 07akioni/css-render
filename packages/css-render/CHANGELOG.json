@@ -1,0 +1,22 @@
+{
+  "name": "css-render",
+  "entries": [
+    {
+      "version": "0.13.0",
+      "tag": "css-render_v0.13.0",
+      "date": "Wed, 24 Feb 2021 09:35:28 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Support ssrAdapter in mount"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@css-render/test-shared\" from `~0.12.0` to `~0.13.0`"
+          }
+        ]
+      }
+    }
+  ]
+}
