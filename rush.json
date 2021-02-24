@@ -20,7 +20,7 @@
     {
       "packageName": "@css-render/test-shared",
       "projectFolder": "packages/test-shared",
-      "shouldPublish": true
+      "shouldPublish": false
     },
     {
       "packageName": "@css-render/vue3-ssr",
@@ -31,6 +31,11 @@
       "packageName": "@css-render/plugin-bem",
       "projectFolder": "packages/plugin-bem",
       "shouldPublish": true
+    },
+    {
+      "packageName": "@css-render/eslint-config",
+      "projectFolder": "packages/eslint-config",
+      "shouldPublish": false
     }
   ]
 }
