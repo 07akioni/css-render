@@ -20,7 +20,7 @@
     {
       "packageName": "@css-render/test-shared",
       "projectFolder": "packages/test-shared",
-      "shouldPublish": false
+      "shouldPublish": true
     },
     {
       "packageName": "@css-render/vue3-ssr",
