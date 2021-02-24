@@ -7,13 +7,13 @@ interface StyleVNodeProps {
 
 const ssrContextKey: InjectionKey<StyleVNodeProps> = Symbol('@css-render/vue3-ssr')
 
-function createStyleString (id: string, style: string) {
+function createStyleString (id: string, style: string): string {
   return `<style cssr-id="${id}">\n${style}\n</style>`
 }
 
 export function ssrAdapter (id: string, style: string): void {
   const styleVNodeProps = inject(ssrContextKey, null)
-  if (styleVNodeProps) {
+  if (styleVNodeProps !== null) {
     styleVNodeProps.innerHTML += createStyleString(id, style)
   }
 }

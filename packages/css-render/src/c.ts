@@ -23,6 +23,7 @@ function wrappedRender <T extends CRenderProps> (this: CNode, props?: T): string
 function wrappedMount<T extends undefined | SsrAdapter> (
   this: CNode,
   options: MountOption<T> = {}
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): T extends undefined ? HTMLStyleElement : void {
   const { target, id, ssr } = options
   const { props, count = false } = options

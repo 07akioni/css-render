@@ -71,9 +71,11 @@ function createStyle <T extends CRenderProps> (
     return ''
   }
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  const statements = selector ? [
-    selector + ' {'
-  ] : []
+  const statements = selector
+    ? [
+        selector + ' {'
+      ]
+    : []
   propertyNames.forEach(propertyName => {
     const property = unwrappedProps[propertyName]
     if (propertyName === 'raw') {

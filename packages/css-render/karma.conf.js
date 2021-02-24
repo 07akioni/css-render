@@ -15,7 +15,7 @@ module.exports = function (config) {
     frameworks: ['mocha', 'karma-typescript'],
     files: [
       'src/**/*.ts',
-      '__tests__/**/*.ts',
+      '__tests__/**/*.ts'
     ],
     preprocessors: {
       'src/**/*.ts': 'karma-typescript',

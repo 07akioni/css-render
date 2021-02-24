@@ -55,6 +55,7 @@ export interface CNode {
   instance: CssRenderInstance
   els: HTMLStyleElement[]
   render: <T extends CRenderProps> (props?: T) => string
+  // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
   mount: <T extends undefined | SsrAdapter = undefined>(options?: MountOption<T>) => T extends undefined ? HTMLStyleElement : void
   unmount: (options?: UnmountOption) => void
 }

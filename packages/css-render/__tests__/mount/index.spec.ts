@@ -196,11 +196,11 @@ describe('# mount & unmount with id (not count)', function () {
   })
   it('should mount a element without [mount-count] if option.count is false', function () {
     const el = style.mount({
-      id: '14141',
+      id: '14141'
     })
     expect(el.getAttribute('mount-count')).to.equal(null)
     const el2 = style.mount({
-      id: '14141',
+      id: '14141'
     })
     expect(el).to.equal(el2)
     expect(el2.getAttribute('mount-count')).to.equal(null)
@@ -227,7 +227,7 @@ describe('# mount & unmount with id (not count)', function () {
       count: true
     })
     style.unmount({
-      id: '14143',
+      id: '14143'
     })
     expect(document.head.querySelector('[cssr-id="14143"]')?.getAttribute('mount-count'))
       .not.to.equal(2)

@@ -54,8 +54,7 @@ export function unmount (
           if (mountCount <= 1) {
             removeElement(target)
             node.els = els.filter(el => el !== target)
-          }
-          else setCount(target, mountCount - 1)
+          } else setCount(target, mountCount - 1)
         }
       }
     }
@@ -73,6 +72,7 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
   props: T,
   count: boolean,
   ssrAdapter?: U
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): U extends undefined ? HTMLStyleElement : void {
   let target: HTMLStyleElement
   const { els } = node
@@ -83,7 +83,7 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
   }
   if (ssrAdapter !== undefined) {
     ssrAdapter(id, style ?? node.render(props))
-    // @ts-ignore
+    // @ts-expect-error
     return
   }
   const queriedTarget = queryElement(id)
@@ -110,7 +110,7 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
       }
     }
   }
-  // @ts-ignore
+  // @ts-expect-error
   return queriedTarget ?? target
 }
 

@@ -1,7 +1,7 @@
 import { CssRender } from 'css-render'
 import { h, createSSRApp, defineComponent } from 'vue'
 import { renderToString } from '@vue/server-renderer'
-import { SsrContext, ssrAdapter} from '../src/index'
+import { SsrContext, ssrAdapter } from '../src/index'
 
 const { c } = CssRender()
 
