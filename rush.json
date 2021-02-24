@@ -14,7 +14,8 @@
   "projects": [
     {
       "packageName": "css-render",
-      "projectFolder": "packages/css-render"
+      "projectFolder": "packages/css-render",
+      "shouldPublish": true
     },
     {
       "packageName": "@css-render/test-shared",
@@ -23,11 +24,13 @@
     },
     {
       "packageName": "@css-render/vue3-ssr",
-      "projectFolder": "packages/vue3-ssr"
+      "projectFolder": "packages/vue3-ssr",
+      "shouldPublish": true
     },
     {
       "packageName": "@css-render/plugin-bem",
-      "projectFolder": "packages/plugin-bem"
+      "projectFolder": "packages/plugin-bem",
+      "shouldPublish": true
     }
   ]
 }
