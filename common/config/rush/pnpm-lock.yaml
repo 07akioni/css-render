@@ -16,6 +16,7 @@ dependencies:
   chai: 4.3.0
   csstype: 3.0.6
   jest: 26.6.3
+  jest-standard-reporter: 2.0.0
   karma: 5.2.3
   karma-chrome-launcher: 3.1.0
   karma-mocha: 2.0.1
@@ -4293,6 +4294,17 @@ packages:
       node: '>= 10.14.2'
     resolution:
       integrity: sha512-OLhxz05EzUtsAmOMzuupt1lHYXCNib0ECyuZ/PZOx9TrZcC8vL0x+DUG3TL+GLX3yHG45e6YGjIm0XwDc3q3og==
+  /jest-standard-reporter/2.0.0:
+    dependencies:
+      '@jest/console': 26.6.2
+      chalk: 4.1.0
+      jest-util: 26.6.2
+      path: 0.12.7
+      slash: 3.0.0
+      string-length: 4.0.1
+    dev: false
+    resolution:
+      integrity: sha512-JhV3qzNzs5u/T1mzN9ivVrf2i4xYOQJgyPMKQbAmwRAZIprCpkikt8GF1kQKrP5ch1qBMn5xYyNdUUOKi8bltA==
   /jest-util/26.6.2:
     dependencies:
       '@jest/types': 26.6.2
@@ -5249,6 +5261,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-n43JRhlUKUAlibEJhPeir1ncUID16QnEjNpwzNdO3Lm4ywrBpBZ5oLD0I6br9evr1Y9JTqwRtAh7JLoOzAQdVA==
+  /path/0.12.7:
+    dependencies:
+      process: 0.11.10
+      util: 0.10.4
+    dev: false
+    resolution:
+      integrity: sha1-1NwqUGxM4hl+tIHr/NWzbAFAsQ8=
   /pathval/1.1.1:
     dev: false
     resolution:
@@ -6555,6 +6574,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
+  /util/0.10.4:
+    dependencies:
+      inherits: 2.0.3
+    dev: false
+    resolution:
+      integrity: sha512-0Pm9hTQ3se5ll1XihRic3FDIku70C+iHUdT/W926rSgHV5QgXsYbKZN8MSC3tJtSkhuROzvsQjAaFENRXr+19A==
   /util/0.12.3:
     dependencies:
       inherits: 2.0.4
@@ -6916,7 +6941,7 @@ packages:
     dev: false
     name: '@rush-temp/css-render'
     resolution:
-      integrity: sha512-Z/SJ6rUNup+Ek7itiX6xUaiymk56Pfh0blXt0bJUcHxf/MOT1T9wSdhNLYpwcSgjf+RXu3i911qmLcxah2Ge1A==
+      integrity: sha512-tlHQQH8+b2DqCIMqAOdx1ACXJBBv+UgPsew7RgB50MrA/LytLH0Qf4Xg1coMAYKtTCMIrCzTDdC5bPuVUD8GyA==
       tarball: file:projects/css-render.tgz
     version: 0.0.0
   file:projects/plugin-bem.tgz:
@@ -6926,11 +6951,12 @@ packages:
       '@types/jest': 26.0.20
       '@types/node': 14.14.31
       babel-jest: 26.6.3
+      jest: 26.6.3
       typescript: 4.1.5
     dev: false
     name: '@rush-temp/plugin-bem'
     resolution:
-      integrity: sha512-dXRF19zLDMl8OzJ+pHdUYQeZJ0Dv+3Nz+/tBcsoaBKWatruP7nKiSi79RnI24LNgv3SSxkKxAb+q+MPNmYRTIQ==
+      integrity: sha512-fYvgjjbRjYJ9jQrvqjues4Lx+/pZ/MnTgIHb+CNc51jkLipXSCDh3+h5J2cwY2t9K28vhDHaTP4OM7jPZs0EtA==
       tarball: file:projects/plugin-bem.tgz
     version: 0.0.0
   file:projects/test-shared.tgz:
@@ -6952,12 +6978,13 @@ packages:
       '@vue/server-renderer': 3.0.5_vue@3.0.5
       babel-jest: 26.6.3
       jest: 26.6.3
+      jest-standard-reporter: 2.0.0
       typescript: 4.1.5
       vue: 3.0.5
     dev: false
     name: '@rush-temp/vue3-ssr'
     resolution:
-      integrity: sha512-YmCwdZjR1zFsFch2HdzCS577YG2nWOTNFiSJkcL7jKBPzbspt8ZW7DQTlPYbK3YVAwvkSjT1DHSKbsN/279Q7w==
+      integrity: sha512-Eo9xNVMUYGT2wYPB6zjgCk9zcGMzcJNApezyXQ9Vw3cjZrrFNxjspAVH9m+wf7wpe/aYSG9mtSCYWj8HGW7V9A==
       tarball: file:projects/vue3-ssr.tgz
     version: 0.0.0
 registry: ''
@@ -6979,6 +7006,7 @@ specifiers:
   chai: ^4.2.0
   csstype: ~3.0.5
   jest: ^26.6.3
+  jest-standard-reporter: ~2.0.0
   karma: ^5.2.3
   karma-chrome-launcher: ^3.1.0
   karma-mocha: ^2.0.1

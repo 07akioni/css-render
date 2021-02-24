@@ -1,6 +1,7 @@
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
-    "./index.ts"
-  ]
+    './index.ts'
+  ],
+  reporters: ['jest-standard-reporter']
 }

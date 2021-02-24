@@ -5,6 +5,7 @@
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
-    "src/**/*"
-  ]
+    'src/**/*'
+  ],
+  reporters: ['jest-standard-reporter']
 }
