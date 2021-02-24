@@ -8,9 +8,8 @@
   "projectFolderMaxDepth": 2,
   "gitPolicy": {},
   "repository": {
-    "url": "https://github.com/07akioni/css-render.git",
-    "defaultBranch": "master",
-    "defaultRemote": "origin"
+    "url": "git@github.com:07akioni/css-render.git",
+    "defaultBranch": "master"
   },
   "projects": [
     {
