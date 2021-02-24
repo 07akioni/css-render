@@ -10,11 +10,6 @@
           {
             "comment": "Support ssrAdapter in mount"
           }
-        ],
-        "dependency": [
-          {
-            "comment": "Updating dependency \"@css-render/test-shared\" from `~0.12.0` to `~0.13.0`"
-          }
         ]
       }
     }
