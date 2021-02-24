@@ -6,6 +6,6 @@
   },
   "author": "07akioni",
   "devDependencies": {
-    "vitepress": "^0.7.4"
+    "vitepress": "^0.12.2"
   }
 }
