@@ -1,0 +1,11 @@
+{
+  "name": "@css-render/docs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vitepress dev docs"
+  },
+  "devDependencies": {
+    "vitepress": "^0.12.2"
+  }
+}

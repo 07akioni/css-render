@@ -36,6 +36,11 @@
       "packageName": "@css-render/eslint-config",
       "projectFolder": "packages/eslint-config",
       "shouldPublish": false
+    },
+    {
+      "packageName": "@css-render/docs",
+      "projectFolder": "packages/docs",
+      "shouldPublish": false
     }
   ]
 }
