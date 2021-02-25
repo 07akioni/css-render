@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "build": "echo \"rush build\"",
     "dev": "vitepress dev docs"
   },
   "devDependencies": {
