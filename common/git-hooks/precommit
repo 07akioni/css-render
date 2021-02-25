@@ -2,3 +2,4 @@
 
 cp README.md packages/css-render/README.md
 cp README.md packages/docs/docs/index.md
+add .
