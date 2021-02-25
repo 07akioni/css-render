@@ -32,6 +32,6 @@ jobs:
     # - run: npm i
     # - run: npm run lint
     - run: export CODECOV_TOKEN="1b50e2b4-d843-48eb-bec7-6665d283b783"
+    - run: bash <(curl -s https://codecov.io/bash) -f packages/vue3-ssr/coverage/lcov.info -F vue3-ssr -k packages/vue3-ssr
     - run: bash <(curl -s https://codecov.io/bash) -f packages/css-render/coverage/lcov/lcov.info -F css-render
     - run: bash <(curl -s https://codecov.io/bash) -f packages/plugin-bem/coverage/lcov.info -F plugin-bem -k packages/plugin-bem
-    - run: bash <(curl -s https://codecov.io/bash) -f packages/vue3-ssr/coverage/lcov.info -F vue3-ssr -k packages/vue3-ssr
