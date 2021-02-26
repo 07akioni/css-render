@@ -1,4 +1,4 @@
-# css-render &middot; [![GitHub Liscense](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/07akioni/css-render/blob/master/LICENSE) [![npm](https://img.shields.io/npm/v/css-render)](https://www.npmjs.com/package/css-render) [![Total alerts](https://img.shields.io/lgtm/alerts/g/07akioni/css-render.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/07akioni/css-render/alerts/)
+# css-render &middot; [![GitHub Liscense](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/07akioni/css-render/blob/master/LICENSE) [![npm](https://img.shields.io/npm/v/css-render)](https://www.npmjs.com/package/css-render) [![Total alerts](https://img.shields.io/lgtm/alerts/g/07akioni/css-render.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/07akioni/css-render/alerts/) [![codecov](https://codecov.io/gh/07akioni/css-render/branch/master/graph/badge.svg?token=28OJZAHLK4&precision=2)](https://codecov.io/gh/07akioni/css-render)
 
 Generating CSS using JS with considerable flexibility and extensibility, at both server side and client side.
 
@@ -137,3 +137,10 @@ style.unmount()
   background-color: black;
 }
 ```
+
+## Packages
+|Name|Cov|
+|-|-|
+|css-render|[![codecov](https://codecov.io/gh/07akioni/css-render/branch/master/graph/badge.svg?token=28OJZAHLK4&flag=css-render)](https://codecov.io/gh/07akioni/css-render)|
+|@css-render/plugin-bem| [![codecov](https://codecov.io/gh/07akioni/css-render/branch/master/graph/badge.svg?token=28OJZAHLK4&flag=plugin-bem)](https://codecov.io/gh/07akioni/css-render)|
+|vue3-ssr| [![codecov](https://codecov.io/gh/07akioni/css-render/branch/master/graph/badge.svg?token=28OJZAHLK4&flag=vue3-ssr)](https://codecov.io/gh/07akioni/css-render)|
