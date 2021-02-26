@@ -16,7 +16,7 @@ It is not designed to totally replace other style-related solutions, but to be a
 4. You want to write style variables in JS.
 5. Support an simple SSR API (now only for vue3).
 
-# Comparasion with other CSS-in-JS framework
+## Comparasion with other CSS-in-JS framework
 
 Main differences between css-render and styled-component, jss or emotion:
 1. It doesn't do the bindings between components and styles. It is more like a style generator with low level mount and unmount API.
