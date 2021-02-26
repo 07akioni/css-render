@@ -26,4 +26,4 @@ If you build library with sass or less, you may have a try with css-render.
 
 However, I want to stress that it can be just a supplementary method. If you find everything you are using, for example pure CSS, preprocessors, or other libraries work fine, just keep going, they are doing great jobs.
 
-When you got some bottleneck and find the mentioned features are useful for you. Why not have a try?
+When you got some bottleneck and find the mentioned features are useful for you, why not have a try?
