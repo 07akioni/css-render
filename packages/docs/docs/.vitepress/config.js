@@ -3,7 +3,15 @@ module.exports = {
   themeConfig: {
     sidebar: [
       {
-        text: 'Get Started',
+        text: 'Introduction',
+        link: '/'
+      },
+      {
+        text: 'Installation',
+        link: '/installation'
+      },
+      {
+        text: 'Getting Started',
         link: '/get-started'
       },
       {
@@ -19,7 +27,7 @@ module.exports = {
         link: '/plugin-development'
       },
       {
-        text: '`CssRender` Instance',
+        text: 'CssRender Instance',
         link: '/css-render-instance'
       },
       {

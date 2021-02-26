@@ -10,8 +10,8 @@ const {
 The `c` method is use to create a `CNode`.
 ## `c` method
 It can be use in the following forms:
-- `c(selector: string | Function | Object | null, properties: Object | string | Function)`
-- `c(selector: string | Function | Object | null, properties: Object | string | Function, children: Array)`
+- `c(selector: string | Function | Object | null, cssProps: Object | string | Function)`
+- `c(selector: string | Function | Object | null, cssProps: Object | string | Function, children: Array)`
 - `c(selector: string | Function | Object | null, children: Array)`
 - `c(children: Array)`
 Both of them will return a `CNode`.
@@ -97,11 +97,13 @@ div button {
 }
 ```
 
-### `properties`
-#### Object `properties` & string `properties`
+### `cssProps`
+#### Object `cssProps` & string `cssProps`
 You can put just a plain object or string:
 ```js
-c('.button', 'background-color: green;').render()
+c('.button', `
+  background-color: green;
+`).render()
 
 c('@keyframes my-animation', {
   from: {
@@ -126,8 +128,8 @@ c('@keyframes my-animation', {
   }
 }
 ```
-#### Function `properties`
-If you want to determine the properties of a `CNode` at rendering phase. Use a `({ context, props }) => string | Object` typed function as the properties of `CNode`.
+#### Function `cssProps`
+If you want to determine the cssProps of a `CNode` at rendering phase. Use a `({ context, props }) => string | Object` typed function as the cssProps of `CNode`.
 
 ```js
 const style = c('.button', ({

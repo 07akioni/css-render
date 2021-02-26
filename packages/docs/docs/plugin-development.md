@@ -82,4 +82,4 @@ It outputs:
 }
 ```
 
-If you still have no idea on how to create a plugin, you may see [@css-render/plugin-bem](https://github.com/07akioni/css-render/tree/master/packages/plugins/bem) for some inspirations.
+If you still have no idea on how to create a plugin, you may see [@css-render/plugin-bem](https://github.com/07akioni/css-render/tree/master/packages/plugin-bem) for some inspirations.
