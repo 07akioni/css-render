@@ -25,6 +25,10 @@ export interface UnmountOption {
   target?: MountId
   id?: MountId
   delay?: number
+  /**
+   * whether to count mount times
+   * @deprecated I found it not that useful, it may be removed later, please use it with caution
+   */
   count?: boolean
 }
 
@@ -34,7 +38,7 @@ export interface MountOption<T extends SsrAdapter | undefined = undefined> {
   ssr?: T
   /**
    * whether to count mount times, I found it not that useful, it may be removed
-   * later, pleasee use it with caution
+   * later, please use it with caution
    * @deprecated
    */
   count?: boolean
