@@ -1,7 +1,32 @@
 version: 2
 updates:
 - package-ecosystem: npm
-  directory: "/"
+  directory: "/packages/css-render"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/packages/vue3-ssr"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/packages/plugin-bem"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/packages/docs"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/packages/eslint-config"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/packages/test-shared"
   schedule:
     interval: daily
   open-pull-requests-limit: 10
