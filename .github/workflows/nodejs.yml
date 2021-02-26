@@ -30,6 +30,6 @@ jobs:
     - run: node common/scripts/install-run-rush.js link
     - run: node common/scripts/install-run-rush.js rebuild --verbose
     - run: export CODECOV_TOKEN="1b50e2b4-d843-48eb-bec7-6665d283b783"
-    - run: bash <(curl -s https://codecov.io/bash) -f packages/vue3-ssr/coverage/lcov.info -F vue3-ssr
-    - run: bash <(curl -s https://codecov.io/bash) -f packages/plugin-bem/coverage/lcov.info -F plugin-bem
-    - run: bash <(curl -s https://codecov.io/bash) -f packages/css-render/coverage/lcov/lcov.info -F css-render
+    - run: bash <(curl -s https://raw.githubusercontent.com/codecov/codecov-bash/7877012ffd85dfb7968f91b5992edd627483dfe0/codecov) -f packages/vue3-ssr/coverage/lcov.info -F vue3-ssr -i vue3-ssr
+    - run: bash <(curl -s https://raw.githubusercontent.com/codecov/codecov-bash/7877012ffd85dfb7968f91b5992edd627483dfe0/codecov) -f packages/plugin-bem/coverage/lcov.info -F plugin-bem -i packages/plugin-bem
+    - run: bash <(curl -s https://raw.githubusercontent.com/codecov/codecov-bash/7877012ffd85dfb7968f91b5992edd627483dfe0/codecov) -f packages/css-render/coverage/lcov/lcov.info -F css-render -i packages/css-render
