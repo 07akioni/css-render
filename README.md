@@ -2,24 +2,26 @@
 
 Generating CSS using JS with considerable flexibility and extensibility, at both server side and client side.
 
+It's mainly built for **library builders** (who wants make their library work without css import at small overhead). It's not recommend to use it in a webapp.
+
 It is not designed to totally replace other style-related solutions, but to be a progressive tool which can just work as a supplementary of your style files or totally replace your `.css` files.
 
 ## Docs
 [css-render](https://css-render.vercel.app/)
 
 ## Why Using It
-1. If you have a large CSS bundle with duplicate generation logic, such as a `button.css` with info, success, warning, error and ... buttons, you will need to transfer all the style literals in network. By using `css-render`, you can generate CSS at client side and reduce your app's bundle size. (This is a exchange between `bandwidth` and `CPU time`)
-2. You may write `sass`, `less` or other preprocessors' mixins. However the logic can't be reused at client side (at a small cost). For example, you can generate a red button's style in preprocessors at server side, but you can't handle a dynamic color input at client side. By using `css-render`, you can generate styles dynamically based on JS variables (which can styling something like `::before` or `:hover` more easliy than inline style).
-3. You want to write style variables in JS.
+1. You want to ship a library without css at a small price (gzip < 2kb).
+2. Reduce size compared with static css (which contains duplicate logic).
+3. You can't write `sass-like` or `less-like` css-in-js (eg. `mixin` in sass or less).
+4. You want to write style variables in JS.
+5. Support an simple SSR API (now only for vue3).
 
-If you still have any question, [Q&A](docs/qa.md) may help you.
+# Comparasion with other CSS-in-JS framework
 
-## Documentation
-- [First Step](https://github.com/07akioni/css-render/blob/master/docs/overview.md)
-- [Create a CNode & Render a CNode Tree](https://github.com/07akioni/css-render/blob/master/docs/cnode-and-render.md)
-- [CssRender Instance](https://github.com/07akioni/css-render/blob/master/docs/css-render-instance.md)
-- [Advanced Mount & Unmount Options](https://github.com/07akioni/css-render/blob/master/docs/mount.md)
-- [Plugin Development](https://github.com/07akioni/css-render/blob/master/docs/plugin-development.md)
+Main differences between css-render and styled-component, jss or emotion:
+1. It doesn't do the bindings between components and styles. It is more like a style generator with low level mount and unmount API.
+2. It's easier to write like a sass mixin or less mixin.
+
 
 ## Examples
 ### Basic
@@ -82,18 +84,18 @@ You can use bem plugin to generate bem CSS like this:
 
 ```js
 import CssRender from 'css-render'
-import CssRenderBemPlugin from '@css-render/plugin-bem'
+import bem from '@css-render/plugin-bem'
 /**
  * common js:
  * const { CssRender } = require('css-render')
- * const { plugin: CssRenderBemPlugin } = require('@css-render/plugin-bem')
+ * const { plugin: bem } = require('@css-render/plugin-bem')
  */
 
 const cssr = CssRender()
-const plugin = CssRenderBemPlugin({
+const plugin = bem({
   blockPrefix: '.c-'
 })
-cssr.use(plugin)
+cssr.use(plugin) // bind the plugin with the cssr instance
 const {
   cB, cE, cM
 } = plugin
@@ -140,6 +142,52 @@ style.unmount()
   background-color: black;
 }
 ```
+
+## Vue3 SSR
+```bash
+$ npm install --save-dev css-render @css-render/vue3-ssr
+```
+
+To make ssr works, you need to make
+```tsx
+import { h, createSSRApp, defineComponent } from 'vue'
+import { renderToString } from '@vue/server-renderer'
+
+import { CssRender } from 'css-render'
+import { SsrContext, ssrAdapter } from '@css-render/vue3-ssr'
+
+const Child = defineComponent({
+  setup () {
+    c('div', {
+      color: 'red'
+    }).mount({
+      id: 'mount-id',
+      // You need to pass the ssrAdapter to `mount` function
+      // to make ssr work.
+      // If you want it work with CSR, just set it to undefined
+      ssr: ssrAdapter 
+    })
+  },
+  render () {
+    return 'Child'
+  }
+})
+
+const App = defineComponent({
+  render () {
+    // Wrap the SsrContext at the root of your app
+    return h(SsrContext, null, {
+      default: () => h(Child)
+    })
+  }
+})
+
+const app = createSSRApp(App)
+
+renderToString(app).then(v => { console.log(v) })
+```
+
+Finally you will find the rendered SSR HTML includes mounted style.
 
 ## Packages
 |Name|Cov|
