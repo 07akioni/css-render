@@ -2,6 +2,12 @@
   "name": "@css-render/vue3-ssr",
   "entries": [
     {
+      "version": "0.13.2",
+      "tag": "@css-render/vue3-ssr_v0.13.2",
+      "date": "Fri, 26 Feb 2021 08:24:05 GMT",
+      "comments": {}
+    },
+    {
       "version": "0.13.1",
       "tag": "@css-render/vue3-ssr_v0.13.1",
       "date": "Fri, 26 Feb 2021 08:18:28 GMT",
