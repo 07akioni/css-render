@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "definitionName": "lockStepVersion",
+    "policyName": "css-render",
+    "version": "0.13.0",
+    "nextBump": "patch"
+  }
+]

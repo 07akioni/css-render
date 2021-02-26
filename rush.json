@@ -15,22 +15,25 @@
     {
       "packageName": "css-render",
       "projectFolder": "packages/css-render",
-      "shouldPublish": true
+      "shouldPublish": true,
+      "versionPolicyName": "css-render"
+    },
+    {
+      "packageName": "@css-render/vue3-ssr",
+      "projectFolder": "packages/vue3-ssr",
+      "shouldPublish": true,
+      "versionPolicyName": "css-render"
+    },
+    {
+      "packageName": "@css-render/plugin-bem",
+      "projectFolder": "packages/plugin-bem",
+      "shouldPublish": true,
+      "versionPolicyName": "css-render"
     },
     {
       "packageName": "@css-render/test-shared",
       "projectFolder": "packages/test-shared",
       "shouldPublish": false
-    },
-    {
-      "packageName": "@css-render/vue3-ssr",
-      "projectFolder": "packages/vue3-ssr",
-      "shouldPublish": true
-    },
-    {
-      "packageName": "@css-render/plugin-bem",
-      "projectFolder": "packages/plugin-bem",
-      "shouldPublish": true
     },
     {
       "packageName": "@css-render/eslint-config",
