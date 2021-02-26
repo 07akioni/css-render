@@ -1,6 +1,6 @@
 {
   "name": "@css-render/test-shared",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "scripts": {
     "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json"
   },

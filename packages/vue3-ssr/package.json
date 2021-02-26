@@ -18,7 +18,7 @@
     "jest-standard-reporter": "~2.0.0",
     "eslint": "~7.20.0",
     "@rushstack/eslint-config": "~2.3.2",
-    "@css-render/eslint-config": "0.1.0"
+    "@css-render/eslint-config": "0.0.0"
   },
   "dependencies": {
     "vue": "^3.0.5"
