@@ -10,7 +10,7 @@
     "typescript": "~4.1.5",
     "chai": "^4.2.0",
     "@types/chai": "^4.2.11",
-    "eslint": "~7.20.0",
+    "eslint": "~7.21.0",
     "@rushstack/eslint-config": "~2.3.2"
   },
   "sideEffects": false
