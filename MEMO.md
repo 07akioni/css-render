@@ -16,3 +16,9 @@ rush update
 
 rush rebuild -f from -t to -v -o only
 -v verbose
+
+## 发包
+先
+rush change
+再
+rush version --bump
