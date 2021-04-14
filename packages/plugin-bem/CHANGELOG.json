@@ -2,6 +2,18 @@
   "name": "@css-render/plugin-bem",
   "entries": [
     {
+      "version": "0.13.5",
+      "tag": "@css-render/plugin-bem_v0.13.5",
+      "date": "Wed, 14 Apr 2021 17:06:44 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat(plugin-bem): add bPrefix prop"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.4",
       "tag": "@css-render/plugin-bem_v0.13.4",
       "date": "Wed, 14 Apr 2021 16:25:11 GMT",

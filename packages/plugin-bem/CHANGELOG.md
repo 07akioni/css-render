@@ -1,6 +1,13 @@
 # Change Log - @css-render/plugin-bem
 
-This log was last generated on Wed, 14 Apr 2021 16:25:11 GMT and should not be manually modified.
+This log was last generated on Wed, 14 Apr 2021 17:06:44 GMT and should not be manually modified.
+
+## 0.13.5
+Wed, 14 Apr 2021 17:06:44 GMT
+
+### Updates
+
+- feat(plugin-bem): add bPrefix prop
 
 ## 0.13.4
 Wed, 14 Apr 2021 16:25:11 GMT
