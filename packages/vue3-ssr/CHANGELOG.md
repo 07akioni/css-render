@@ -1,6 +1,11 @@
 # Change Log - @css-render/vue3-ssr
 
-This log was last generated on Fri, 26 Feb 2021 08:24:05 GMT and should not be manually modified.
+This log was last generated on Wed, 14 Apr 2021 16:24:04 GMT and should not be manually modified.
+
+## 0.13.3
+Wed, 14 Apr 2021 16:24:04 GMT
+
+_Version update only_
 
 ## 0.13.2
 Fri, 26 Feb 2021 08:24:05 GMT

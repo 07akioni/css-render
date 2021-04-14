@@ -2,6 +2,18 @@
   "name": "css-render",
   "entries": [
     {
+      "version": "0.13.3",
+      "tag": "css-render_v0.13.3",
+      "date": "Wed, 14 Apr 2021 16:24:04 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat(mount): add `head` option to insert style before every style node in doc.head"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.2",
       "tag": "css-render_v0.13.2",
       "date": "Fri, 26 Feb 2021 08:24:05 GMT",
