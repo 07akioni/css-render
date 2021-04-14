@@ -3,7 +3,8 @@
     "moduleResolution": "node",
     "module": "ESNext",
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": false,
+    "sourceMap": false,
     "lib": [
       "ESNext",
       "DOM"

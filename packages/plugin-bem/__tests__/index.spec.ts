@@ -218,6 +218,35 @@ describe('# bem', function () {
   })
 })
 
+describe('# custom bPrefix', function () {
+  const plugin = CssRenderBEMPlugin()
+  cssr.use(plugin)
+  const {
+    cB,
+    cE,
+    cM,
+    cNotM
+  } = plugin
+  assertEqual(
+    cB('b', [
+      cM('m', {}),
+      cNotM('nm', {}),
+      cE('e', [
+        cM('m', {}),
+        cNotM('nm', {})
+      ])
+    ]).render({
+      bPrefix: '.x-'
+    }),
+    `
+    .x-b.x-b--m {}
+    .x-b:not(.x-b--nm) {}
+    .x-b .x-b__e.x-b__e--m {}
+    .x-b .x-b__e:not(.x-b__e--nm) {}
+    `
+  )
+})
+
 describe('# function typed selector', function () {
   it('should pass test case#1', function () {
     assertEqual(

@@ -20,5 +20,7 @@ rush rebuild -f from -t to -v -o only
 ## 发包
 先
 rush change
+rush change --bulk --message xxx --bump-type
 再
 rush version --bump
+rush publish --include-all --publish

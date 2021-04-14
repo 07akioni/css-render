@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import {
@@ -70,7 +71,7 @@ function plugin (options?: BEMPluginOptions): CssRenderBemPlugin {
       $ ({ context, props }) {
         arg = typeof arg === 'string' ? arg : arg({ context, props })
         context.bem.b = arg
-        return `${_bPrefix}${context.bem.b as string}`
+        return `${props?.bPrefix || _bPrefix}${context.bem.b as string}`
       }
     }
   }
@@ -88,7 +89,7 @@ function plugin (options?: BEMPluginOptions): CssRenderBemPlugin {
         arg = typeof arg === 'string' ? arg : arg({ context, props })
         context.bem.els = arg.split(',').map(v => v.trim())
         return (context.bem.els as string[])
-          .map(el => `${_bPrefix}${context.bem.b as string}__${el}`).join(', ')
+          .map(el => `${props?.bPrefix || _bPrefix}${context.bem.b as string}__${el}`).join(', ')
       }
     }
   }
@@ -99,7 +100,7 @@ function plugin (options?: BEMPluginOptions): CssRenderBemPlugin {
         arg = typeof arg === 'string' ? arg : arg({ context, props })
         const modifiers = arg.split(',').map(v => v.trim())
         function elementToSelector (el?: string): string {
-          return modifiers.map(modifier => `&${_bPrefix}${context.bem.b as string}${
+          return modifiers.map(modifier => `&${props?.bPrefix || _bPrefix}${context.bem.b as string}${
             el !== undefined ? `${_ePrefix}${el}` : ''
           }${_mPrefix}${modifier}`).join(', ')
         }
@@ -128,7 +129,7 @@ function plugin (options?: BEMPluginOptions): CssRenderBemPlugin {
             `[css-render/plugin-bem]: notM(${arg}) is invalid, using modifier inside multiple elements is not allowed`
           )
         }
-        return `&:not(${_bPrefix}${context.bem.b as string}${
+        return `&:not(${props?.bPrefix || _bPrefix}${context.bem.b as string}${
           (els !== null && els.length > 0) ? `${_ePrefix}${els[0]}` : ''
         }${_mPrefix}${arg})`
       }
