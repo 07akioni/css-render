@@ -70,6 +70,7 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
   node: CNode,
   id: MountId,
   props: T,
+  head: boolean,
   count: boolean,
   ssrAdapter?: U
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
@@ -91,7 +92,13 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
     target = createElement(id)
     if (style === undefined) style = node.render(props)
     target.textContent = style
-    document.head.appendChild(target)
+    if (head) {
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      const firstStyleEl = document.head.getElementsByTagName('style')[0] || null as (HTMLElement | null)
+      document.head.insertBefore(target, firstStyleEl)
+    } else {
+      document.head.appendChild(target)
+    }
     if (count) {
       setCount(target, 1)
     }

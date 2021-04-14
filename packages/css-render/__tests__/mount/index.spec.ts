@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as chai from 'chai'
 import CssRender from '../../src'
 import { SinonSpy, spy } from 'sinon'
@@ -351,5 +352,21 @@ describe('mix count or no-count when calling mount & unmount', () => {
       ?.getAttribute('mount-count')).to.eq(null)
     expect(style.els.length).to.eq(1)
     expect((console.error as SinonSpy).called).to.eq(true)
+  })
+})
+
+describe('head', () => {
+  const oldStyle = document.createElement('style')
+  oldStyle.textContent = '.old-style { color: red; }'
+  document.head.appendChild(oldStyle)
+  const style = c('.old-style', 'color: blue;')
+  const el = document.createElement('div')
+  el.classList.add('old-style')
+  document.body.appendChild(el)
+  it('doesn\'t affect old style when mount with `head`', () => {
+    style.mount({ id: 'head-test-head', head: true })
+    expect(getComputedStyle(document.querySelector('.old-style')!).color).to.eq('rgb(255, 0, 0)')
+    style.mount({ id: 'head-test-no-head' })
+    expect(getComputedStyle(document.querySelector('.old-style')!).color).to.eq('rgb(0, 0, 255)')
   })
 })

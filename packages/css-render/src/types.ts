@@ -36,6 +36,7 @@ export interface MountOption<T extends SsrAdapter | undefined = undefined> {
   id?: MountId
   props?: CRenderProps
   ssr?: T
+  head?: boolean
   /**
    * whether to count mount times, I found it not that useful, it may be removed
    * later, please use it with caution

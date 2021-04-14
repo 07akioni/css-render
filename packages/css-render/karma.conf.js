@@ -2,6 +2,7 @@ process.env.CHROME_BIN = require('puppeteer').executablePath()
 const pluginKarmaMocha = require('karma-mocha')
 const pluginKarmaTypescript = require('karma-typescript')
 const pluginKarmaChromeLauncher = require('karma-chrome-launcher')
+const pluginKarmaSpecReporter = require('karma-spec-reporter')
 
 module.exports = function (config) {
   config.set({
@@ -10,7 +11,8 @@ module.exports = function (config) {
     plugins: [
       pluginKarmaMocha,
       pluginKarmaTypescript,
-      pluginKarmaChromeLauncher
+      pluginKarmaChromeLauncher,
+      pluginKarmaSpecReporter
     ],
     frameworks: ['mocha', 'karma-typescript'],
     files: [
@@ -21,7 +23,7 @@ module.exports = function (config) {
       'src/**/*.ts': 'karma-typescript',
       '__tests__/**/*.ts': 'karma-typescript'
     },
-    reporters: ['karma-typescript'],
+    reporters: ['spec', 'karma-typescript'],
     karmaTypescriptConfig: {
       compilerOptions: {
         module: 'CommonJS',
