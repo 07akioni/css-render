@@ -1,11 +1,18 @@
 # Change Log - css-render
 
-This log was last generated on Wed, 12 May 2021 11:35:11 GMT and should not be manually modified.
+This log was last generated on Wed, 12 May 2021 11:45:08 GMT and should not be manually modified.
+
+## 0.13.8
+Wed, 12 May 2021 11:45:08 GMT
+
+### Updates
+
+- Fix render multiple times when mount with same id
 
 ## 0.13.7
 Wed, 12 May 2021 11:35:11 GMT
 
-_Version update only_
+Add boost mode for `mount`
 
 ## 0.13.6
 Wed, 14 Apr 2021 17:53:56 GMT

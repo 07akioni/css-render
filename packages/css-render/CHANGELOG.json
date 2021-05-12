@@ -2,6 +2,18 @@
   "name": "css-render",
   "entries": [
     {
+      "version": "0.13.8",
+      "tag": "css-render_v0.13.8",
+      "date": "Wed, 12 May 2021 11:45:08 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix render multiple times when mount with same id"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.7",
       "tag": "css-render_v0.13.7",
       "date": "Wed, 12 May 2021 11:35:11 GMT",
