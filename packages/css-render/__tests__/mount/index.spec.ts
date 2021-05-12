@@ -6,9 +6,7 @@ import { SinonSpy, spy } from 'sinon'
 const expect = chai.expect
 const cssr = CssRender()
 
-const {
-  c
-} = cssr
+const { c } = cssr
 
 describe('# mount with no id', () => {
   let sandbox: HTMLElement
@@ -34,7 +32,9 @@ describe('# mount with no id', () => {
   })
   it('should make element styled', () => {
     sandbox.innerHTML = '<div class="red-block"></div>'
-    const backgroundColor = getComputedStyle(sandbox.children[0]).backgroundColor
+    const backgroundColor = getComputedStyle(
+      sandbox.children[0]
+    ).backgroundColor
     expect(backgroundColor).to.equal('rgb(255, 0, 0)')
   })
   it('should support props of render', () => {
@@ -49,7 +49,9 @@ describe('# mount with no id', () => {
         color: 'red'
       }
     })
-    const backgroundColor = getComputedStyle(sandbox.children[0]).backgroundColor
+    const backgroundColor = getComputedStyle(
+      sandbox.children[0]
+    ).backgroundColor
     expect(backgroundColor).to.equal('rgb(255, 0, 0)')
   })
   after(() => {
@@ -93,10 +95,10 @@ describe('# mount & unmount with id (count)', () => {
     expect(document.head.querySelector('[cssr-id="jjy"]')).to.eq(null)
   })
   it('should mount desired style element on head', () => {
-    expect(document.head.querySelector('[cssr-id="test-id-1"]'))
-      .not.to.equal(null)
-    expect(document.head.querySelector('[cssr-id="14138"]'))
-      .not.to.equal(null)
+    expect(document.head.querySelector('[cssr-id="test-id-1"]')).not.to.equal(
+      null
+    )
+    expect(document.head.querySelector('[cssr-id="14138"]')).not.to.equal(null)
   })
   it('should do nothing when unmount with an not exist id', () => {
     style.unmount({
@@ -113,14 +115,12 @@ describe('# mount & unmount with id (count)', () => {
       id: '14138',
       count: true
     })
-    expect(document.head.querySelector('[cssr-id="test-id-1"]'))
-      .to.equal(null)
-    expect(document.head.querySelector('[cssr-id="test-id-2"]'))
-      .not.to.equal(null)
-    expect(document.head.querySelector('[cssr-id="14138"]'))
-      .to.equal(null)
-    expect(document.head.querySelector('[cssr-id="14139"]'))
-      .not.to.equal(null)
+    expect(document.head.querySelector('[cssr-id="test-id-1"]')).to.equal(null)
+    expect(document.head.querySelector('[cssr-id="test-id-2"]')).not.to.equal(
+      null
+    )
+    expect(document.head.querySelector('[cssr-id="14138"]')).to.equal(null)
+    expect(document.head.querySelector('[cssr-id="14139"]')).not.to.equal(null)
     expect(style.els.length).to.equal(2)
   })
   it('should unmount all related styles elements', () => {
@@ -173,11 +173,9 @@ describe('# mount & unmount with id (count)', () => {
   })
   it('should unmount style when mount-count is 1', function () {
     style.mount({ id: '14140', count: true })
-    expect(document.head.querySelector('[cssr-id="14140"]'))
-      .not.to.equal(null)
+    expect(document.head.querySelector('[cssr-id="14140"]')).not.to.equal(null)
     style.unmount({ id: '14140', count: true })
-    expect(document.head.querySelector('[cssr-id="14140"]'))
-      .to.equal(null)
+    expect(document.head.querySelector('[cssr-id="14140"]')).to.equal(null)
   })
   after(() => {
     style.unmount()
@@ -230,16 +228,20 @@ describe('# mount & unmount with id (not count)', function () {
     style.unmount({
       id: '14143'
     })
-    expect(document.head.querySelector('[cssr-id="14143"]')?.getAttribute('mount-count'))
-      .not.to.equal(2)
+    expect(
+      document.head
+        .querySelector('[cssr-id="14143"]')
+        ?.getAttribute('mount-count')
+    ).not.to.equal(2)
     expect((console.error as SinonSpy).calledOnce).to.equal(true)
   })
-  describe('shouldn\'t unmount style when mount option.count = false and unmount options.count is true', () => {
+  describe("shouldn't unmount style when mount option.count = false and unmount options.count is true", () => {
     it('#case1', () => {
       style.mount({ id: '14144', count: false })
       style.unmount({ id: '14144', count: true })
-      expect(document.head.querySelector('[cssr-id="14144"]'))
-        .not.to.equal(null)
+      expect(document.head.querySelector('[cssr-id="14144"]')).not.to.equal(
+        null
+      )
     })
   })
 })
@@ -264,11 +266,9 @@ describe('# unmount with delay', () => {
       count: true,
       delay: 100
     })
-    expect(document.head.querySelector('[cssr-id="14138"]'))
-      .not.to.equal(null)
+    expect(document.head.querySelector('[cssr-id="14138"]')).not.to.equal(null)
     setTimeout(() => {
-      expect(document.head.querySelector('[cssr-id="14138"]'))
-        .to.equal(null)
+      expect(document.head.querySelector('[cssr-id="14138"]')).to.equal(null)
       done()
     }, 200)
   })
@@ -289,8 +289,9 @@ describe('# unmount with delay', () => {
       })
     }, 67)
     setTimeout(() => {
-      expect(document.head.querySelector('[cssr-id="14138"]'))
-        .not.to.equal(null)
+      expect(document.head.querySelector('[cssr-id="14138"]')).not.to.equal(
+        null
+      )
       done()
     }, 200)
   })
@@ -326,30 +327,42 @@ describe('mix count or no-count when calling mount & unmount', () => {
   it('mount true unmount false', () => {
     style.mount({ id: '07akioni', count: true })
     style.unmount({ id: '07akioni' })
-    expect(document.head.querySelector('[cssr-id="07akioni"]'))
-      .not.to.equal(null)
-    expect(document.head.querySelector('[cssr-id="07akioni"]')
-      ?.getAttribute('mount-count')).to.eq('1')
+    expect(document.head.querySelector('[cssr-id="07akioni"]')).not.to.equal(
+      null
+    )
+    expect(
+      document.head
+        .querySelector('[cssr-id="07akioni"]')
+        ?.getAttribute('mount-count')
+    ).to.eq('1')
     expect(style.els.length).to.eq(1)
     expect((console.error as SinonSpy).called).to.eq(true)
   })
   it('mount true mount false', () => {
     style.mount({ id: '07akioni', count: true })
     style.mount({ id: '07akioni' })
-    expect(document.head.querySelector('[cssr-id="07akioni"]'))
-      .not.to.equal(null)
-    expect(document.head.querySelector('[cssr-id="07akioni"]')
-      ?.getAttribute('mount-count')).to.eq('1')
+    expect(document.head.querySelector('[cssr-id="07akioni"]')).not.to.equal(
+      null
+    )
+    expect(
+      document.head
+        .querySelector('[cssr-id="07akioni"]')
+        ?.getAttribute('mount-count')
+    ).to.eq('1')
     expect(style.els.length).to.eq(1)
     expect((console.error as SinonSpy).called).to.eq(true)
   })
   it('mount false mount true', () => {
     style.mount({ id: '07akioni' })
     style.mount({ id: '07akioni', count: true })
-    expect(document.head.querySelector('[cssr-id="07akioni"]'))
-      .not.to.equal(null)
-    expect(document.head.querySelector('[cssr-id="07akioni"]')
-      ?.getAttribute('mount-count')).to.eq(null)
+    expect(document.head.querySelector('[cssr-id="07akioni"]')).not.to.equal(
+      null
+    )
+    expect(
+      document.head
+        .querySelector('[cssr-id="07akioni"]')
+        ?.getAttribute('mount-count')
+    ).to.eq(null)
     expect(style.els.length).to.eq(1)
     expect((console.error as SinonSpy).called).to.eq(true)
   })
@@ -363,10 +376,50 @@ describe('head', () => {
   const el = document.createElement('div')
   el.classList.add('old-style')
   document.body.appendChild(el)
-  it('doesn\'t affect old style when mount with `head`', () => {
+  it("doesn't affect old style when mount with `head`", () => {
     style.mount({ id: 'head-test-head', head: true })
-    expect(getComputedStyle(document.querySelector('.old-style')!).color).to.eq('rgb(255, 0, 0)')
+    expect(getComputedStyle(document.querySelector('.old-style')!).color).to.eq(
+      'rgb(255, 0, 0)'
+    )
     style.mount({ id: 'head-test-no-head' })
-    expect(getComputedStyle(document.querySelector('.old-style')!).color).to.eq('rgb(0, 0, 255)')
+    expect(getComputedStyle(document.querySelector('.old-style')!).color).to.eq(
+      'rgb(0, 0, 255)'
+    )
+  })
+})
+
+describe('boost mode', () => {
+  it('works in boost mode', () => {
+    const divA = document.createElement('div')
+    const divB = document.createElement('div')
+    divA.classList.add('a')
+    divB.classList.add('b')
+    divA.appendChild(divB)
+    document.body.appendChild(divA)
+    const style = c([
+      c(
+        '.a',
+        {
+          color: 'red'
+        },
+        [
+          c('.b', {
+            color: 'rgb(0, 255, 0)'
+          })
+        ]
+      )
+    ])
+
+    style.mount({
+      id: 'ab',
+      boost: true
+    })
+
+    expect(getComputedStyle(document.querySelector('.a')!).color).to.equal(
+      'rgb(255, 0, 0)'
+    )
+    expect(getComputedStyle(document.querySelector('.b')!).color).to.equal(
+      'rgb(0, 255, 0)'
+    )
   })
 })

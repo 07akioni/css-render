@@ -40,6 +40,7 @@ dependencies:
   sinon: 9.2.4
   terser: 5.6.0
   typescript: 4.2.4
+  vite: 2.3.1
   vitepress: 0.12.2
   vue: 3.0.5
 lockfileVersion: 5.2
@@ -2951,6 +2952,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-puCDz0CzydiSYOrnXpz/PKd69zRrribezjtE9yd4zvytoRc8+RY/KJPvtPFKZS3E3wP6neGyMe0vOTlHO5L3Pw==
+  /colorette/1.2.2:
+    dev: false
+    resolution:
+      integrity: sha512-MKGMzyfeuutC/ZJ1cba9NqcNpfeqMUcYmyF1ZFY6/Cn7CNSAKx6a+s48sqLqyAiZuaP2TcqMhoo+dlwFnVxT9w==
   /colors/1.4.0:
     dev: false
     engines:
@@ -3590,6 +3595,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-wsNYJlYkfDnqEHyx5mUrb58kUjw=
+  /esbuild/0.11.20:
+    dev: false
+    hasBin: true
+    requiresBuild: true
+    resolution:
+      integrity: sha512-QOZrVpN/Yz74xfat0H6euSgn3RnwLevY1mJTEXneukz1ln9qB+ieaerRMzSeETpz/UJWsBMzRVR/andBht5WKw==
   /esbuild/0.8.52:
     dev: false
     hasBin: true
@@ -6178,6 +6189,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-a1cQNyczgKbLX9jwbS/+d7W8fX/RfgYR7lVWwWOGIPNgK2m0MWvrGF6/m4kk6U3QcFMnZf3RIhL0v2Jgh/0Uxw==
+  /nanoid/3.1.23:
+    dev: false
+    engines:
+      node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1
+    hasBin: true
+    resolution:
+      integrity: sha512-FiB0kzdP0FFVGDKlRLEQ1BgDzU87dy5NnzjeW9YZNt+/c3+q82EQDUwniSAUxp/F0gFNI1ZhKU1FqYsMuqZVnw==
   /nanomatch/1.2.13:
     dependencies:
       arr-diff: 4.0.0
@@ -6818,6 +6836,16 @@ packages:
     dev: false
     resolution:
       integrity: sha512-97DXOFbQJhk71ne5/Mt6cOu6yxsSfM0QGQyl0L25Gca4yGWEGJaig7l7gbCX623VqTBNGLRLaVUCnNkcedlRSQ==
+  /postcss/8.2.15:
+    dependencies:
+      colorette: 1.2.2
+      nanoid: 3.1.23
+      source-map: 0.6.1
+    dev: false
+    engines:
+      node: ^10 || ^12 || >=14
+    resolution:
+      integrity: sha512-2zO3b26eJD/8rb106Qu2o7Qgg52ND5HPjcyQiK2B98O388h43A448LCslC0dI2P97wCAQRJsFvwTRcXxTKds+Q==
   /postcss/8.2.6:
     dependencies:
       colorette: 1.2.1
@@ -8407,6 +8435,20 @@ packages:
       fsevents: 2.3.2
     resolution:
       integrity: sha512-4CUm3FVUHyTSSSK6vHWkj3SVkP+GGNNzwYcFsHOjjc8xQ3BPjJa1JDDmFlYxpxR29ANa+7RWptYPoyHyJ29Nhw==
+  /vite/2.3.1:
+    dependencies:
+      esbuild: 0.11.20
+      postcss: 8.2.15
+      resolve: 1.20.0
+      rollup: 2.39.1
+    dev: false
+    engines:
+      node: '>=12.0.0'
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    resolution:
+      integrity: sha512-yvcLclv/G0syHL+bBtahdaymH0x6La8kbTlnAssRH+XFvDNb8VPRruHhILCCmZgtx6Zu/UKNFTQnQ4Gk/omyUA==
   /vitepress/0.12.2:
     dependencies:
       '@docsearch/css': 1.0.0-alpha.28
@@ -8741,10 +8783,11 @@ packages:
       sinon: 9.2.4
       terser: 5.6.0
       typescript: 4.2.4
+      vite: 2.3.1
     dev: false
     name: '@rush-temp/css-render'
     resolution:
-      integrity: sha512-D/zH+xN1q+sQi9ejhqw+oVJHjnCD3oKYlL+zNgET+gKGjP90nAfSDXzB7MaLInQf2LlUT2rPiR9pmoo90cVJfg==
+      integrity: sha512-uD2ONN//kF01vJUEreOnpIB/+HkcqjmKhdcztP2w68dut8Z4Sdgss75dc1iKR7foxhjG9PVQtRlLWh2mQijzkA==
       tarball: file:projects/css-render.tgz
     version: 0.0.0
   file:projects/docs.tgz:
@@ -8791,7 +8834,7 @@ packages:
     dev: false
     name: '@rush-temp/plugin-bem'
     resolution:
-      integrity: sha512-1HaP/F0RAapC+Cv79/2EcozeaQMX0htwR15jKgamTLplVEK816234/zf7RnLwfCB5deTPIKWIhUq8kv1MjiRLQ==
+      integrity: sha512-l6l122vTPq85Xf5oNsMRY9ErehzbnTc2gaLvfpsKbOxcGBoPBt9th+fQQ5mVhOyrROkgJc0pXggujLckZg4HNQ==
       tarball: file:projects/plugin-bem.tgz
     version: 0.0.0
   file:projects/test-shared.tgz:
@@ -8823,7 +8866,7 @@ packages:
     dev: false
     name: '@rush-temp/vue3-ssr'
     resolution:
-      integrity: sha512-tkDPIwAB1DeP8FZNbcMskaMLFbKkootJgvbKYqiEnoKEjW7wuECNDaLSY5+BNcIG7ScHEwkPr59BoDt3LGtpnw==
+      integrity: sha512-iqbtrv0eL031wEBkNWt/3loX0/Bg6Fjj0Ahn6BUSEV37OwYS1zKQpCHiuZKZtIfgT0CDq+53BAol5B8/zWN1bQ==
       tarball: file:projects/vue3-ssr.tgz
     version: 0.0.0
 registry: ''
@@ -8869,5 +8912,6 @@ specifiers:
   sinon: ^9.2.1
   terser: ^5.3.3
   typescript: ~4.2.4
+  vite: ~2.3.1
   vitepress: ^0.12.2
   vue: ^3.0.5

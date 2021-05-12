@@ -37,6 +37,7 @@ export interface MountOption<T extends SsrAdapter | undefined = undefined> {
   props?: CRenderProps
   ssr?: T
   head?: boolean
+  boost?: boolean
   /**
    * whether to count mount times, I found it not that useful, it may be removed
    * later, please use it with caution
@@ -122,6 +123,8 @@ export interface CssRenderInstance {
   use: (plugin: CssRenderPlugin, ...args: any[]) => void
   find: CFindTarget
   config: CssRenderConfig
+  /** @private */
+  __styleSheet: CSSStyleSheet
 }
 
 export interface CssRenderPlugin {

@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import hash from './hash'
+import { render } from './render'
 import {
   CNode,
   CssRenderInstance,
@@ -9,6 +11,12 @@ import {
 import {
   createElement, queryElement, removeElement
 } from './utils'
+
+if (window) {
+  (window as any).__cssrContext = {}
+}
+
+type CssrContext = Record<string, boolean>
 
 function getCount (el: HTMLStyleElement): number | null {
   const count = el.getAttribute('mount-count')
@@ -37,7 +45,7 @@ export function unmount (
     node.els = []
   } else {
     const target = queryElement(id)
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    // eslint-disable-next-line
     if (target && els.includes(target)) {
       const mountCount = getCount(target)
       if (!count) {
@@ -72,9 +80,24 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
   props: T,
   head: boolean,
   count: boolean,
+  boost: boolean,
   ssrAdapter?: U
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): U extends undefined ? HTMLStyleElement : void {
+  if (boost && !ssrAdapter) {
+    if (id === undefined) {
+      console.error('[css-render/mount]: `id` is required in `boost` mode.')
+      // @ts-expect-error
+      return
+    }
+    const cssrContext: CssrContext = (window as any).__cssrContext
+    if (!cssrContext[id]) {
+      cssrContext[id] = true
+    }
+    render(node, instance, props, boost)
+    // @ts-expect-error
+    return
+  }
   let target: HTMLStyleElement
   const { els } = node
   let style: string | undefined
@@ -82,7 +105,7 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
     style = node.render(props)
     id = hash(style)
   }
-  if (ssrAdapter !== undefined) {
+  if (ssrAdapter) {
     ssrAdapter(id, style ?? node.render(props))
     // @ts-expect-error
     return
@@ -93,7 +116,6 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
     if (style === undefined) style = node.render(props)
     target.textContent = style
     if (head) {
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       const firstStyleEl = document.head.getElementsByTagName('style')[0] || null as (HTMLElement | null)
       document.head.insertBefore(target, firstStyleEl)
     } else {
