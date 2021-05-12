@@ -93,8 +93,8 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
     const cssrContext: CssrContext = (window as any).__cssrContext
     if (!cssrContext[id]) {
       cssrContext[id] = true
+      render(node, instance, props, boost)
     }
-    render(node, instance, props, boost)
     // @ts-expect-error
     return
   }
