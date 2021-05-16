@@ -1,6 +1,13 @@
 # Change Log - css-render
 
-This log was last generated on Wed, 12 May 2021 11:45:08 GMT and should not be manually modified.
+This log was last generated on Sun, 16 May 2021 19:46:15 GMT and should not be manually modified.
+
+## 0.13.9
+Sun, 16 May 2021 19:46:15 GMT
+
+### Updates
+
+- add option.force for mount
 
 ## 0.13.8
 Wed, 12 May 2021 11:45:08 GMT
@@ -12,7 +19,7 @@ Wed, 12 May 2021 11:45:08 GMT
 ## 0.13.7
 Wed, 12 May 2021 11:35:11 GMT
 
-Add boost mode for `mount`
+_Version update only_
 
 ## 0.13.6
 Wed, 14 Apr 2021 17:53:56 GMT
