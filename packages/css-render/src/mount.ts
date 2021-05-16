@@ -81,6 +81,7 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
   head: boolean,
   count: boolean,
   boost: boolean,
+  force: boolean,
   ssrAdapter?: U
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): U extends undefined ? HTMLStyleElement : void {
@@ -111,10 +112,12 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
     return
   }
   const queriedTarget = queryElement(id)
-  if (queriedTarget === null) {
-    target = createElement(id)
+  if (force || queriedTarget === null) {
+    target = queriedTarget === null ? createElement(id) : queriedTarget
     if (style === undefined) style = node.render(props)
     target.textContent = style
+    // @ts-expect-error
+    if (queriedTarget !== null) return
     if (head) {
       const firstStyleEl = document.head.getElementsByTagName('style')[0] || null as (HTMLElement | null)
       document.head.insertBefore(target, firstStyleEl)
