@@ -1,6 +1,11 @@
 # Change Log - css-render
 
-This log was last generated on Wed, 19 May 2021 05:03:05 GMT and should not be manually modified.
+This log was last generated on Wed, 19 May 2021 05:06:20 GMT and should not be manually modified.
+
+## 0.14.1
+Wed, 19 May 2021 05:06:20 GMT
+
+_Version update only_
 
 ## 0.14.0
 Wed, 19 May 2021 05:03:05 GMT
