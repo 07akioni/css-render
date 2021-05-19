@@ -2,6 +2,18 @@
   "name": "css-render",
   "entries": [
     {
+      "version": "0.14.0",
+      "tag": "css-render_v0.14.0",
+      "date": "Wed, 19 May 2021 05:03:05 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Remove count prop in mount option & unmount option. Rename boost prop in mount option to slient"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.9",
       "tag": "css-render_v0.13.9",
       "date": "Sun, 16 May 2021 19:46:15 GMT",

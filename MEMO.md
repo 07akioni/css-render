@@ -23,4 +23,5 @@ rush change
 rush change --bulk --message xxx --bump-type
 再
 rush version --bump
+rush build
 rush publish --include-all --publish

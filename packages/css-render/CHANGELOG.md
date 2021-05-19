@@ -1,6 +1,13 @@
 # Change Log - css-render
 
-This log was last generated on Sun, 16 May 2021 19:46:15 GMT and should not be manually modified.
+This log was last generated on Wed, 19 May 2021 05:03:05 GMT and should not be manually modified.
+
+## 0.14.0
+Wed, 19 May 2021 05:03:05 GMT
+
+### Updates
+
+- Remove count prop in mount option & unmount option. Rename boost prop in mount option to slient
 
 ## 0.13.9
 Sun, 16 May 2021 19:46:15 GMT

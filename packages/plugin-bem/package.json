@@ -27,10 +27,10 @@
     "test": "jest",
     "build": "npm run lint && npm run test && rm -rf es lib && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json"
   },
-  "version": "0.13.9",
+  "version": "0.14.0",
   "sideEffects": false,
   "dependencies": {
-    "css-render": "~0.13.9"
+    "css-render": "~0.14.0"
   },
   "devDependencies": {
     "typescript": "~4.2.4",
