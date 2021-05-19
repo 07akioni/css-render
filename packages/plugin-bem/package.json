@@ -30,7 +30,7 @@
   "version": "0.13.2",
   "sideEffects": false,
   "dependencies": {
-    "css-render": "~0.13.2"
+    "css-render": "~0.14.1"
   },
   "devDependencies": {
     "typescript": "~4.1.5",
