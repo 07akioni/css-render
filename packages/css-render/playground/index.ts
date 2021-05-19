@@ -14,5 +14,5 @@ const style = c([
 
 style.mount({
   id: 'ab',
-  boost: true
+  slient: true
 })

@@ -19,17 +19,7 @@ export interface CRenderOption {
 /** mount related */
 export type MountId = string | undefined
 export interface UnmountOption {
-  /**
-   * @deprecated use id instead
-   */
-  target?: MountId
   id?: MountId
-  delay?: number
-  /**
-   * whether to count mount times
-   * @deprecated I found it not that useful, it may be removed later, please use it with caution
-   */
-  count?: boolean
 }
 
 export interface MountOption<T extends SsrAdapter | undefined = undefined> {
@@ -37,18 +27,8 @@ export interface MountOption<T extends SsrAdapter | undefined = undefined> {
   props?: CRenderProps
   ssr?: T
   head?: boolean
-  boost?: boolean
+  slient?: boolean
   force?: boolean
-  /**
-   * whether to count mount times, I found it not that useful, it may be removed
-   * later, please use it with caution
-   * @deprecated
-   */
-  count?: boolean
-  /**
-   * @deprecated use id instead
-   */
-  target?: MountId
 }
 
 /** find related */

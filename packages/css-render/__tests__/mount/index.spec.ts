@@ -60,26 +60,22 @@ describe('# mount with no id', () => {
   })
 })
 
-describe('# mount & unmount with id (count)', () => {
+describe('# mount & unmount with id (suite 1)', () => {
   const style = c('.red-block', {
     backgroundColor: 'red'
   })
   before(() => {
     style.mount({
-      id: 'test-id-1',
-      count: true
+      id: 'test-id-1'
     })
     style.mount({
-      id: 'test-id-2',
-      count: true
+      id: 'test-id-2'
     })
     style.mount({
-      id: '14138',
-      count: true
+      id: '14138'
     })
     style.mount({
-      id: '14139',
-      count: true
+      id: '14139'
     })
   })
   beforeEach(() => {
@@ -108,12 +104,10 @@ describe('# mount & unmount with id (count)', () => {
   })
   it('should unmount the desired style element', () => {
     style.unmount({
-      id: 'test-id-1',
-      count: true
+      id: 'test-id-1'
     })
     style.unmount({
-      id: '14138',
-      count: true
+      id: '14138'
     })
     expect(document.head.querySelector('[cssr-id="test-id-1"]')).to.equal(null)
     expect(document.head.querySelector('[cssr-id="test-id-2"]')).not.to.equal(
@@ -127,62 +121,12 @@ describe('# mount & unmount with id (count)', () => {
     style.unmount()
     expect(style.els.length).to.equal(0)
   })
-  it('should mount element with mount count', () => {
-    const styleElement = style.mount({
-      id: '14138',
-      count: true
-    })
-    expect(styleElement.getAttribute('mount-count')).to.equal('1')
-    style.mount({
-      id: '14138',
-      count: true
-    })
-    expect(styleElement.getAttribute('mount-count')).to.equal('2')
-    style.mount({
-      id: '14138',
-      count: true
-    })
-    expect(styleElement.getAttribute('mount-count')).to.equal('3')
-  })
-  it('should minus mount count when mounted multiple times', () => {
-    const styleElement = style.mount({
-      id: '14138',
-      count: true
-    })
-    style.unmount({
-      id: '14138',
-      count: true
-    })
-    expect(styleElement.getAttribute('mount-count')).to.equal('3')
-    style.unmount({
-      id: '14138',
-      count: true
-    })
-    expect(styleElement.getAttribute('mount-count')).to.equal('2')
-    style.unmount({
-      id: '14138',
-      count: true
-    })
-    expect(styleElement.getAttribute('mount-count')).to.equal('1')
-    expect(styleElement.parentElement).not.to.equal(null)
-    style.unmount({
-      id: '14138',
-      count: true
-    })
-    expect(styleElement.parentElement).to.equal(null)
-  })
-  it('should unmount style when mount-count is 1', function () {
-    style.mount({ id: '14140', count: true })
-    expect(document.head.querySelector('[cssr-id="14140"]')).not.to.equal(null)
-    style.unmount({ id: '14140', count: true })
-    expect(document.head.querySelector('[cssr-id="14140"]')).to.equal(null)
-  })
   after(() => {
     style.unmount()
   })
 })
 
-describe('# mount & unmount with id (not count)', function () {
+describe('# mount & unmount with id (suite 2)', function () {
   const style = c('.red-block', {
     backgroundColor: 'red'
   })
@@ -193,178 +137,14 @@ describe('# mount & unmount with id (not count)', function () {
     (console.error as SinonSpy).restore()
     style.unmount()
   })
-  it('should mount a element without [mount-count] if option.count is false', function () {
+  it('should mount same element with same id', function () {
     const el = style.mount({
       id: '14141'
     })
-    expect(el.getAttribute('mount-count')).to.equal(null)
     const el2 = style.mount({
       id: '14141'
     })
     expect(el).to.equal(el2)
-    expect(el2.getAttribute('mount-count')).to.equal(null)
-  })
-  it('should not modify mount count if options.count is false', function () {
-    const el = style.mount({
-      id: '14142',
-      count: true
-    })
-    style.mount({
-      id: '14142',
-      count: false
-    })
-    expect(el.getAttribute('mount-count')).to.equal('1')
-    expect((console.error as SinonSpy).calledOnce).to.equal(true)
-  })
-  it('should unmount all id related if options.count is false', function () {
-    style.mount({
-      id: '14143',
-      count: true
-    })
-    style.mount({
-      id: '14143',
-      count: true
-    })
-    style.unmount({
-      id: '14143'
-    })
-    expect(
-      document.head
-        .querySelector('[cssr-id="14143"]')
-        ?.getAttribute('mount-count')
-    ).not.to.equal(2)
-    expect((console.error as SinonSpy).calledOnce).to.equal(true)
-  })
-  describe("shouldn't unmount style when mount option.count = false and unmount options.count is true", () => {
-    it('#case1', () => {
-      style.mount({ id: '14144', count: false })
-      style.unmount({ id: '14144', count: true })
-      expect(document.head.querySelector('[cssr-id="14144"]')).not.to.equal(
-        null
-      )
-    })
-  })
-})
-
-describe('# unmount with delay', () => {
-  const style = c('.red-block', {
-    backgroundColor: 'red'
-  })
-  beforeEach(() => {
-    spy(console, 'error')
-  })
-  afterEach(() => {
-    (console.error as SinonSpy).restore()
-  })
-  it('should delay unmount when delay is set', function (done) {
-    style.mount({
-      id: '14138',
-      count: true
-    })
-    style.unmount({
-      id: '14138',
-      count: true,
-      delay: 100
-    })
-    expect(document.head.querySelector('[cssr-id="14138"]')).not.to.equal(null)
-    setTimeout(() => {
-      expect(document.head.querySelector('[cssr-id="14138"]')).to.equal(null)
-      done()
-    }, 200)
-  })
-  it('should keep element if mount before unmount fired', function (done) {
-    style.mount({
-      id: '14138',
-      count: true
-    })
-    style.unmount({
-      id: '14138',
-      count: true,
-      delay: 133
-    })
-    setTimeout(() => {
-      style.mount({
-        id: '14138',
-        count: true
-      })
-    }, 67)
-    setTimeout(() => {
-      expect(document.head.querySelector('[cssr-id="14138"]')).not.to.equal(
-        null
-      )
-      done()
-    }, 200)
-  })
-})
-
-describe('unmount with delay', () => {
-  const style = c('.red-block', {
-    backgroundColor: 'red'
-  })
-  it('unmount with delay', (done) => {
-    style.mount({ id: 'delay' })
-    expect(document.querySelectorAll('[cssr-id=delay]').length).to.eq(1)
-    style.unmount({ id: 'delay', delay: 300 })
-    expect(document.querySelectorAll('[cssr-id=delay]').length).to.eq(1)
-    setTimeout(() => {
-      expect(document.querySelectorAll('[cssr-id=delay]').length).to.eq(0)
-      done()
-    }, 400)
-  })
-})
-
-describe('mix count or no-count when calling mount & unmount', () => {
-  const style = c('.red-block', {
-    backgroundColor: 'red'
-  })
-  beforeEach(() => {
-    spy(console, 'error')
-  })
-  afterEach(() => {
-    (console.error as SinonSpy).restore()
-    style.unmount()
-  })
-  it('mount true unmount false', () => {
-    style.mount({ id: '07akioni', count: true })
-    style.unmount({ id: '07akioni' })
-    expect(document.head.querySelector('[cssr-id="07akioni"]')).not.to.equal(
-      null
-    )
-    expect(
-      document.head
-        .querySelector('[cssr-id="07akioni"]')
-        ?.getAttribute('mount-count')
-    ).to.eq('1')
-    expect(style.els.length).to.eq(1)
-    expect((console.error as SinonSpy).called).to.eq(true)
-  })
-  it('mount true mount false', () => {
-    style.mount({ id: '07akioni', count: true })
-    style.mount({ id: '07akioni' })
-    expect(document.head.querySelector('[cssr-id="07akioni"]')).not.to.equal(
-      null
-    )
-    expect(
-      document.head
-        .querySelector('[cssr-id="07akioni"]')
-        ?.getAttribute('mount-count')
-    ).to.eq('1')
-    expect(style.els.length).to.eq(1)
-    expect((console.error as SinonSpy).called).to.eq(true)
-  })
-  it('mount false mount true', () => {
-    style.mount({ id: '07akioni' })
-    style.mount({ id: '07akioni', count: true })
-    expect(document.head.querySelector('[cssr-id="07akioni"]')).not.to.equal(
-      null
-    )
-    expect(
-      document.head
-        .querySelector('[cssr-id="07akioni"]')
-        ?.getAttribute('mount-count')
-    ).to.eq(null)
-    expect(style.els.length).to.eq(1)
-    expect((console.error as SinonSpy).called).to.eq(true)
   })
 })
 
@@ -388,8 +168,8 @@ describe('head', () => {
   })
 })
 
-describe('boost mode', () => {
-  it('works in boost mode', () => {
+describe('slient mode', () => {
+  it('works in slient mode', () => {
     const divA = document.createElement('div')
     const divB = document.createElement('div')
     divA.classList.add('a')
@@ -412,13 +192,43 @@ describe('boost mode', () => {
 
     style.mount({
       id: 'ab',
-      boost: true
+      slient: true
     })
 
     expect(getComputedStyle(document.querySelector('.a')!).color).to.equal(
       'rgb(255, 0, 0)'
     )
     expect(getComputedStyle(document.querySelector('.b')!).color).to.equal(
+      'rgb(0, 255, 0)'
+    )
+  })
+})
+
+describe('force', () => {
+  it('works', () => {
+    const divA = document.createElement('div')
+    divA.classList.add('a')
+    const style = c('.a', ({ props }) => ({
+      color: props.color
+    }))
+    style.mount({
+      id: 'force',
+      props: {
+        color: 'red'
+      },
+      force: true
+    })
+    expect(getComputedStyle(document.querySelector('.a')!).color).to.equal(
+      'rgb(255, 0, 0)'
+    )
+    style.mount({
+      id: 'force',
+      props: {
+        color: 'rgb(0, 255, 0)'
+      },
+      force: true
+    })
+    expect(getComputedStyle(document.querySelector('.a')!).color).to.equal(
       'rgb(0, 255, 0)'
     )
   })

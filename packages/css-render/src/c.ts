@@ -25,15 +25,14 @@ function wrappedMount<T extends undefined | SsrAdapter> (
   options: MountOption<T> = {}
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): T extends undefined ? HTMLStyleElement : void {
-  const { target, id, ssr, props, count = false, head = false, boost = false, force = false } = options
+  const { id, ssr, props, head = false, slient = false, force = false } = options
   const targetElement = mount(
     this.instance,
     this,
-    id ?? target,
+    id,
     props,
     head,
-    count,
-    boost,
+    slient,
     force,
     ssr
   )
@@ -47,15 +46,9 @@ function wrappedUnmount (
   /* istanbul ignore next */
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   const {
-    id,
-    target,
-    delay = 0,
-    count = false
+    id
   } = options
-  if (delay === 0) unmount(this.instance, this, id ?? target, count)
-  else {
-    setTimeout(() => unmount(this.instance, this, id ?? target, count), delay)
-  }
+  unmount(this.instance, this, id)
 }
 
 const createCNode: baseCreateCNodeForCssRenderInstance = function (

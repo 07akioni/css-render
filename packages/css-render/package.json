@@ -25,6 +25,7 @@
   "sideEffects": false,
   "scripts": {
     "lint": "eslint --fix *.js src/*.ts",
+    "lint:type": "tsc -p tsconfig.esm.json",
     "build": "npm run lint && npm run test && rm -rf lib esm && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
     "test": "rm -rf ./coverage && karma start karma.conf.js",
     "test:cov": "npm run test && http-server ./coverage/html"
