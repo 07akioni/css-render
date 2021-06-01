@@ -23,6 +23,7 @@ export function ssrAdapter (id: string, style: string): void {
   // we need to impl other options to make it behaves the same as the client side
   if (ids.has(id)) return
   if (styles !== null) {
+    ids.add(id)
     styles.push(createStyleString(id, style))
   }
 }
