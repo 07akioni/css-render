@@ -1,6 +1,13 @@
 # Change Log - @css-render/vue3-ssr
 
-This log was last generated on Tue, 01 Jun 2021 13:10:25 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Jun 2021 13:35:47 GMT and should not be manually modified.
+
+## 0.15.1
+Tue, 01 Jun 2021 13:35:47 GMT
+
+### Updates
+
+- no main & module in pkg.json
 
 ## 0.15.0
 Tue, 01 Jun 2021 13:10:25 GMT

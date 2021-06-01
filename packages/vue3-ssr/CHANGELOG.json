@@ -2,6 +2,18 @@
   "name": "@css-render/vue3-ssr",
   "entries": [
     {
+      "version": "0.15.1",
+      "tag": "@css-render/vue3-ssr_v0.15.1",
+      "date": "Tue, 01 Jun 2021 13:35:47 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "no main & module in pkg.json"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.15.0",
       "tag": "@css-render/vue3-ssr_v0.15.0",
       "date": "Tue, 01 Jun 2021 13:10:25 GMT",
