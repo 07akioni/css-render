@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ssr should work 1`] = `
-"<!--[--><!--[-->Child<!--]--><div class=\\"cssr-ssr-container\\"><style cssr-id=\\"mount-id\\">
+"<style cssr-id=\\"mount-id\\">
 div {
   color: red;
 }
-</style></div><!--]-->"
+</style><div>Child</div>"
 `;

@@ -1,7 +1,7 @@
 import { CssRender } from 'css-render'
 import { h, createSSRApp, defineComponent } from 'vue'
 import { renderToString } from '@vue/server-renderer'
-import { SsrContext, ssrAdapter } from '../src/index'
+import { ssrAdapter, setup } from '../src/index'
 
 const { c } = CssRender()
 
@@ -16,20 +16,19 @@ describe('ssr', () => {
       })
     },
     render () {
-      return 'Child'
+      return h('div', null, 'Child')
     }
   })
   const App = defineComponent({
     render () {
-      return h(SsrContext, null, {
-        default: () => h(Child)
-      })
+      return h(Child)
     }
   })
   const app = createSSRApp(App)
+  const { collect } = setup(app)
   it('should work', (done) => {
-    renderToString(app).then(v => {
-      expect(v).toMatchSnapshot()
+    renderToString(app).then((v) => {
+      expect(collect() + v).toMatchSnapshot()
       done()
     })
   })
