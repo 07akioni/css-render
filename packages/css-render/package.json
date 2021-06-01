@@ -21,7 +21,7 @@
     "type": "git",
     "url": "https://github.com/07akioni/css-render"
   },
-  "version": "0.14.1",
+  "version": "0.15.0",
   "sideEffects": false,
   "scripts": {
     "lint": "eslint --fix *.js src/*.ts",

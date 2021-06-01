@@ -22,6 +22,6 @@ rush rebuild -f from -t to -v -o only
 rush change
 rush change --bulk --message xxx --bump-type
 再
-rush version --bump
+rush version --bump // 这玩意有的时候会生成一个 version update only，不知道原因，即使真的有 change，或许和时间有关
 rush build
 rush publish --include-all --publish

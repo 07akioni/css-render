@@ -2,6 +2,18 @@
   "name": "@css-render/vue3-ssr",
   "entries": [
     {
+      "version": "0.15.0",
+      "tag": "@css-render/vue3-ssr_v0.15.0",
+      "date": "Tue, 01 Jun 2021 13:10:25 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "support stream ssr"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.14.1",
       "tag": "@css-render/vue3-ssr_v0.14.1",
       "date": "Wed, 19 May 2021 05:06:20 GMT",
