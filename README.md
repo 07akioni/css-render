@@ -147,52 +147,6 @@ style.unmount()
 }
 ```
 
-## Vue3 SSR
-```bash
-$ npm install --save-dev css-render @css-render/vue3-ssr
-```
-
-To make ssr works, you need to make
-```tsx
-import { h, createSSRApp, defineComponent } from 'vue'
-import { renderToString } from '@vue/server-renderer'
-
-import { CssRender } from 'css-render'
-import { SsrContext, ssrAdapter } from '@css-render/vue3-ssr'
-
-const Child = defineComponent({
-  setup () {
-    c('div', {
-      color: 'red'
-    }).mount({
-      id: 'mount-id',
-      // You need to pass the ssrAdapter to `mount` function
-      // to make ssr work.
-      // If you want it work with CSR, just set it to undefined
-      ssr: ssrAdapter 
-    })
-  },
-  render () {
-    return 'Child'
-  }
-})
-
-const App = defineComponent({
-  render () {
-    // Wrap the SsrContext at the root of your app
-    return h(SsrContext, null, {
-      default: () => h(Child)
-    })
-  }
-})
-
-const app = createSSRApp(App)
-
-renderToString(app).then(v => { console.log(v) })
-```
-
-Finally you will find the rendered SSR HTML includes mounted style.
-
 ## Packages
 |Name|Cov|
 |-|-|

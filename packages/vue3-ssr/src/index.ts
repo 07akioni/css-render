@@ -1,34 +1,33 @@
-import { defineComponent, provide, inject, InjectionKey, renderSlot, Fragment, h } from 'vue'
+import { defineComponent, provide, inject, InjectionKey, App } from 'vue'
 
-interface StyleVNodeProps {
-  class: string
-  innerHTML: string
-}
-
-const ssrContextKey: InjectionKey<StyleVNodeProps> = Symbol('@css-render/vue3-ssr')
+const ssrContextKey: InjectionKey<string[]> = Symbol('@css-render/vue3-ssr')
 
 function createStyleString (id: string, style: string): string {
   return `<style cssr-id="${id}">\n${style}\n</style>`
 }
 
 export function ssrAdapter (id: string, style: string): void {
-  const styleVNodeProps = inject(ssrContextKey, null)
-  if (styleVNodeProps !== null) {
-    styleVNodeProps.innerHTML += createStyleString(id, style)
+  const styles = inject(ssrContextKey, null)
+  if (styles !== null) {
+    styles.push(createStyleString(id, style))
   }
 }
 
 export const SsrContext = defineComponent({
   name: 'CssRenderVue3SsrContext',
-  setup (_, { slots }) {
-    const styleVNodeProps: StyleVNodeProps = {
-      class: 'cssr-ssr-container',
-      innerHTML: ''
+  setup () {
+    const styles: string[] = []
+    provide(ssrContextKey, styles)
+    return {
+      styles
     }
-    provide(ssrContextKey, styleVNodeProps)
-    return () => h(Fragment, null, [
-      renderSlot(slots, 'default'),
-      h('div', styleVNodeProps)
-    ])
+  },
+  render () {
+    const { $slots } = this
+    return $slots.default?.()
   }
 })
+
+export function collect (app: App): string {
+  return ''
+}
