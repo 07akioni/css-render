@@ -12,7 +12,7 @@ import {
   createElement, queryElement, removeElement
 } from './utils'
 
-if (window) {
+if (typeof window !== 'undefined') {
   (window as any).__cssrContext = {}
 }
 
