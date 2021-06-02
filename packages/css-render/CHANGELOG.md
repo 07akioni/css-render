@@ -1,6 +1,13 @@
 # Change Log - css-render
 
-This log was last generated on Tue, 01 Jun 2021 13:35:47 GMT and should not be manually modified.
+This log was last generated on Wed, 02 Jun 2021 04:15:14 GMT and should not be manually modified.
+
+## 0.15.2
+Wed, 02 Jun 2021 04:15:14 GMT
+
+### Updates
+
+- fix throwing error in node env
 
 ## 0.15.1
 Tue, 01 Jun 2021 13:35:47 GMT
