@@ -24,7 +24,8 @@ Main differences between css-render and styled-component, jss or emotion:
 
 
 ## Examples
-### Realword Example
+### Realworld Example
+- [DataTable](https://github.com/TuSimple/naive-ui/blob/main/src/data-table/src/styles/index.cssr.ts)
 - [XScroll](https://github.com/07akioni/vueuc/blob/main/src/x-scroll/src/index.ts)
 - [VirtualList](https://github.com/07akioni/vueuc/blob/main/src/virtual-list/src/VirtualList.ts)
 
