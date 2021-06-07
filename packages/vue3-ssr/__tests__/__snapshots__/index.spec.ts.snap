@@ -1,25 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ssr render to stream should work 1`] = `
-"<style cssr-id=\\"foo\\">
-div {
-  color: foo;
-}
-</style>
-<style cssr-id=\\"bar\\">
-div {
-  color: bar;
-}
-</style>
-<!--[-->
-<div>foo</div>
-<!--[--><div>bar</div>
-<div>foo</div>
-<!--]-->
-<div>foo</div>
-<!--]-->"
-`;
-
 exports[`ssr render to string should work 1`] = `
 "<style cssr-id=\\"mount-id\\">
 div {
