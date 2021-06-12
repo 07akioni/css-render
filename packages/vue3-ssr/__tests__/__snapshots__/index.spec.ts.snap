@@ -7,3 +7,11 @@ div {
 }
 </style><div>Child</div>"
 `;
+
+exports[`ssr useSsrAdapter should work 1`] = `
+"<style cssr-id=\\"mount-id\\">
+div {
+  color: red;
+}
+</style><div>Child</div>"
+`;

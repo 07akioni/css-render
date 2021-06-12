@@ -28,6 +28,11 @@ export function ssrAdapter (id: string, style: string): void {
   }
 }
 
+export function useSsrAdapter (): (typeof ssrAdapter) | undefined {
+  if (inject(ssrContextKey, null) === null) return undefined
+  return ssrAdapter
+}
+
 interface SsrHandle {
   collect: () => string
 }
