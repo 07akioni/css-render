@@ -2,6 +2,18 @@
   "name": "@css-render/vue3-ssr",
   "entries": [
     {
+      "version": "0.15.3",
+      "tag": "@css-render/vue3-ssr_v0.15.3",
+      "date": "Sat, 12 Jun 2021 09:50:10 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Add useSsrAdapter hook"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.15.2",
       "tag": "@css-render/vue3-ssr_v0.15.2",
       "date": "Wed, 02 Jun 2021 04:15:14 GMT",
