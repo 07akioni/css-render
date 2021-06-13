@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as chai from 'chai'
-import CssRender from '../../src'
+import CssRender, { exists } from '../../src'
 import { SinonSpy, spy } from 'sinon'
 
 const expect = chai.expect
@@ -85,7 +85,9 @@ describe('# mount & unmount with id (suite 1)', () => {
     (console.error as SinonSpy).restore()
   })
   it('should work in no-count mode', () => {
+    expect(exists('jjy')).to.eq(false)
     style.mount({ id: 'jjy' })
+    expect(exists('jjy')).to.eq(true)
     expect(document.head.querySelector('[cssr-id="jjy"]')).not.to.eq(null)
     style.unmount({ id: 'jjy' })
     expect(document.head.querySelector('[cssr-id="jjy"]')).to.eq(null)

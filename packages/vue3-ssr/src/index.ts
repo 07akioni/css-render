@@ -13,7 +13,7 @@ function createStyleString (id: string, style: string): string {
   return `<style cssr-id="${id}">\n${style}\n</style>`
 }
 
-export function ssrAdapter (id: string, style: string): void {
+function ssrAdapter (id: string, style: string): void {
   const ssrContext = inject(ssrContextKey, null)
   if (ssrContext === null) {
     console.error('[css-render/vue3-ssr]: no ssr context found.')
@@ -28,9 +28,18 @@ export function ssrAdapter (id: string, style: string): void {
   }
 }
 
-export function useSsrAdapter (): (typeof ssrAdapter) | undefined {
-  if (inject(ssrContextKey, null) === null) return undefined
-  return ssrAdapter
+export function useSsrAdapter ():
+| {
+  adapter: typeof ssrAdapter
+  context: CssrSsrContext
+}
+| undefined {
+  const context = inject(ssrContextKey, null)
+  if (context === null) return undefined
+  return {
+    adapter: ssrAdapter,
+    context
+  }
 }
 
 interface SsrHandle {

@@ -76,7 +76,7 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
     id = hash(style)
   }
   if (ssrAdapter) {
-    ssrAdapter(id, style ?? node.render(props))
+    ssrAdapter.adapter(id, style ?? node.render(props))
     // @ts-expect-error
     return
   }

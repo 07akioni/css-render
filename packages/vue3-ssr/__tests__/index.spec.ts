@@ -1,7 +1,7 @@
 import { CssRender } from 'css-render'
 import { h, createSSRApp, defineComponent } from 'vue'
 import { renderToString } from '@vue/server-renderer'
-import { useSsrAdapter, ssrAdapter, setup } from '../src/index'
+import { useSsrAdapter, setup } from '../src/index'
 
 const { c } = CssRender()
 
@@ -13,7 +13,7 @@ describe('ssr', () => {
           color: 'red'
         }).mount({
           id: 'mount-id',
-          ssr: ssrAdapter
+          ssr: useSsrAdapter()
         })
       },
       render () {

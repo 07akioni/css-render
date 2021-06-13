@@ -1,8 +1,14 @@
-import {
-  Properties
-} from 'csstype'
+import { Properties } from 'csstype'
 
-export type SsrAdapter = (id: string, style: string) => void
+interface CssrSsrContext {
+  styles: string[]
+  ids: Set<string>
+}
+
+export interface SsrAdapter {
+  adapter: (id: string, style: string) => void
+  context: CssrSsrContext
+}
 
 export interface CContext {
   [key: string]: any
@@ -41,16 +47,25 @@ export interface CNode {
   children: CNodeChildren
   instance: CssRenderInstance
   els: HTMLStyleElement[]
-  render: <T extends CRenderProps> (props?: T) => string
-  // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-  mount: <T extends undefined | SsrAdapter = undefined>(options?: MountOption<T>) => T extends undefined ? HTMLStyleElement : void
+  render: <T extends CRenderProps>(props?: T) => string
+  mount: <T extends undefined | SsrAdapter = undefined>(
+    options?: MountOption<T>
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+  ) => T extends undefined ? HTMLStyleElement : void
   unmount: (options?: UnmountOption) => void
 }
 
 /** Node Children */
-type CNodeLazyChild = (option: CRenderOption) => (CNodePlainChild | CNode | null | undefined)
-type CNodePlainChild = CNode | string | Array<CNode | CNodePlainChild | null | undefined>
-export type CNodeChildren = Array<CNodePlainChild | CNodeLazyChild | null | undefined> | null
+type CNodeLazyChild = (
+  option: CRenderOption
+) => CNodePlainChild | CNode | null | undefined
+type CNodePlainChild =
+  | CNode
+  | string
+  | Array<CNode | CNodePlainChild | null | undefined>
+export type CNodeChildren = Array<
+CNodePlainChild | CNodeLazyChild | null | undefined
+> | null
 
 /** Properties */
 export type CProperty = CPlainProperties | string | number | undefined | null
@@ -58,25 +73,37 @@ export interface CPlainProperties extends Properties<string | number> {
   raw?: string
   [nonPropertyLiteral: string]: CProperty
 }
-export type CLazyProperties = ((options: {
+export type CLazyProperties = (options: {
   context?: CContext
   props?: CRenderProps
-}) => CPlainProperties | string | null | undefined)
-export type CProperties = CPlainProperties | CLazyProperties | string | null | undefined
+}) => CPlainProperties | string | null | undefined
+export type CProperties =
+  | CPlainProperties
+  | CLazyProperties
+  | string
+  | null
+  | undefined
 
 /** Selector */
 export type CStringSelector = string
-export type CLazySelector<T = string | null | undefined> = (options: CRenderOption) => T
+export type CLazySelector<T = string | null | undefined> = (
+  options: CRenderOption
+) => T
 export interface COptionSelector {
   $?: CLazySelector | CStringSelector | null
   before?: (context: CContext) => any
   after?: (context: CContext) => any
 }
-export type CSelector = CStringSelector | CLazySelector | COptionSelector | null | undefined
+export type CSelector =
+  | CStringSelector
+  | CLazySelector
+  | COptionSelector
+  | null
+  | undefined
 export type CSelectorPath = Array<string | null | undefined>
 
 /** CNode */
-export interface createCNode <T = CSelector> {
+export interface createCNode<T = CSelector> {
   (selector: T, props: CProperties, children: CNodeChildren): CNode
   (selector: T, props: CProperties): CNode
   (selector: T, children: CNodeChildren): CNode
@@ -90,9 +117,14 @@ export type baseCreateCNodeForCssRenderInstance = (
   children: CNodeChildren
 ) => CNode
 
-export interface createCNodeForCssRenderInstance extends baseCreateCNodeForCssRenderInstance {
+export interface createCNodeForCssRenderInstance
+  extends baseCreateCNodeForCssRenderInstance {
   (instance: CssRenderInstance, selector: CSelector, props: CProperties): CNode
-  (instance: CssRenderInstance, selector: CSelector, children: CNodeChildren): CNode
+  (
+    instance: CssRenderInstance,
+    selector: CSelector,
+    children: CNodeChildren
+  ): CNode
   (instance: CssRenderInstance, children: CNodeChildren): CNode
 }
 
