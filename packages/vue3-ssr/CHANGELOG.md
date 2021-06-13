@@ -1,6 +1,13 @@
 # Change Log - @css-render/vue3-ssr
 
-This log was last generated on Sat, 12 Jun 2021 09:50:10 GMT and should not be manually modified.
+This log was last generated on Sun, 13 Jun 2021 04:56:14 GMT and should not be manually modified.
+
+## 0.15.4
+Sun, 13 Jun 2021 04:56:14 GMT
+
+### Updates
+
+- (breaking) Remove `ssrAdapter` exports
 
 ## 0.15.3
 Sat, 12 Jun 2021 09:50:10 GMT

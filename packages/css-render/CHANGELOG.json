@@ -2,6 +2,18 @@
   "name": "css-render",
   "entries": [
     {
+      "version": "0.15.4",
+      "tag": "css-render_v0.15.4",
+      "date": "Sun, 13 Jun 2021 04:56:14 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Add `exists` function to check if style is mounted"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.15.3",
       "tag": "css-render_v0.15.3",
       "date": "Sat, 12 Jun 2021 09:50:10 GMT",
