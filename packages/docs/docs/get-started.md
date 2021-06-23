@@ -57,7 +57,7 @@ style.mount()
 
 // Style can be mount with id.
 // If you provide an id, the style won't be regenerated again and again.
-style.mound({ id: 'my-style' })
+style.mount({ id: 'my-style' })
 ```
 It will create a `HTMLStyleElement` with rendered style and mount it to `document.head`.
 ## Unmount style of the `CNode`
