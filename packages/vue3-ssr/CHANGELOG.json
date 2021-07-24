@@ -2,6 +2,18 @@
   "name": "@css-render/vue3-ssr",
   "entries": [
     {
+      "version": "0.15.5",
+      "tag": "@css-render/vue3-ssr_v0.15.5",
+      "date": "Sat, 24 Jul 2021 17:34:06 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Update readme"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.15.4",
       "tag": "@css-render/vue3-ssr_v0.15.4",
       "date": "Sun, 13 Jun 2021 04:56:14 GMT",
