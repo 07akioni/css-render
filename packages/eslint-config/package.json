@@ -15,5 +15,6 @@
   },
   "devDependencies": {
     "@rushstack/eslint-config": "~2.3.2"
-  }
+  },
+  "license": "MIT"
 }
