@@ -8,9 +8,7 @@ import {
   MountId,
   SsrAdapter
 } from './types'
-import {
-  createElement, queryElement, removeElement
-} from './utils'
+import { createElement, queryElement, removeElement } from './utils'
 
 if (typeof window !== 'undefined') {
   (window as any).__cssrContext = {}
@@ -33,16 +31,22 @@ export function unmount (
     // eslint-disable-next-line
     if (target && els.includes(target)) {
       removeElement(target)
-      node.els = els.filter(el => el !== target)
+      node.els = els.filter((el) => el !== target)
     }
   }
 }
 
-function addElementToList (els: HTMLStyleElement[], target: HTMLStyleElement): void {
+function addElementToList (
+  els: HTMLStyleElement[],
+  target: HTMLStyleElement
+): void {
   els.push(target)
 }
 
-function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefined> (
+function mount<
+  T extends CRenderProps,
+  U extends SsrAdapter | undefined = undefined
+> (
   instance: CssRenderInstance,
   node: CNode,
   id: MountId,
@@ -51,7 +55,7 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
   slient: boolean,
   force: boolean,
   ssrAdapter?: U
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+  // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): U extends undefined ? HTMLStyleElement : void {
   if (slient && !ssrAdapter) {
     if (id === undefined) {
@@ -91,7 +95,9 @@ function mount<T extends CRenderProps, U extends SsrAdapter | undefined = undefi
   // @ts-expect-error
   if (queriedTarget !== null) return queriedTarget
   if (head) {
-    const firstStyleEl = document.head.getElementsByTagName('style')[0] || null as (HTMLStyleElement | null)
+    const firstStyleEl =
+      document.head.querySelector('style, link') ??
+      (null as HTMLStyleElement | null)
     document.head.insertBefore(target, firstStyleEl)
   } else {
     document.head.appendChild(target)
