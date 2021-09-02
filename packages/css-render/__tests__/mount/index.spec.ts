@@ -168,6 +168,16 @@ describe('head', () => {
       'rgb(0, 0, 255)'
     )
   })
+  it('mount before link element', () => {
+    document.head.insertBefore(
+      document.createElement('link'),
+      document.head.firstElementChild
+    )
+    style.mount({ id: 'gogogo', head: true })
+    expect(document.head.firstElementChild?.getAttribute('cssr-id')).to.equal(
+      'gogogo'
+    )
+  })
 })
 
 describe('slient mode', () => {
