@@ -7,7 +7,7 @@
   "module": "esm/utils.js",
   "main": "lib/utils.js",
   "devDependencies": {
-    "typescript": "~4.2.4",
+    "typescript": "~4.4.4",
     "chai": "^4.2.0",
     "@types/chai": "^4.2.11",
     "eslint": "~7.20.0",
