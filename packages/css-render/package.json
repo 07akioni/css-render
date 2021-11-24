@@ -33,7 +33,7 @@
   "dependencies": {
     "@emotion/hash": "~0.8.0",
     "csstype": "~3.0.5",
-    "@types/node": "~14.14.31"
+    "@types/node": "~16.11.10"
   },
   "devDependencies": {
     "sinon": "^9.2.1",
