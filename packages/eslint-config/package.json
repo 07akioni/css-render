@@ -14,7 +14,7 @@
     "eslint-plugin-promise": "^4.3.1"
   },
   "devDependencies": {
-    "@rushstack/eslint-config": "~2.3.2"
+    "@rushstack/eslint-config": "~2.5.0"
   },
   "license": "MIT"
 }
