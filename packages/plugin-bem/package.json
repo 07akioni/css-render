@@ -41,7 +41,7 @@
     "@babel/preset-typescript": "^7.12.17",
     "jest": "^26.6.3",
     "jest-standard-reporter": "~2.0.0",
-    "eslint": "~7.20.0",
+    "eslint": "~8.4.0",
     "@rushstack/eslint-config": "~2.3.2",
     "@css-render/eslint-config": "0.0.0",
     "@css-render/test-shared": "0.0.0"
