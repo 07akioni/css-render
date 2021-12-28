@@ -2,6 +2,18 @@
   "name": "@css-render/plugin-bem",
   "entries": [
     {
+      "version": "0.15.8",
+      "tag": "@css-render/plugin-bem_v0.15.8",
+      "date": "Tue, 28 Dec 2021 18:59:30 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix peer deps"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.15.7",
       "tag": "@css-render/plugin-bem_v0.15.7",
       "date": "Tue, 28 Dec 2021 17:54:23 GMT",

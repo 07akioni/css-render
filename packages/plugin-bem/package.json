@@ -27,13 +27,13 @@
     "test": "jest",
     "build": "npm run lint && npm run test && rm -rf es lib && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json"
   },
-  "version": "0.15.7",
+  "version": "0.15.8",
   "sideEffects": false,
   "peerDependencies": {
-    "css-render": "~0.15.7"
+    "css-render": "~0.15.8"
   },
   "devDependencies": {
-    "css-render": "~0.15.7",
+    "css-render": "~0.15.8",
     "typescript": "~4.2.4",
     "@types/node": "~14.14.31",
     "@types/jest": "^26.0.20",

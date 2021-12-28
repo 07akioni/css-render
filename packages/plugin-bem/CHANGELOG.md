@@ -1,6 +1,13 @@
 # Change Log - @css-render/plugin-bem
 
-This log was last generated on Tue, 28 Dec 2021 17:54:23 GMT and should not be manually modified.
+This log was last generated on Tue, 28 Dec 2021 18:59:30 GMT and should not be manually modified.
+
+## 0.15.8
+Tue, 28 Dec 2021 18:59:30 GMT
+
+### Updates
+
+- fix peer deps
 
 ## 0.15.7
 Tue, 28 Dec 2021 17:54:23 GMT
