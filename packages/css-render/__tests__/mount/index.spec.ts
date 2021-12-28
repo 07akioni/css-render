@@ -245,3 +245,30 @@ describe('force', () => {
     )
   })
 })
+
+describe('anchorMetaName', () => {
+  const metaA = document.createElement('meta')
+  metaA.name = 'metaA'
+  const metaB = document.createElement('meta')
+  metaB.name = 'metaB'
+  const metaC = document.createElement('meta')
+  metaC.name = 'metaC'
+  document.head.appendChild(metaA)
+  document.head.appendChild(metaB)
+  document.head.appendChild(metaC)
+
+  const style = c('.a', { color: 'green' })
+  style.mount({
+    id: 'gigigi',
+    anchorMetaName: 'metaB'
+  })
+  expect(document.head.querySelector('[cssr-id="gigigi"] + *')?.getAttribute('name')).to.equal('metaB')
+  style.mount({
+    id: 'gigigi2',
+    anchorMetaName: 'metaB'
+  })
+  expect(document.head.querySelector('[cssr-id="gigigi"] + *')?.getAttribute('cssr-id')).to.equal('gigigi2')
+  expect(document.querySelector('[cssr-id="gigigi2"] + *')?.getAttribute('name')).to.equal('metaB')
+  style.unmount()
+  console.log(document.head)
+})

@@ -14,6 +14,7 @@ type mount = (
     id?: string, 
     props?: any,
     ssr?: SsrAdapter
+    anchorMetaName?: string
   }
 ) => HTMLStyleElement
 ```
@@ -25,6 +26,11 @@ type mount = (
 The `props` will be used as the render function's `props` during this mount.
 ### `ssr`
 When mount the style in SSR environment, you should put correct ssr adapter in it.
+
+### `anchorMetaName`
+
+The name of a meta tag as a mount position anchor.
+
 ### Return Value
 In non-ssr environment, the id element for the style to be mounted on.
 

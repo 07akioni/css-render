@@ -35,6 +35,7 @@ export interface MountOption<T extends SsrAdapter | undefined = undefined> {
   head?: boolean
   slient?: boolean
   force?: boolean
+  anchorMetaName?: string
 }
 
 /** find related */

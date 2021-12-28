@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-ts-expect-error */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import hash from './hash'
 import { render } from './render'
@@ -54,6 +55,7 @@ function mount<
   head: boolean,
   slient: boolean,
   force: boolean,
+  anchorMetaName: string | undefined,
   ssrAdapter?: U
   // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): U extends undefined ? HTMLStyleElement : void {
@@ -81,30 +83,37 @@ function mount<
   }
   if (ssrAdapter) {
     ssrAdapter.adapter(id, style ?? node.render(props))
-    // @ts-expect-error
+    // @ts-ignore
     return
   }
   const queriedTarget = queryElement(id)
   if (queriedTarget !== null && !force) {
-    // @ts-expect-error
+    // @ts-ignore
     return queriedTarget
   }
   const target = queriedTarget ?? createElement(id)
   if (style === undefined) style = node.render(props)
   target.textContent = style
-  // @ts-expect-error
+  // @ts-ignore
   if (queriedTarget !== null) return queriedTarget
+  if (anchorMetaName) {
+    const anchorMetaEl = document.head.querySelector(`meta[name="${anchorMetaName}"]`)
+    if (anchorMetaEl) {
+      document.head.insertBefore(target, anchorMetaEl)
+      addElementToList(node.els, target)
+      // @ts-ignore
+      return target
+    }
+  }
+
   if (head) {
-    const firstStyleEl =
-      document.head.querySelector('style, link') ??
-      (null as HTMLStyleElement | null)
-    document.head.insertBefore(target, firstStyleEl)
+    document.head.insertBefore(target, document.head.querySelector('style, link'))
   } else {
     document.head.appendChild(target)
   }
   addElementToList(node.els, target)
-  // @ts-expect-error
-  return queriedTarget ?? target
+  // @ts-ignore
+  return target
 }
 
 export { mount }
