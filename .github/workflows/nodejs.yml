@@ -26,7 +26,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: node common/scripts/install-run-rush.js install --no-link && rush update
+    - run: node common/scripts/install-run-rush.js install --no-link
     - run: node common/scripts/install-run-rush.js link
     - run: node common/scripts/install-run-rush.js rebuild --verbose
     - run: export CODECOV_TOKEN="1b50e2b4-d843-48eb-bec7-6665d283b783"
