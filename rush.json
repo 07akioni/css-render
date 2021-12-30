@@ -13,6 +13,12 @@
   },
   "projects": [
     {
+      "packageName": "@css-render/plugin-bem",
+      "projectFolder": "packages/plugin-bem",
+      "shouldPublish": true,
+      "versionPolicyName": "css-render"
+    },
+    {
       "packageName": "@css-render/test-shared",
       "projectFolder": "packages/test-shared",
       "shouldPublish": false
