@@ -7,12 +7,14 @@ specifiers:
   '@rush-temp/eslint-config': file:./projects/eslint-config.tgz
   '@rush-temp/plugin-bem': file:./projects/plugin-bem.tgz
   '@rush-temp/test-shared': file:./projects/test-shared.tgz
+  '@rush-temp/vue3-ssr': file:./projects/vue3-ssr.tgz
   '@rushstack/eslint-config': ~2.5.1
   '@types/chai': ^4.2.11
   '@types/jest': ^27.0.3
   '@types/node': ~17.0.5
   '@typescript-eslint/eslint-plugin': ^5.8.1
   '@typescript-eslint/parser': ^5.8.1
+  '@vue/server-renderer': ^3.0.11
   babel-jest: ^27.4.5
   chai: ^4.2.0
   css-render: ~0.15.8
@@ -26,6 +28,7 @@ specifiers:
   jest-standard-reporter: ~2.0.0
   typescript: ~4.4.4
   vitepress: ~0.20.10
+  vue: ^3.0.11
 
 dependencies:
   '@babel/preset-env': 7.16.5
@@ -34,12 +37,14 @@ dependencies:
   '@rush-temp/eslint-config': file:projects/eslint-config.tgz_eslint@8.5.0+typescript@4.4.4
   '@rush-temp/plugin-bem': file:projects/plugin-bem.tgz
   '@rush-temp/test-shared': file:projects/test-shared.tgz
+  '@rush-temp/vue3-ssr': file:projects/vue3-ssr.tgz
   '@rushstack/eslint-config': 2.5.1_eslint@8.5.0+typescript@4.4.4
   '@types/chai': 4.2.18
   '@types/jest': 27.0.3
   '@types/node': 17.0.5
   '@typescript-eslint/eslint-plugin': 5.8.1_6a4209abeaebb5fac6144ef7f16f57d0
   '@typescript-eslint/parser': 5.8.1_eslint@8.5.0+typescript@4.4.4
+  '@vue/server-renderer': 3.2.26_vue@3.2.26
   babel-jest: 27.4.5
   chai: 4.3.4
   css-render: 0.15.8
@@ -53,6 +58,7 @@ dependencies:
   jest-standard-reporter: 2.0.0
   typescript: 4.4.4
   vitepress: 0.20.10
+  vue: 3.2.26
 
 packages:
 
@@ -6009,4 +6015,31 @@ packages:
       typescript: 4.4.4
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  file:projects/vue3-ssr.tgz:
+    resolution: {integrity: sha512-CTL2qNVUOMyIQazb7Wr3EX+42/0kIkZ9A2MKPqi5MX9vG27fbI3F7qLi2o6myIw4Co9g0l52Tq5HPeHoVekaBQ==, tarball: file:projects/vue3-ssr.tgz}
+    name: '@rush-temp/vue3-ssr'
+    version: 0.0.0
+    dependencies:
+      '@babel/preset-env': 7.16.5
+      '@babel/preset-typescript': 7.16.5
+      '@rushstack/eslint-config': 2.5.1_eslint@8.5.0+typescript@4.4.4
+      '@types/jest': 27.0.3
+      '@vue/server-renderer': 3.2.26_vue@3.2.26
+      babel-jest: 27.4.5
+      css-render: 0.15.8
+      eslint: 8.5.0
+      jest: 27.4.5
+      jest-standard-reporter: 2.0.0
+      typescript: 4.4.4
+      vue: 3.2.26
+    transitivePeerDependencies:
+      - '@babel/core'
+      - bufferutil
+      - canvas
+      - node-notifier
+      - supports-color
+      - ts-node
+      - utf-8-validate
     dev: false
