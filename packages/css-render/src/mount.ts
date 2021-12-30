@@ -53,25 +53,25 @@ function mount<
   id: MountId,
   props: T,
   head: boolean,
-  slient: boolean,
+  silent: boolean,
   force: boolean,
   anchorMetaName: string | undefined,
   ssrAdapter?: U
   // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): U extends undefined ? HTMLStyleElement : void {
-  if (slient && !ssrAdapter) {
+  if (silent && !ssrAdapter) {
     if (id === undefined) {
       // it is possible to use hash to get rid of the requirements of id
       // if you are interested in it, please create a pr
       // i have no time to impl it
-      console.error('[css-render/mount]: `id` is required in `slient` mode.')
+      console.error('[css-render/mount]: `id` is required in `silent` mode.')
       // @ts-expect-error
       return
     }
     const cssrContext: CssrContext = (window as any).__cssrContext
     if (!cssrContext[id]) {
       cssrContext[id] = true
-      render(node, instance, props, slient)
+      render(node, instance, props, silent)
     }
     // @ts-expect-error
     return

@@ -92,7 +92,7 @@
       "comments": {
         "none": [
           {
-            "comment": "Remove count prop in mount option & unmount option. Rename boost prop in mount option to slient"
+            "comment": "Remove count prop in mount option & unmount option. Rename boost prop in mount option to silent"
           }
         ]
       }
