@@ -36,7 +36,7 @@ $ npm install --save-dev css-render
 ```js
 import CssRender from 'css-render'
 /**
- * common js:
+ * CommonJS:
  * const { CssRender } = require('css-render')
  */
 
@@ -91,7 +91,7 @@ You can use bem plugin to generate bem CSS like this:
 import CssRender from 'css-render'
 import bem from '@css-render/plugin-bem'
 /**
- * common js:
+ * CommonJS:
  * const { CssRender } = require('css-render')
  * const { plugin: bem } = require('@css-render/plugin-bem')
  */
