@@ -65,7 +65,7 @@ Wed, 19 May 2021 05:03:05 GMT
 
 ### Updates
 
-- Remove count prop in mount option & unmount option. Rename boost prop in mount option to slient
+- Remove count prop in mount option & unmount option. Rename boost prop in mount option to silent
 
 ## 0.13.9
 Sun, 16 May 2021 19:46:15 GMT

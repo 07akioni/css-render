@@ -180,8 +180,8 @@ describe('head', () => {
   })
 })
 
-describe('slient mode', () => {
-  it('works in slient mode', () => {
+describe('silent mode', () => {
+  it('works in silent mode', () => {
     const divA = document.createElement('div')
     const divB = document.createElement('div')
     divA.classList.add('a')
@@ -204,7 +204,7 @@ describe('slient mode', () => {
 
     style.mount({
       id: 'ab',
-      slient: true
+      silent: true
     })
 
     expect(getComputedStyle(document.querySelector('.a')!).color).to.equal(

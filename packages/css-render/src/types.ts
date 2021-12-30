@@ -33,7 +33,7 @@ export interface MountOption<T extends SsrAdapter | undefined = undefined> {
   props?: CRenderProps
   ssr?: T
   head?: boolean
-  slient?: boolean
+  silent?: boolean
   force?: boolean
   anchorMetaName?: string
 }
