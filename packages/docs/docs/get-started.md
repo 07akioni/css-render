@@ -1,7 +1,7 @@
 # Getting Started
 `css-render` has a concept of `CNode`.
 
-Basically, a `CNode` is an object with `selector`, `properties` and `chilren`(child `CNodes`) properties.
+Basically, a `CNode` is an object with `selector`, `properties` and `children`(child `CNodes`) properties.
 
 `CNode` has methods to render it to CSS literals, mount to `document` or unmount it from `document`.
 
@@ -9,7 +9,7 @@ Basically, a `CNode` is an object with `selector`, `properties` and `chilren`(ch
 ```js
 import { CssRender } from 'css-render'
 /**
- * common js:
+ * CommonJS:
  * const { CssRender } = require('css-render')
  */
 
