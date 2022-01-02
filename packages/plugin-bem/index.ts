@@ -89,7 +89,7 @@ function plugin (options?: BEMPluginOptions): CssRenderBemPlugin {
         arg = typeof arg === 'string' ? arg : arg({ context, props })
         context.bem.els = arg.split(',').map(v => v.trim())
         return (context.bem.els as string[])
-          .map(el => `${props?.bPrefix || _bPrefix}${context.bem.b as string}__${el}`).join(', ')
+          .map(el => `${props?.bPrefix || _bPrefix}${context.bem.b as string}${_ePrefix}${el}`).join(', ')
       }
     }
   }

@@ -13,7 +13,7 @@ function ampCount (selector: string): number {
  * x:(a, b) {} will be split into 'x:(a' and 'b)', which is not expected.
  * Make sure comma doesn't exist inside parentheses.
  */
-const seperatorRegex = /\s*,(?![^(]*\))\s*/g
+const separatorRegex = /\s*,(?![^(]*\))\s*/g
 const extraSpaceRegex = /\s+/g
 
 /**
@@ -23,7 +23,7 @@ const extraSpaceRegex = /\s+/g
  */
 function resolveSelectorWithAmp (amp: string[], selector: string): string[] {
   const nextAmp: string[] = []
-  selector.split(seperatorRegex).forEach(partialSelector => {
+  selector.split(separatorRegex).forEach(partialSelector => {
     let round = ampCount(partialSelector)
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!round) {
@@ -66,7 +66,7 @@ function resolveSelectorWithAmp (amp: string[], selector: string): string[] {
  */
 function resolveSelector (amp: string[], selector: string): string[] {
   const nextAmp: string[] = []
-  selector.split(seperatorRegex).forEach(partialSelector => {
+  selector.split(separatorRegex).forEach(partialSelector => {
     amp.forEach(partialAmp => {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       nextAmp.push(((partialAmp && partialAmp + ' ') + partialSelector))

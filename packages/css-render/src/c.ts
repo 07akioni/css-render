@@ -78,7 +78,7 @@ export const c: createCNodeForCssRenderInstance = function (
 ): CNode {
   if (Array.isArray($)) {
     return createCNode(instance, { $: null }, null, $)
-  } if (Array.isArray(props)) {
+  } else if (Array.isArray(props)) {
     return createCNode(instance, $, null, props)
   } else if (Array.isArray(children)) {
     return createCNode(instance, $, props, children)
