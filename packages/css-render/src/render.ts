@@ -19,7 +19,7 @@ function kebabCase (pattern: string): string {
 }
 
 /** TODO: refine it to solve nested object */
-function upwrapProperty (
+function unwrapProperty (
   prop: CProperty,
   indent: string = '  '
 ): string {
@@ -36,7 +36,7 @@ function upwrapProperty (
 }
 
 /** unwrap properties */
-function upwrapProperties <T extends CRenderProps> (
+function unwrapProperties <T extends CRenderProps> (
   props: CProperties,
   instance: CssRenderInstance,
   params: T
@@ -58,7 +58,7 @@ function createStyle <T extends CRenderProps> (
 ): string {
   if (!props) return ''
   // eslint-disable-next-line
-  const unwrappedProps = upwrapProperties(props, instance, params)
+  const unwrappedProps = unwrapProperties(props, instance, params)
   if (!unwrappedProps) return ''
   if (typeof unwrappedProps === 'string') {
     return `${selector} {\n${unwrappedProps}\n}`
@@ -81,7 +81,7 @@ function createStyle <T extends CRenderProps> (
     }
     propertyName = kebabCase(propertyName)
     if (property !== null && property !== undefined) {
-      statements.push(`  ${propertyName}${upwrapProperty(property)}`)
+      statements.push(`  ${propertyName}${unwrapProperty(property)}`)
     }
   })
   if (selector) {
