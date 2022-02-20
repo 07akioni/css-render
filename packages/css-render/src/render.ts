@@ -11,6 +11,7 @@ import {
   CSelectorPath
 } from './types'
 import { parseSelectorPath } from './parse'
+import { isMediaOrSupports } from './utils'
 
 const kebabRegex = /[A-Z]/g
 
@@ -118,32 +119,57 @@ function traverseCNode <T extends CRenderProps> (
   styleSheet?: CSSStyleSheet
 ): void {
   const $ = node.$
+  let blockSelector = ''
   if (!$ || typeof $ === 'string') {
-    // as a string selector
-    selectorPaths.push($)
+    if (isMediaOrSupports($)) {
+      blockSelector = $
+    } else {
+      // as a string selector
+      selectorPaths.push($)
+    }
   } else if (typeof $ === 'function') {
-    // as a lazy selector
-    selectorPaths.push($({
+    const selector = $({
       context: instance.context,
       props: params
-    }))
+    })
+    if (isMediaOrSupports(selector)) {
+      blockSelector = selector
+    } else {
+      // as a lazy selector
+      selectorPaths.push(selector)
+    }
   } else { // as a option selector
     if ($.before) $.before(instance.context)
     if (!$.$ || typeof $.$ === 'string') {
-      selectorPaths.push($.$)
+      if (isMediaOrSupports($.$)) {
+        blockSelector = $.$
+      } else {
+        // as a string selector
+        selectorPaths.push($.$)
+      }
     } else /* istanbul ignore else */ if ($.$) {
-      selectorPaths.push($.$({
+      const selector = $.$({
         context: instance.context,
         props: params
-      }))
+      })
+      if (isMediaOrSupports(selector)) {
+        blockSelector = selector
+      } else {
+        // as a lazy selector
+        selectorPaths.push(selector)
+      }
     }
   }
   const selector = parseSelectorPath(selectorPaths)
   const style = createStyle(selector, node.props, instance, params)
-  if (styleSheet && style) {
-    styleSheet.insertRule(style)
+  if (blockSelector) {
+    styles.push(`${blockSelector} {`)
+  } else {
+    if (styleSheet && style) {
+      styleSheet.insertRule(style)
+    }
+    if (!styleSheet && style.length) styles.push(style)
   }
-  if (!styleSheet && style.length) styles.push(style)
   if (node.children) {
     loopCNodeListWithCallback(node.children, {
       context: instance.context,
@@ -162,6 +188,9 @@ function traverseCNode <T extends CRenderProps> (
     })
   }
   selectorPaths.pop()
+  if (blockSelector) {
+    styles.push('}')
+  }
   if ($ && ($ as any).after) ($ as any).after(instance.context)
 }
 

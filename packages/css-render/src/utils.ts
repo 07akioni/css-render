@@ -17,3 +17,9 @@ export function createElement (id: string): HTMLStyleElement {
   el.setAttribute('cssr-id', id)
   return el
 }
+
+export function isMediaOrSupports (selector: string | undefined | null): selector is string {
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (!selector) return false
+  return /^\s*@(s|m)/.test(selector)
+}

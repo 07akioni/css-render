@@ -1,31 +1,62 @@
 import CssRender from '../../src'
 import { assertEqual } from '@css-render/test-shared'
 
-const {
-  c,
-  config
-} = CssRender()
+const { c, config } = CssRender()
 
 describe('#render - common cases', () => {
   it('should work with nested nodes array', () => {
     assertEqual(
-      c('body', {
-        margin: 0,
-        backgroundColor: 'white'
-      }, [
+      c(
+        'body',
+        {
+          margin: 0,
+          backgroundColor: 'white'
+        },
         [
           [
-            c('&.dark', {
-              backgroundColor: 'black'
+            [
+              c('&.dark', {
+                backgroundColor: 'black'
+              })
+            ],
+            c('.container', {
+              width: '100%'
             })
-          ],
+          ]
+        ]
+      ).render(),
+      `body {
+      margin: 0;
+      background-color: white;
+    }
+
+    body.dark {
+      background-color: black;
+    }
+
+    body .container {
+      width: 100%;
+    }`
+    )
+  })
+  it('should render as expected(1)', () => {
+    assertEqual(
+      c(
+        'body',
+        {
+          margin: 0,
+          backgroundColor: 'white'
+        },
+        [
+          c('&.dark', {
+            backgroundColor: 'black'
+          }),
           c('.container', {
             width: '100%'
           })
         ]
-      ]).render()
-      ,
-    `body {
+      ).render(),
+      `body {
       margin: 0;
       background-color: white;
     }
@@ -36,34 +67,8 @@ describe('#render - common cases', () => {
 
     body .container {
       width: 100%;
-    }`)
-  })
-  it('should render as expected(1)', () => {
-    assertEqual(
-      c('body', {
-        margin: 0,
-        backgroundColor: 'white'
-      }, [
-        c('&.dark', {
-          backgroundColor: 'black'
-        }),
-        c('.container', {
-          width: '100%'
-        })
-      ]).render()
-      ,
-    `body {
-      margin: 0;
-      background-color: white;
-    }
-
-    body.dark {
-      background-color: black;
-    }
-
-    body .container {
-      width: 100%;
-    }`)
+    }`
+    )
   })
   it('should render as expected(2)', () => {
     assertEqual(
@@ -74,15 +79,15 @@ describe('#render - common cases', () => {
         c('.container', {
           width: '100%'
         })
-      ]).render()
-      ,
-    `body.dark {
+      ]).render(),
+      `body.dark {
       background-color: black;
     }
 
     body .container {
       width: 100%;
-    }`)
+    }`
+    )
   })
   it('should render as excepted(3)', () => {
     assertEqual(
@@ -135,20 +140,28 @@ describe('#render - common cases', () => {
   it('should render an array as root', () => {
     assertEqual(
       c([
-        c('sel1', {
-          position: 'relative'
-        }, [
-          c('&.sel2', {
+        c(
+          'sel1',
+          {
             position: 'relative'
-          })
-        ]),
-        c('sel1', {
-          position: 'relative'
-        }, [
-          c('&.sel2', {
+          },
+          [
+            c('&.sel2', {
+              position: 'relative'
+            })
+          ]
+        ),
+        c(
+          'sel1',
+          {
             position: 'relative'
-          })
-        ])
+          },
+          [
+            c('&.sel2', {
+              position: 'relative'
+            })
+          ]
+        )
       ]).render(),
       `
       sel1 {
@@ -185,117 +198,150 @@ describe('#render - common cases', () => {
   })
   it('should work with COptionSelector', () => {
     assertEqual(
-      c({
-        $: 'body'
-      }, [
-        c({
-          $: () => '&.dark'
-        }, {
-          backgroundColor: 'black'
-        }),
-        c('.container', {
-          width: '100%'
-        })
-      ]).render()
-      ,
-    `body.dark {
+      c(
+        {
+          $: 'body'
+        },
+        [
+          c(
+            {
+              $: () => '&.dark'
+            },
+            {
+              backgroundColor: 'black'
+            }
+          ),
+          c('.container', {
+            width: '100%'
+          })
+        ]
+      ).render(),
+      `body.dark {
       background-color: black;
     }
 
     body .container {
       width: 100%;
-    }`)
+    }`
+    )
   })
   it('should work with CLazySelector', () => {
     assertEqual(
-      c(({ props }) => props.pfx as string + 'body', [
-        c(({ props }) => `&.${props.pfx as string}dark`, {
-          backgroundColor: 'black'
-        }),
-        c(() => '.container', {
-          width: '100%'
-        })
-      ]).render({
+      c(
+        ({ props }) => (props.pfx as string) + 'body',
+        [
+          c(({ props }) => `&.${props.pfx as string}dark`, {
+            backgroundColor: 'black'
+          }),
+          c(() => '.container', {
+            width: '100%'
+          })
+        ]
+      ).render({
         pfx: 'pfx'
-      })
-      ,
-    `pfxbody.pfxdark {
+      }),
+      `pfxbody.pfxdark {
       background-color: black;
     }
 
     pfxbody .container {
       width: 100%;
-    }`)
+    }`
+    )
   })
   it('should work with function typed children', () => {
     assertEqual(
-      c(() => 'body', [({ props }) => [
-        c(props.prefix as string + '&.dark', {
-          backgroundColor: 'black'
-        }),
-        c(props.prefix as string + '.container', {
-          width: '100%'
-        })
-      ]]).render({
+      c(
+        () => 'body',
+        [
+          ({ props }) => [
+            c((props.prefix as string) + '&.dark', {
+              backgroundColor: 'black'
+            }),
+            c((props.prefix as string) + '.container', {
+              width: '100%'
+            })
+          ]
+        ]
+      ).render({
         prefix: 'pfx'
-      })
-      ,
-    `pfxbody.dark {
+      }),
+      `pfxbody.dark {
       background-color: black;
     }
 
     body pfx.container {
       width: 100%;
-    }`)
+    }`
+    )
     assertEqual(
-      c(() => 'body', [
-        ({ props }) => c(props.prefix as string + '&.dark', {
-          backgroundColor: 'black'
-        }),
-        ({ props }) => c(props.prefix as string + '.container', {
-          width: '100%'
-        })
-      ]).render({
+      c(
+        () => 'body',
+        [
+          ({ props }) =>
+            c((props.prefix as string) + '&.dark', {
+              backgroundColor: 'black'
+            }),
+          ({ props }) =>
+            c((props.prefix as string) + '.container', {
+              width: '100%'
+            })
+        ]
+      ).render({
         prefix: 'pfx'
-      })
-      ,
-    `pfxbody.dark {
+      }),
+      `pfxbody.dark {
       background-color: black;
     }
 
     body pfx.container {
       width: 100%;
-    }`)
+    }`
+    )
   })
   it('should work with empty selector', () => {
     assertEqual(
-      c('', [c('&.a', {
-        background: 'red'
-      })]).render(),
+      c('', [
+        c('&.a', {
+          background: 'red'
+        })
+      ]).render(),
       `.a {
         background: red;
       }`
     )
     assertEqual(
-      c(() => '', [c('&.a', {
-        background: 'red'
-      })]).render(),
+      c(
+        () => '',
+        [
+          c('&.a', {
+            background: 'red'
+          })
+        ]
+      ).render(),
       `.a {
         background: red;
       }`
     )
     assertEqual(
-      c(() => null, [c('&.a', {
-        background: 'red'
-      })]).render(),
+      c(
+        () => null,
+        [
+          c('&.a', {
+            background: 'red'
+          })
+        ]
+      ).render(),
       `.a {
         background: red;
       }`
     )
     assertEqual(
-      c({}, [c('&.a', {
-        background: 'red'
-      })]).render(),
+      c({}, [
+        c('&.a', {
+          background: 'red'
+        })
+      ]).render(),
       `.a {
         background: red;
       }`
@@ -303,18 +349,12 @@ describe('#render - common cases', () => {
   })
   it('should preserve empty block when keepEmptyBlock is false', () => {
     config.keepEmptyBlock = true
-    assertEqual(
-      c('body', {}).render(),
-      'body {}'
-    )
+    assertEqual(c('body', {}).render(), 'body {}')
     config.keepEmptyBlock = false
-    assertEqual(
-      c('body', {}).render(),
-      ''
-    )
+    assertEqual(c('body', {}).render(), '')
     config.keepEmptyBlock = true
   })
-  it('shouldn\'t render empty property', () => {
+  it("shouldn't render empty property", () => {
     assertEqual(
       c('body', {
         background: undefined,
@@ -326,22 +366,32 @@ describe('#render - common cases', () => {
   it('should work with empty selector', () => {
     assertEqual(
       c('body', [
-        c({}, {
-          background: 'red'
-        })
+        c(
+          {},
+          {
+            background: 'red'
+          }
+        )
       ]).render(),
       `body {
         background: red;
       }`
     )
     assertEqual(
-      c('body', {
-        color: 'black'
-      }, [
-        c({}, {
-          background: 'red'
-        })
-      ]).render(),
+      c(
+        'body',
+        {
+          color: 'black'
+        },
+        [
+          c(
+            {},
+            {
+              background: 'red'
+            }
+          )
+        ]
+      ).render(),
       `
       body {
         color: black;
@@ -355,11 +405,14 @@ describe('#render - common cases', () => {
   })
   it('should work with functional typed option selector.$', () => {
     assertEqual(
-      c({
-        $: ({ props }) => props.x
-      }, {
-        background: 'red'
-      }).render({
+      c(
+        {
+          $: ({ props }) => props.x
+        },
+        {
+          background: 'red'
+        }
+      ).render({
         x: 'body'
       }),
       `body {
@@ -369,15 +422,11 @@ describe('#render - common cases', () => {
   })
   it('should work with null & void returned props function', () => {
     assertEqual(
-      c('body', () => null, [
-        c('body2', {})
-      ]).render(),
+      c('body', () => null, [c('body2', {})]).render(),
       'body body2 {}'
     )
     assertEqual(
-      c('body', () => undefined, [
-        c('body2', {})
-      ]).render(),
+      c('body', () => undefined, [c('body2', {})]).render(),
       'body body2 {}'
     )
   })
@@ -386,16 +435,20 @@ describe('#render - common cases', () => {
 describe('#render - doc cases', () => {
   it('#case1', () => {
     assertEqual(
-      c('.button', {
-        color: 'black'
-      }, [
-        c('.button__icon', {
-          fill: 'black'
-        }),
-        c('&.button--error', {
-          color: 'red'
-        })
-      ]).render(),
+      c(
+        '.button',
+        {
+          color: 'black'
+        },
+        [
+          c('.button__icon', {
+            fill: 'black'
+          }),
+          c('&.button--error', {
+            color: 'red'
+          })
+        ]
+      ).render(),
       `
       .button {
         color: black;
@@ -412,56 +465,61 @@ describe('#render - doc cases', () => {
     )
   })
   it('#case2', () => {
-    assertEqual(c(({
-      context,
-      props
-    }) => props.selector, {
-      color: 'black'
-    }).render({
-      selector: '.selector'
-    }),
-    `
+    assertEqual(
+      c(({ context, props }) => props.selector, {
+        color: 'black'
+      }).render({
+        selector: '.selector'
+      }),
+      `
     .selector {
       color: black;
     }
-    `)
+    `
+    )
   })
   it('#case3', () => {
-    assertEqual(c('div', [
-      c(null, [
-        c('button', {
-          color: 'black'
-        })
-      ])
-    ]).render(),
-    `
+    assertEqual(
+      c('div', [
+        c(null, [
+          c('button', {
+            color: 'black'
+          })
+        ])
+      ]).render(),
+      `
     div button {
       color: black;
     }
-    `)
+    `
+    )
   })
   it('#case3', () => {
-    assertEqual(c('div', [
-      ({ context, props }) => c('button', {
-        color: props.color
-      }),
-      c('ul', {
-        backgroundColor: 'red'
-      }),
-      [
-        [c('dl', {
+    assertEqual(
+      c('div', [
+        ({ context, props }) =>
+          c('button', {
+            color: props.color
+          }),
+        c('ul', {
           backgroundColor: 'red'
-        })]
-      ],
-      () => [
-        c('ol', {
-          backgroundColor: 'red'
-        })
-      ]
-    ]).render({
-      color: 'black'
-    }),
-    `div button {
+        }),
+        [
+          [
+            c('dl', {
+              backgroundColor: 'red'
+            })
+          ]
+        ],
+        () => [
+          c('ol', {
+            backgroundColor: 'red'
+          })
+        ]
+      ]).render({
+        color: 'black'
+      }),
+      `div button {
       color: black;
     }
 
@@ -475,27 +533,32 @@ describe('#render - doc cases', () => {
 
     div ol {
       background-color: red;
-    }`)
+    }`
+    )
   })
 })
 
 describe('#render - falsy node', () => {
   it('#case1', () => {
     assertEqual(
-      c('.button', {
-        color: 'black'
-      }, [
-        null,
-        undefined,
-        () => null,
-        () => undefined,
-        c('.button__icon', {
-          fill: 'black'
-        }),
-        c('&.button--error', {
-          color: 'red'
-        })
-      ]).render(),
+      c(
+        '.button',
+        {
+          color: 'black'
+        },
+        [
+          null,
+          undefined,
+          () => null,
+          () => undefined,
+          c('.button__icon', {
+            fill: 'black'
+          }),
+          c('&.button--error', {
+            color: 'red'
+          })
+        ]
+      ).render(),
       `
       .button {
         color: black;
@@ -530,42 +593,111 @@ describe('#render - string property', () => {
 
 describe('#render - raw property', () => {
   it('#case1', () => {
-    assertEqual(c('x', {
-      raw: '666'
-    }).render(), `
+    assertEqual(
+      c('x', {
+        raw: '666'
+      }).render(),
+      `
     x {
     666
     }
-    `)
-    assertEqual(c('x', {
-      raw: '666',
-      color: 'white'
-    }).render(), `
+    `
+    )
+    assertEqual(
+      c('x', {
+        raw: '666',
+        color: 'white'
+      }).render(),
+      `
     x {
     666
     color: white;
     }
-    `)
+    `
+    )
   })
 })
 
 describe('#render - string child', () => {
   it('#case 1', () => {
-    assertEqual(c([
-      'good { key: value }'
-    ]).render(),
-    'good { key: value }'
-    )
+    assertEqual(c(['good { key: value }']).render(), 'good { key: value }')
   })
   it('#case 2', () => {
-    assertEqual(c('parent', [
-      c('gogogo', { key: 'value' }),
-      'key: value;'
-    ]).render(),
-    `
+    assertEqual(
+      c('parent', [c('gogogo', { key: 'value' }), 'key: value;']).render(),
+      `
       parent gogogo { key: value; }
       parent { key: value; }
     `
+    )
+  })
+})
+
+describe('#render - media query', () => {
+  it('#case 1', () => {
+    assertEqual(
+      c('@media', [c('a', { color: 'red' })]).render(),
+      '@media { a { color: red; } }'
+    )
+  })
+  it('#case 2', () => {
+    assertEqual(
+      c('@media', [
+        c('a', { color: 'red' }),
+        c('b', { color: 'red' })
+      ]).render(),
+      '@media { a { color: red; } b { color: red; } }'
+    )
+  })
+  it('#case 3', () => {
+    assertEqual(
+      c('@supports', [
+        c('@media', [c('a', { color: 'red' }), c('b', { color: 'red' })])
+      ]).render(),
+      '@supports { @media { a { color: red; } b { color: red; } } }'
+    )
+  })
+  it('#case 4', () => {
+    assertEqual(
+      c(' @supports', [
+        c(' @media', [c('a', { color: 'red' }), c('b', { color: 'red' })])
+      ]).render(),
+      '@supports { @media { a { color: red; } b { color: red; } } }'
+    )
+  })
+  it('#case 4', () => {
+    assertEqual(
+      c('@supports', [
+        c('a', { color: 'red' }),
+        c('@media', [c('b', { color: 'red' })])
+      ]).render(),
+      '@supports { a { color: red; } @media { b { color: red; } } }'
+    )
+  })
+  it('#case 5', () => {
+    assertEqual(
+      c([
+        c('@supports', [
+          c('a', { color: 'red' }),
+          c('@media', [c('b', { color: 'red' })])
+        ])
+      ]).render(),
+      '@supports { a { color: red; } @media { b { color: red; } } }'
+    )
+  })
+})
+
+describe('#render - at rules', () => {
+  it('@page', () => {
+    assertEqual(
+      c('@page', { margin: '1em' }).render(),
+      '@page { margin: 1em; } '
+    )
+  })
+  it('@font-face', () => {
+    assertEqual(
+      c('@font-face', { fontFamily: 'ggg' }).render(),
+      '@font-face { font-family: ggg; } '
     )
   })
 })
