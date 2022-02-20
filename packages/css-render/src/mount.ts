@@ -44,28 +44,58 @@ function addElementToList (
   els.push(target)
 }
 
-function mount<
-  T extends CRenderProps,
-  U extends SsrAdapter | undefined = undefined
-> (
+function mount (
   instance: CssRenderInstance,
   node: CNode,
   id: MountId,
-  props: T,
+  props: CRenderProps,
   head: boolean,
   silent: boolean,
   force: boolean,
   anchorMetaName: string | undefined,
-  ssrAdapter?: U
+  ssrAdapter: SsrAdapter
+): void
+function mount (
+  instance: CssRenderInstance,
+  node: CNode,
+  id: MountId,
+  props: CRenderProps,
+  head: boolean,
+  silent: boolean,
+  force: boolean,
+  anchorMetaName: string | undefined,
+  ssrAdapter?: undefined
+): HTMLStyleElement
+function mount (
+  instance: CssRenderInstance,
+  node: CNode,
+  id: MountId,
+  props: CRenderProps,
+  head: boolean,
+  silent: boolean,
+  force: boolean,
+  anchorMetaName: string | undefined,
+  ssrAdapter?: SsrAdapter
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+): HTMLStyleElement | void
+function mount (
+  instance: CssRenderInstance,
+  node: CNode,
+  id: MountId,
+  props: CRenderProps,
+  head: boolean,
+  silent: boolean,
+  force: boolean,
+  anchorMetaName: string | undefined,
+  ssrAdapter?: SsrAdapter
   // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-): U extends undefined ? HTMLStyleElement : void {
+): HTMLStyleElement | void {
   if (silent && !ssrAdapter) {
     if (id === undefined) {
       // it is possible to use hash to get rid of the requirements of id
       // if you are interested in it, please create a pr
       // i have no time to impl it
       console.error('[css-render/mount]: `id` is required in `silent` mode.')
-      // @ts-expect-error
       return
     }
     const cssrContext: CssrContext = (window as any).__cssrContext
@@ -73,7 +103,6 @@ function mount<
       cssrContext[id] = true
       render(node, instance, props, silent)
     }
-    // @ts-expect-error
     return
   }
   let style: string | undefined
@@ -83,36 +112,36 @@ function mount<
   }
   if (ssrAdapter) {
     ssrAdapter.adapter(id, style ?? node.render(props))
-    // @ts-ignore
     return
   }
   const queriedTarget = queryElement(id)
   if (queriedTarget !== null && !force) {
-    // @ts-ignore
     return queriedTarget
   }
   const target = queriedTarget ?? createElement(id)
   if (style === undefined) style = node.render(props)
   target.textContent = style
-  // @ts-ignore
   if (queriedTarget !== null) return queriedTarget
   if (anchorMetaName) {
-    const anchorMetaEl = document.head.querySelector(`meta[name="${anchorMetaName}"]`)
+    const anchorMetaEl = document.head.querySelector(
+      `meta[name="${anchorMetaName}"]`
+    )
     if (anchorMetaEl) {
       document.head.insertBefore(target, anchorMetaEl)
       addElementToList(node.els, target)
-      // @ts-ignore
       return target
     }
   }
 
   if (head) {
-    document.head.insertBefore(target, document.head.querySelector('style, link'))
+    document.head.insertBefore(
+      target,
+      document.head.querySelector('style, link')
+    )
   } else {
     document.head.appendChild(target)
   }
   addElementToList(node.els, target)
-  // @ts-ignore
   return target
 }
 
