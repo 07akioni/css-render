@@ -164,6 +164,9 @@ function traverseCNode <T extends CRenderProps> (
   const style = createStyle(selector, node.props, instance, params)
   if (blockSelector) {
     styles.push(`${blockSelector} {`)
+    if (styleSheet && style) {
+      styleSheet.insertRule(`${blockSelector} {\n${style}\n}\n`)
+    }
   } else {
     if (styleSheet && style) {
       styleSheet.insertRule(style)
