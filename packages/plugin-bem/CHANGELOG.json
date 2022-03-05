@@ -2,6 +2,12 @@
   "name": "@css-render/plugin-bem",
   "entries": [
     {
+      "version": "0.15.9",
+      "tag": "@css-render/plugin-bem_v0.15.9",
+      "date": "Sat, 05 Mar 2022 14:58:36 GMT",
+      "comments": {}
+    },
+    {
       "version": "0.15.8",
       "tag": "@css-render/plugin-bem_v0.15.8",
       "date": "Tue, 28 Dec 2021 18:59:30 GMT",
