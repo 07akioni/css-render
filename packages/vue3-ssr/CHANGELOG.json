@@ -2,6 +2,18 @@
   "name": "@css-render/vue3-ssr",
   "entries": [
     {
+      "version": "0.15.10",
+      "tag": "@css-render/vue3-ssr_v0.15.10",
+      "date": "Wed, 23 Mar 2022 12:33:17 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix useSsrAdapter may return non-undefined value in browser."
+          }
+        ]
+      }
+    },
+    {
       "version": "0.15.9",
       "tag": "@css-render/vue3-ssr_v0.15.9",
       "date": "Sat, 05 Mar 2022 14:58:36 GMT",
