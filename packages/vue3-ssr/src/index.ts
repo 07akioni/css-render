@@ -28,12 +28,15 @@ function ssrAdapter (id: string, style: string): void {
   }
 }
 
+const isBrowser = typeof document !== 'undefined'
+
 export function useSsrAdapter ():
 | {
   adapter: typeof ssrAdapter
   context: CssrSsrContext
 }
 | undefined {
+  if (isBrowser) return undefined
   const context = inject(ssrContextKey, null)
   if (context === null) return undefined
   return {
