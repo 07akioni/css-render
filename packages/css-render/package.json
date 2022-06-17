@@ -38,7 +38,7 @@
   "devDependencies": {
     "@css-render/eslint-config": "0.0.0",
     "@css-render/test-shared": "0.0.0",
-    "@rushstack/eslint-config": "~2.5.1",
+    "@rushstack/eslint-config": "~2.6.1",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^9.0.0",
     "@types/sinon": "^10.0.6",
