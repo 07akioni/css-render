@@ -9,7 +9,7 @@ export function removeElement (el: HTMLStyleElement | null): void {
 }
 
 export function queryElement (id: string): HTMLStyleElement | null {
-  return document.querySelector(`style[cssr-id="${id}"]`)
+  return document.head.querySelector(`style[cssr-id="${id}"]`)
 }
 
 export function createElement (id: string): HTMLStyleElement {
