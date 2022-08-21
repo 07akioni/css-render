@@ -10,7 +10,7 @@ import {
   CSelector
 } from 'css-render'
 
-interface BEMPluginOptions {
+interface BemPluginOptions {
   blockPrefix?: string
   elementPrefix?: string
   modifierPrefix?: string
@@ -25,7 +25,7 @@ interface CssRenderBemPlugin extends CssRenderPlugin {
   cNotM: createCNode<AvailableSelector>
 }
 
-function plugin (options?: BEMPluginOptions): CssRenderBemPlugin {
+function plugin (options?: BemPluginOptions): CssRenderBemPlugin {
   let _bPrefix: string = '.'
   let _ePrefix: string = '__'
   let _mPrefix: string = '--'
