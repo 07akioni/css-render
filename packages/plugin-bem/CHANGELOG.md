@@ -1,6 +1,11 @@
 # Change Log - @css-render/plugin-bem
 
-This log was last generated on Wed, 23 Mar 2022 12:33:17 GMT and should not be manually modified.
+This log was last generated on Sun, 21 Aug 2022 07:56:48 GMT and should not be manually modified.
+
+## 0.15.11
+Sun, 21 Aug 2022 07:56:48 GMT
+
+_Version update only_
 
 ## 0.15.10
 Wed, 23 Mar 2022 12:33:17 GMT

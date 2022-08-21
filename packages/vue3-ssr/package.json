@@ -1,6 +1,6 @@
 {
   "name": "@css-render/vue3-ssr",
-  "version": "0.15.10",
+  "version": "0.15.11",
   "scripts": {
     "lint": "eslint --fix *.js src/**/*.ts __tests__/**/*.ts",
     "test": "jest",
@@ -14,7 +14,7 @@
     "@types/jest": "^27.0.3",
     "@vue/server-renderer": "^3.0.11",
     "babel-jest": "^27.4.5",
-    "css-render": "~0.15.10",
+    "css-render": "~0.15.11",
     "eslint": "~8.5.0",
     "jest": "^27.4.5",
     "jest-standard-reporter": "~2.0.0",
