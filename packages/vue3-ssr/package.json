@@ -11,7 +11,7 @@
     "@babel/preset-typescript": "^7.12.17",
     "@css-render/eslint-config": "0.0.0",
     "@rushstack/eslint-config": "~2.5.1",
-    "@types/jest": "^27.0.3",
+    "@types/jest": "^29.0.2",
     "@vue/server-renderer": "^3.0.11",
     "babel-jest": "^27.4.5",
     "css-render": "~0.15.10",
