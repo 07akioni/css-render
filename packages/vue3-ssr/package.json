@@ -13,7 +13,7 @@
     "@rushstack/eslint-config": "~2.5.1",
     "@types/jest": "^27.0.3",
     "@vue/server-renderer": "^3.0.11",
-    "babel-jest": "^27.4.5",
+    "babel-jest": "^29.4.1",
     "css-render": "workspace:~0.15.12",
     "eslint": "~8.5.0",
     "jest": "^27.4.5",
