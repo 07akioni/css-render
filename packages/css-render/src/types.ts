@@ -33,7 +33,6 @@ export interface MountOption<T extends SsrAdapter | undefined = undefined> {
   props?: CRenderProps
   ssr?: T
   head?: boolean
-  silent?: boolean
   force?: boolean
   anchorMetaName?: string
 }
@@ -137,8 +136,6 @@ export interface CssRenderInstance {
   use: (plugin: CssRenderPlugin, ...args: any[]) => void
   find: CFindTarget
   config: CssRenderConfig
-  /** @private */
-  __styleSheet: CSSStyleSheet
 }
 
 export interface CssRenderPlugin {

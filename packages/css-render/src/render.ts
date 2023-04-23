@@ -115,8 +115,7 @@ function traverseCNode <T extends CRenderProps> (
   selectorPaths: CSelectorPath,
   styles: string[],
   instance: CssRenderInstance,
-  params: T,
-  styleSheet?: CSSStyleSheet
+  params: T
 ): void {
   const $ = node.$
   let blockSelector = ''
@@ -164,14 +163,8 @@ function traverseCNode <T extends CRenderProps> (
   const style = createStyle(selector, node.props, instance, params)
   if (blockSelector) {
     styles.push(`${blockSelector} {`)
-    if (styleSheet && style) {
-      styleSheet.insertRule(`${blockSelector} {\n${style}\n}\n`)
-    }
-  } else {
-    if (styleSheet && style) {
-      styleSheet.insertRule(style)
-    }
-    if (!styleSheet && style.length) styles.push(style)
+  } else if (style.length) {
+    styles.push(style)
   }
   if (node.children) {
     loopCNodeListWithCallback(node.children, {
@@ -180,13 +173,9 @@ function traverseCNode <T extends CRenderProps> (
     }, childNode => {
       if (typeof childNode === 'string') {
         const style = createStyle(selector, { raw: childNode }, instance, params)
-        if (styleSheet) {
-          styleSheet.insertRule(style)
-        } else {
-          styles.push(style)
-        }
+        styles.push(style)
       } else {
-        traverseCNode(childNode, selectorPaths, styles, instance, params, styleSheet)
+        traverseCNode(childNode, selectorPaths, styles, instance, params)
       }
     })
   }
@@ -200,8 +189,7 @@ function traverseCNode <T extends CRenderProps> (
 export function render <T extends CRenderProps> (
   node: CNode,
   instance: CssRenderInstance,
-  props?: T,
-  insertRule: boolean = false
+  props?: T
 ): string {
   const styles: string[] = []
   traverseCNode(
@@ -209,11 +197,7 @@ export function render <T extends CRenderProps> (
     [],
     styles,
     instance,
-    props,
-    insertRule
-      ? node.instance.__styleSheet
-      : undefined
+    props
   )
-  if (insertRule) return ''
   return styles.join('\n\n')
 }

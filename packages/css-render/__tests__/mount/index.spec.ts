@@ -180,46 +180,11 @@ describe('head', () => {
   })
 })
 
-describe('silent mode', () => {
-  it('works in silent mode', () => {
-    const divA = document.createElement('div')
-    const divB = document.createElement('div')
-    divA.classList.add('a')
-    divB.classList.add('b')
-    divA.appendChild(divB)
-    document.body.appendChild(divA)
-    const style = c([
-      c(
-        '.a',
-        {
-          color: 'red'
-        },
-        [
-          c('.b', {
-            color: 'rgb(0, 255, 0)'
-          })
-        ]
-      )
-    ])
-
-    style.mount({
-      id: 'ab',
-      silent: true
-    })
-
-    expect(getComputedStyle(document.querySelector('.a')!).color).to.equal(
-      'rgb(255, 0, 0)'
-    )
-    expect(getComputedStyle(document.querySelector('.b')!).color).to.equal(
-      'rgb(0, 255, 0)'
-    )
-  })
-})
-
 describe('force', () => {
   it('works', () => {
     const divA = document.createElement('div')
     divA.classList.add('a')
+    document.body.appendChild(divA)
     const style = c('.a', ({ props }) => ({
       color: props.color
     }))
