@@ -13,6 +13,5 @@ const style = c([
 ])
 
 style.mount({
-  id: 'ab',
-  silent: true
+  id: 'ab'
 })

@@ -25,14 +25,13 @@ function wrappedMount<T extends undefined | SsrAdapter> (
   options: MountOption<T> = {}
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): T extends undefined ? HTMLStyleElement : void {
-  const { id, ssr, props, head = false, silent = false, force = false, anchorMetaName } = options
+  const { id, ssr, props, head = false, force = false, anchorMetaName } = options
   const targetElement = mount(
     this.instance,
     this,
     id,
     props,
     head,
-    silent,
     force,
     anchorMetaName,
     ssr
