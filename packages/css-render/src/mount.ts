@@ -112,10 +112,13 @@ function mount (
   }
 
   if (head) {
-    document.head.insertBefore(
-      target,
-      document.head.querySelector('style, link')
-    )
+    const firstStyleOrLinkEl = document.head.querySelector('style, link')
+    // ensure Target and firstStyleOrLinkEl are under the same parent node
+    if (firstStyleOrLinkEl?.parentNode) {
+      firstStyleOrLinkEl.parentNode.insertBefore(target, firstStyleOrLinkEl)
+    } else {
+      document.head.appendChild(target)
+    }
   } else {
     document.head.appendChild(target)
   }
