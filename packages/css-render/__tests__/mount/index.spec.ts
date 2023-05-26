@@ -178,6 +178,16 @@ describe('head', () => {
       'gogogo'
     )
   })
+  it('mount before link element with nested', () => {
+    document.head.insertAdjacentHTML(
+      'afterbegin',
+      '<xxx><link></xxx>'
+    )
+    style.mount({ id: 'gogogo with nested', head: true })
+    expect(document.head.firstElementChild?.firstElementChild?.getAttribute('cssr-id')).to.equal(
+      'gogogo with nested'
+    )
+  })
 })
 
 describe('force', () => {
