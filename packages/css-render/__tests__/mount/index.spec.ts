@@ -237,3 +237,46 @@ describe('anchorMetaName', () => {
   style.unmount()
   console.log(document.head)
 })
+
+describe('shadow root', () => {
+  it('style mounted on head and shadow root not affect each other', () => {
+    const outerDiv = document.createElement('div')
+    outerDiv.classList.add('a')
+    document.body.appendChild(outerDiv)
+    const innerDiv = outerDiv.cloneNode(true)
+    const shadow = outerDiv.attachShadow({mode: 'open'})
+    shadow.appendChild(innerDiv)
+
+    const style = c('.a', ({ props }) => ({
+      backgroundColor: props.backgroundColor
+    }))
+    style.mount({
+      id: 'outer',
+      props: {
+        backgroundColor: 'red'
+      }
+    })
+    style.mount({
+      id: 'inner',
+      props: {
+        backgroundColor: 'lime'
+      },
+      parent: shadow
+    })
+    expect(getComputedStyle(document.querySelector('.a')!).backgroundColor).to.equal(
+      'rgb(255, 0, 0)'
+    )
+    expect(getComputedStyle(shadow.querySelector('.a')!).backgroundColor).to.equal(
+      'rgb(0, 255, 0)'
+    )
+
+    style.unmount({
+      id: 'outer'
+    })
+    style.unmount({
+      id: 'inner',
+      parent: shadow
+    })
+    expect(style.els.length).to.equal(0)
+  })
+})

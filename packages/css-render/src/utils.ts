@@ -8,8 +8,8 @@ export function removeElement (el: HTMLStyleElement | null): void {
   if (parentElement) parentElement.removeChild(el)
 }
 
-export function queryElement (id: string): HTMLStyleElement | null {
-  return document.head.querySelector(`style[cssr-id="${id}"]`)
+export function queryElement (id: string, parent?: ParentNode): HTMLStyleElement | null {
+  return (parent ?? document.head).querySelector(`style[cssr-id="${id}"]`)
 }
 
 export function createElement (id: string): HTMLStyleElement {

@@ -26,6 +26,7 @@ export interface CRenderOption {
 export type MountId = string | undefined
 export interface UnmountOption {
   id?: MountId
+  parent?: ParentNode
 }
 
 export interface MountOption<T extends SsrAdapter | undefined = undefined> {
@@ -35,10 +36,11 @@ export interface MountOption<T extends SsrAdapter | undefined = undefined> {
   head?: boolean
   force?: boolean
   anchorMetaName?: string
+  parent?: ParentNode
 }
 
 /** find related */
-export type CFindTarget = (target: string) => HTMLStyleElement | null
+export type CFindTarget = (target: string, parent?: ParentNode) => HTMLStyleElement | null
 
 /** CNode */
 export interface CNode {

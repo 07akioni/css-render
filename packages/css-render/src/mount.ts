@@ -15,9 +15,10 @@ if (typeof window !== 'undefined') {
 }
 
 export function unmount (
-  intance: CssRenderInstance,
+  instance: CssRenderInstance,
   node: CNode,
-  id: MountId
+  id: MountId,
+  parent: ParentNode | undefined
 ): void {
   const { els } = node
   // If id is undefined, unmount all styles
@@ -25,7 +26,7 @@ export function unmount (
     els.forEach(removeElement)
     node.els = []
   } else {
-    const target = queryElement(id)
+    const target = queryElement(id, parent)
     // eslint-disable-next-line
     if (target && els.includes(target)) {
       removeElement(target)
@@ -49,6 +50,7 @@ function mount (
   head: boolean,
   force: boolean,
   anchorMetaName: string | undefined,
+  parent: ParentNode | undefined,
   ssrAdapter: SsrAdapter
 ): void
 function mount (
@@ -59,6 +61,7 @@ function mount (
   head: boolean,
   force: boolean,
   anchorMetaName: string | undefined,
+  parent: ParentNode | undefined,
   ssrAdapter?: undefined
 ): HTMLStyleElement
 function mount (
@@ -69,6 +72,7 @@ function mount (
   head: boolean,
   force: boolean,
   anchorMetaName: string | undefined,
+  parent: ParentNode | undefined,
   ssrAdapter?: SsrAdapter
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): HTMLStyleElement | void
@@ -80,6 +84,7 @@ function mount (
   head: boolean,
   force: boolean,
   anchorMetaName: string | undefined,
+  parent: ParentNode | undefined,
   ssrAdapter?: SsrAdapter
   // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): HTMLStyleElement | void {
@@ -92,7 +97,10 @@ function mount (
     ssrAdapter.adapter(id, style ?? node.render(props))
     return
   }
-  const queriedTarget = queryElement(id)
+  if (parent === undefined) {
+    parent = document.head
+  }
+  const queriedTarget = queryElement(id, parent)
   if (queriedTarget !== null && !force) {
     return queriedTarget
   }
@@ -101,23 +109,23 @@ function mount (
   target.textContent = style
   if (queriedTarget !== null) return queriedTarget
   if (anchorMetaName) {
-    const anchorMetaEl = document.head.querySelector(
+    const anchorMetaEl = parent.querySelector(
       `meta[name="${anchorMetaName}"]`
     )
     if (anchorMetaEl) {
-      document.head.insertBefore(target, anchorMetaEl)
+      parent.insertBefore(target, anchorMetaEl)
       addElementToList(node.els, target)
       return target
     }
   }
 
   if (head) {
-    document.head.insertBefore(
+    parent.insertBefore(
       target,
-      document.head.querySelector('style, link')
+      parent.querySelector('style, link')
     )
   } else {
-    document.head.appendChild(target)
+    parent.appendChild(target)
   }
   addElementToList(node.els, target)
   return target
