@@ -5,9 +5,7 @@ interface CssrSsrContext {
   ids: Set<string>
 }
 
-const ssrContextKey: InjectionKey<CssrSsrContext> = Symbol(
-  '@css-render/vue3-ssr'
-)
+const ssrContextKey = '@css-render/vue3-ssr' as unknown as InjectionKey<CssrSsrContext>
 
 function createStyleString (id: string, style: string): string {
   return `<style cssr-id="${id}">\n${style}\n</style>`
