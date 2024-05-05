@@ -5,7 +5,7 @@
   "pnpmOptions": {
     "useWorkspaces": true
   },
-  "nodeSupportedVersionRange": ">=12.13.0 <13.0.0 || >=14.15.0 <17.3.0",
+  "nodeSupportedVersionRange": ">=14.15.0 <17.3.0 || >= 18.0.0 < 19.0.0",
   "ensureConsistentVersions": true,
   "projectFolderMinDepth": 2,
   "projectFolderMaxDepth": 2,
