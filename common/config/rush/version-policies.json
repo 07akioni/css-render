@@ -2,7 +2,7 @@
   {
     "definitionName": "lockStepVersion",
     "policyName": "css-render",
-    "version": "0.15.13",
+    "version": "0.15.14",
     "nextBump": "patch"
   }
 ]
