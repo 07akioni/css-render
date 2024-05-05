@@ -5,18 +5,18 @@ interface CssrSsrContext {
   ids: Set<string>
 }
 
-const ssrContextKey = '@css-render/vue3-ssr' as unknown as InjectionKey<CssrSsrContext>
+const ssrContextKey =
+  '@css-render/vue3-ssr' as unknown as InjectionKey<CssrSsrContext>
 
 function createStyleString (id: string, style: string): string {
   return `<style cssr-id="${id}">\n${style}\n</style>`
 }
 
-function ssrAdapter (id: string, style: string): void {
-  const ssrContext = inject(ssrContextKey, null)
-  if (ssrContext === null) {
-    console.error('[css-render/vue3-ssr]: no ssr context found.')
-    return
-  }
+function ssrAdapter (
+  id: string,
+  style: string,
+  ssrContext: CssrSsrContext
+): void {
   const { styles, ids } = ssrContext
   // we need to impl other options to make it behaves the same as the client side
   if (ids.has(id)) return
@@ -30,7 +30,7 @@ const isBrowser = typeof document !== 'undefined'
 
 export function useSsrAdapter ():
 | {
-  adapter: typeof ssrAdapter
+  adapter: (id: string, style: string) => void
   context: CssrSsrContext
 }
 | undefined {
@@ -38,7 +38,7 @@ export function useSsrAdapter ():
   const context = inject(ssrContextKey, null)
   if (context === null) return undefined
   return {
-    adapter: ssrAdapter,
+    adapter: (id, style) => ssrAdapter(id, style, context),
     context
   }
 }
